@@ -71,7 +71,7 @@ export const facebookTokens = mysqlTable("facebookTokens", {
 },
 (table) => {
 	return {
-		validIdx: index().on(table.valid),
+		// validIdx: index().on(table.valid),
 		notificationIdx: index("notification_index").on(table.valid, table.expiredTokenNotified, table.sevenDaysNotified, table.expiresAt),
 		instagramBusinessIdIdx: index("facebookTokens_instagramBusinessId_IDX").on(table.instagramBusinessId),
 		facebookTokensProfileId: primaryKey({ columns: [table.profileId], name: "facebookTokens_profileId"}),
@@ -107,7 +107,7 @@ export const googleTokens = mysqlTable("googleTokens", {
 },
 (table) => {
 	return {
-		validIdx: index().on(table.valid),
+		// validIdx: index().on(table.valid),
 		googleTokensProfileId: primaryKey({ columns: [table.profileId], name: "googleTokens_profileId"}),
 	}
 });
@@ -321,7 +321,7 @@ export const instagramProfiles = mysqlTable("instagramProfiles", {
 	return {
 		usernameIdx: index("username_index").on(table.username),
 		idxInstagramProfilesFacebookUserId: index("idx_instagramProfiles_facebookUserId").on(table.facebookUserId),
-		searchableIdx: index().on(table.searchable),
+		// searchableIdx: index().on(table.searchable),
 		oldIgIdIdx: index("instagramProfiles_oldIgId_IDX").on(table.oldIgId),
 		instagramProfilesId: primaryKey({ columns: [table.id], name: "instagramProfiles_id"}),
 	}
