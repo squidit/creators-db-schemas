@@ -101,10 +101,10 @@ var blockedusers = (0, import_mysql_core.mysqlTable)(
     responsibleId: (0, import_mysql_core.varchar)({ length: 255 }).notNull(),
     responsibleFullName: (0, import_mysql_core.varchar)({ length: 255 }).notNull(),
     unregistered: (0, import_mysql_core.tinyint)().default(0).notNull(),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    logstashProcessedAt: (0, import_mysql_core.datetime)({ mode: "string" }),
-    deletedAt: (0, import_mysql_core.datetime)({ mode: "string" }),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    logstashProcessedAt: (0, import_mysql_core.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core.datetime)({ mode: "date" }),
     campaignId: (0, import_mysql_core.varchar)({ length: 255 }),
     campaignName: (0, import_mysql_core.varchar)({ length: 255 })
   },
@@ -138,10 +138,10 @@ var facebookTokens = (0, import_mysql_core.mysqlTable)(
   "facebookTokens",
   {
     profileId: (0, import_mysql_core.varchar)({ length: 50 }).notNull(),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
     valid: (0, import_mysql_core.tinyint)(),
-    expiresAt: (0, import_mysql_core.datetime)({ mode: "string" }),
+    expiresAt: (0, import_mysql_core.datetime)({ mode: "date" }),
     status: (0, import_mysql_core.varchar)({ length: 1e3 }),
     permanentToken: (0, import_mysql_core.varchar)({ length: 512 }),
     accessToken: (0, import_mysql_core.varchar)({ length: 512 }),
@@ -178,10 +178,10 @@ var googleTokens = (0, import_mysql_core.mysqlTable)(
   "googleTokens",
   {
     profileId: (0, import_mysql_core.varchar)({ length: 50 }).notNull(),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
     valid: (0, import_mysql_core.tinyint)(),
-    expiresAt: (0, import_mysql_core.datetime)({ mode: "string" }),
+    expiresAt: (0, import_mysql_core.datetime)({ mode: "date" }),
     status: (0, import_mysql_core.varchar)({ length: 1e3 }),
     provider: (0, import_mysql_core.varchar)({ length: 50 }),
     accessToken: (0, import_mysql_core.varchar)({ length: 512 }),
@@ -206,13 +206,13 @@ var influencerMetrics = (0, import_mysql_core.mysqlTable)(
   {
     name: (0, import_mysql_core.varchar)({ length: 200 }).notNull(),
     value: (0, import_mysql_core.float)(),
-    date: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
+    date: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
     id: (0, import_mysql_core.varchar)({ length: 100 }).notNull(),
     socialNetwork: (0, import_mysql_core.varchar)({ length: 100 }).notNull(),
     observation: (0, import_mysql_core.varchar)({ length: 200 }),
     type: (0, import_mysql_core.varchar)({ length: 45 }),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" })
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" })
   },
   (table) => {
     return {
@@ -252,9 +252,9 @@ var instagramProfiles = (0, import_mysql_core.mysqlTable)(
     likes: (0, import_mysql_core.int)().default(0).notNull(),
     comments: (0, import_mysql_core.int)().default(0).notNull(),
     tier: (0, import_mysql_core.varchar)({ length: 45 }).default("undefined").notNull(),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    logstashProcessedAt: (0, import_mysql_core.datetime)({ mode: "string" }),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    logstashProcessedAt: (0, import_mysql_core.datetime)({ mode: "date" }),
     score: (0, import_mysql_core.float)(),
     score1: (0, import_mysql_core.float)(),
     score2: (0, import_mysql_core.float)(),
@@ -266,7 +266,7 @@ var instagramProfiles = (0, import_mysql_core.mysqlTable)(
     storiesEffectiveReach: (0, import_mysql_core.float)(),
     profileViews: (0, import_mysql_core.int)(),
     hasMediaKit: (0, import_mysql_core.tinyint)().default(0),
-    categorizedAt: (0, import_mysql_core.datetime)({ mode: "string" }),
+    categorizedAt: (0, import_mysql_core.datetime)({ mode: "date" }),
     averageComments: (0, import_mysql_core.float)().notNull(),
     averageCommentsImage: (0, import_mysql_core.float)().notNull(),
     averageCommentsVideo: (0, import_mysql_core.float)().notNull(),
@@ -324,7 +324,7 @@ var instagramProfiles = (0, import_mysql_core.mysqlTable)(
     averageStoriesFrequency: (0, import_mysql_core.float)().notNull(),
     adPostPermanceEngagementRate: (0, import_mysql_core.float)(),
     adStoriesPermanceEngagementRate: (0, import_mysql_core.float)(),
-    identifyAt: (0, import_mysql_core.datetime)({ mode: "string" }),
+    identifyAt: (0, import_mysql_core.datetime)({ mode: "date" }),
     estimateMetric: (0, import_mysql_core.tinyint)().default(0),
     totalReels: (0, import_mysql_core.float)(),
     totalReachReels: (0, import_mysql_core.float)(),
@@ -410,7 +410,6 @@ var instagramProfiles = (0, import_mysql_core.mysqlTable)(
     return {
       usernameIdx: (0, import_mysql_core.index)("username_index").on(table.username),
       idxInstagramProfilesFacebookUserId: (0, import_mysql_core.index)("idx_instagramProfiles_facebookUserId").on(table.facebookUserId),
-      // searchableIdx: index().on(table.searchable),
       oldIgIdIdx: (0, import_mysql_core.index)("instagramProfiles_oldIgId_IDX").on(table.oldIgId),
       instagramProfilesId: (0, import_mysql_core.primaryKey)({ columns: [table.id], name: "instagramProfiles_id" })
     };
@@ -423,8 +422,8 @@ var locations = (0, import_mysql_core.mysqlTable)(
     name: (0, import_mysql_core.varchar)({ length: 255 }).notNull(),
     latitude: (0, import_mysql_core.decimal)({ precision: 9, scale: 6 }).notNull(),
     longitude: (0, import_mysql_core.decimal)({ precision: 9, scale: 6 }).notNull(),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).notNull()
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).notNull()
   },
   (table) => {
     return {
@@ -439,8 +438,8 @@ var notSearchableUsers = (0, import_mysql_core.mysqlTable)(
     username: (0, import_mysql_core.varchar)({ length: 45 }),
     reasons: (0, import_mysql_core.varchar)({ length: 45 }).notNull(),
     socialNetwork: (0, import_mysql_core.varchar)({ length: 45 }).notNull(),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
     tags: (0, import_mysql_core.varchar)({ length: 255 }),
     followers: (0, import_mysql_core.int)(),
     engagement: (0, import_mysql_core.float)()
@@ -462,7 +461,7 @@ var pinterestProfiles = (0, import_mysql_core.mysqlTable)(
     picture: (0, import_mysql_core.varchar)({ length: 255 }).default("Processando").notNull(),
     fullName: (0, import_mysql_core.varchar)({ length: 255 }),
     about: (0, import_mysql_core.text)(),
-    since: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    since: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
     engagementRate: (0, import_mysql_core.float)().notNull(),
     reach: (0, import_mysql_core.int)().default(0).notNull(),
     totalPins: (0, import_mysql_core.int)().default(0).notNull(),
@@ -474,8 +473,8 @@ var pinterestProfiles = (0, import_mysql_core.mysqlTable)(
     identificationCloseups: (0, import_mysql_core.int)().default(0).notNull(),
     identificationComments: (0, import_mysql_core.int)().default(0).notNull(),
     selfToken: (0, import_mysql_core.tinyint)().default(1).notNull(),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull()
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
@@ -501,8 +500,8 @@ var profileAdditionalInfoBanks = (0, import_mysql_core.mysqlTable)(
     holderName: (0, import_mysql_core.varchar)({ length: 150 }),
     holderTradingName: (0, import_mysql_core.varchar)({ length: 150 }),
     isPersonAccount: (0, import_mysql_core.tinyint)().notNull(),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
     nationalDocument: (0, import_mysql_core.varchar)({ length: 50 }),
     recordEmployment: (0, import_mysql_core.varchar)({ length: 50 }),
     companyName: (0, import_mysql_core.varchar)({ length: 150 }),
@@ -517,7 +516,7 @@ var profileAdditionalInfoBanks = (0, import_mysql_core.mysqlTable)(
     bankAccountAgencyDigit: (0, import_mysql_core.varchar)({ length: 15 }),
     verificationStatus: (0, import_mysql_core.float)(),
     verificationId: (0, import_mysql_core.char)({ length: 36 }),
-    verificatedAt: (0, import_mysql_core.datetime)({ mode: "string" })
+    verificatedAt: (0, import_mysql_core.datetime)({ mode: "date" })
   },
   (table) => {
     return {
@@ -552,8 +551,8 @@ var profileAdditionalInfos = (0, import_mysql_core.mysqlTable)(
     registeredFromSource: (0, import_mysql_core.varchar)({ length: 255 }),
     registeredFromCampaign: (0, import_mysql_core.varchar)({ length: 255 }),
     registeredFromMedium: (0, import_mysql_core.varchar)({ length: 255 }),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).notNull(),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).notNull(),
     allowSms: (0, import_mysql_core.tinyint)().default(0),
     allowWhatsapp: (0, import_mysql_core.tinyint)().default(1),
     allowSuggestionEmail: (0, import_mysql_core.tinyint)().default(1),
@@ -563,7 +562,7 @@ var profileAdditionalInfos = (0, import_mysql_core.mysqlTable)(
     language: (0, import_mysql_core.varchar)({ length: 10 }).default("pt-br").notNull(),
     phoneValid: (0, import_mysql_core.tinyint)().default(0),
     phoneValidCode: (0, import_mysql_core.varchar)({ length: 15 }),
-    phoneValidCodeCreatedAt: (0, import_mysql_core.datetime)({ mode: "string" }),
+    phoneValidCodeCreatedAt: (0, import_mysql_core.datetime)({ mode: "date" }),
     race: (0, import_mysql_core.int)(),
     registeredFromAdId: (0, import_mysql_core.varchar)({ length: 255 }),
     registeredFromContent: (0, import_mysql_core.varchar)({ length: 255 }),
@@ -611,8 +610,8 @@ var profileAdditionalInfosOld = (0, import_mysql_core.mysqlTable)(
     registeredFromSource: (0, import_mysql_core.varchar)({ length: 255 }),
     registeredFromCampaign: (0, import_mysql_core.varchar)({ length: 255 }),
     registeredFromMedium: (0, import_mysql_core.varchar)({ length: 255 }),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).notNull(),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).notNull(),
     allowSms: (0, import_mysql_core.tinyint)().default(0),
     allowWhatsapp: (0, import_mysql_core.tinyint)().default(1),
     allowSuggestionEmail: (0, import_mysql_core.tinyint)().default(1),
@@ -623,7 +622,7 @@ var profileAdditionalInfosOld = (0, import_mysql_core.mysqlTable)(
     language: (0, import_mysql_core.varchar)({ length: 5 }).default("pt-br").notNull(),
     phoneValid: (0, import_mysql_core.tinyint)().default(0),
     phoneValidCode: (0, import_mysql_core.varchar)({ length: 15 }),
-    phoneValidCodeCreatedAt: (0, import_mysql_core.datetime)({ mode: "string" }),
+    phoneValidCodeCreatedAt: (0, import_mysql_core.datetime)({ mode: "date" }),
     race: (0, import_mysql_core.int)(),
     registeredFromAdId: (0, import_mysql_core.varchar)({ length: 255 }),
     registeredFromContent: (0, import_mysql_core.varchar)({ length: 255 }),
@@ -665,8 +664,8 @@ var profileAdditionalInfosWhitelabels = (0, import_mysql_core.mysqlTable)(
     registeredFromSource: (0, import_mysql_core.varchar)({ length: 255 }),
     registeredFromCampaign: (0, import_mysql_core.varchar)({ length: 255 }),
     registeredFromMedium: (0, import_mysql_core.varchar)({ length: 255 }),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).notNull(),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).notNull(),
     allowSms: (0, import_mysql_core.tinyint)().default(0),
     allowWhatsapp: (0, import_mysql_core.tinyint)().default(1),
     allowSuggestionEmail: (0, import_mysql_core.tinyint)().default(1),
@@ -676,7 +675,7 @@ var profileAdditionalInfosWhitelabels = (0, import_mysql_core.mysqlTable)(
     language: (0, import_mysql_core.varchar)({ length: 10 }).default("pt-br").notNull(),
     phoneValid: (0, import_mysql_core.tinyint)().default(0),
     phoneValidCode: (0, import_mysql_core.varchar)({ length: 15 }),
-    phoneValidCodeCreatedAt: (0, import_mysql_core.datetime)({ mode: "string" }),
+    phoneValidCodeCreatedAt: (0, import_mysql_core.datetime)({ mode: "date" }),
     race: (0, import_mysql_core.int)(),
     registeredFromAdId: (0, import_mysql_core.varchar)({ length: 255 }),
     registeredFromContent: (0, import_mysql_core.varchar)({ length: 255 }),
@@ -737,9 +736,9 @@ var profiles = (0, import_mysql_core.mysqlTable)(
   "profiles",
   {
     id: (0, import_mysql_core.varchar)({ length: 36 }).notNull(),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
     deletedNetworks: (0, import_mysql_core.varchar)({ length: 100 }),
-    deletedAt: (0, import_mysql_core.datetime)({ mode: "string" })
+    deletedAt: (0, import_mysql_core.datetime)({ mode: "date" })
   },
   (table) => {
     return {
@@ -903,8 +902,8 @@ var socialNetworkProfiles = (0, import_mysql_core.mysqlTable)(
     id: (0, import_mysql_core.varchar)({ length: 50 }).notNull(),
     squidId: (0, import_mysql_core.varchar)({ length: 36 }).references(() => profiles.id, { onDelete: "cascade", onUpdate: "cascade" }),
     socialNetwork: (0, import_mysql_core.varchar)({ length: 45 }).notNull(),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull()
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
@@ -918,8 +917,8 @@ var socialNetworkProfilesCache = (0, import_mysql_core.mysqlTable)(
     profileId: (0, import_mysql_core.varchar)({ length: 255 }).notNull(),
     contentType: (0, import_mysql_core.varchar)({ length: 50 }).notNull(),
     contentValue: (0, import_mysql_core.decimal)({ precision: 10, scale: 2 }),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull()
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
@@ -932,8 +931,8 @@ var socialNetworkProfilesCacheNew = (0, import_mysql_core.mysqlTable)("socialNet
   profileId: (0, import_mysql_core.varchar)({ length: 50 }).notNull(),
   contentType: (0, import_mysql_core.varchar)("ContentType", { length: 100 }).notNull(),
   contentValue: (0, import_mysql_core.decimal)({ precision: 10, scale: 2 }),
-  createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
-  updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`)
+  createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`)
 });
 var socialNetworkProfilesCategories = (0, import_mysql_core.mysqlTable)(
   "socialNetworkProfilesCategories",
@@ -942,7 +941,7 @@ var socialNetworkProfilesCategories = (0, import_mysql_core.mysqlTable)(
     categoryId: (0, import_mysql_core.int)().notNull().references(() => profileCategories.id, { onUpdate: "cascade" }),
     profileId: (0, import_mysql_core.varchar)({ length: 50 }).notNull().references(() => socialNetworkProfiles.id, { onUpdate: "cascade" }),
     socialNetwork: (0, import_mysql_core.varchar)({ length: 45 }).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`)
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {
@@ -960,7 +959,7 @@ var socialNetworkProfilesCategoriesWhitelabels = (0, import_mysql_core.mysqlTabl
     socialNetwork: (0, import_mysql_core.varchar)({ length: 45 }),
     whitelabel: (0, import_mysql_core.varchar)({ length: 24 }),
     organization: (0, import_mysql_core.varchar)({ length: 24 }),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`)
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {
@@ -977,8 +976,8 @@ var socialNetworkProfilesWhitelabels = (0, import_mysql_core.mysqlTable)(
     socialNetwork: (0, import_mysql_core.varchar)({ length: 45 }).notNull(),
     whitelabel: (0, import_mysql_core.varchar)({ length: 24 }).default("-").notNull(),
     organization: (0, import_mysql_core.varchar)({ length: 24 }).default("-").notNull(),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull()
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
@@ -1023,12 +1022,12 @@ var tiktokProfiles = (0, import_mysql_core.mysqlTable)(
     averageShares: (0, import_mysql_core.float)(),
     views: (0, import_mysql_core.float)(),
     averageViews: (0, import_mysql_core.float)(),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    lastPictureUpdatedAt: (0, import_mysql_core.datetime)({ mode: "string" }),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    lastPictureUpdatedAt: (0, import_mysql_core.datetime)({ mode: "date" }),
     tcmStatus: (0, import_mysql_core.varchar)({ length: 15 }),
     insertOrigin: (0, import_mysql_core.varchar)({ length: 50 }),
-    processAt: (0, import_mysql_core.datetime)({ mode: "string" }),
+    processAt: (0, import_mysql_core.datetime)({ mode: "date" }),
     hasCreatorsInsights: (0, import_mysql_core.tinyint)().default(0)
   },
   (table) => {
@@ -1047,9 +1046,9 @@ var tiktokTokens = (0, import_mysql_core.mysqlTable)(
     status: (0, import_mysql_core.varchar)({ length: 1e3 }),
     accessToken: (0, import_mysql_core.varchar)({ length: 512 }),
     refreshToken: (0, import_mysql_core.varchar)({ length: 128 }),
-    expiresAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`)
+    expiresAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {
@@ -1068,8 +1067,8 @@ var twitterProfiles = (0, import_mysql_core.mysqlTable)(
     followers: (0, import_mysql_core.int)().default(0).notNull(),
     follows: (0, import_mysql_core.int)().default(0).notNull(),
     bio: (0, import_mysql_core.text)(),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
     brandUser: (0, import_mysql_core.tinyint)().default(0).notNull(),
     exists: (0, import_mysql_core.tinyint)().default(1).notNull(),
     macro: (0, import_mysql_core.tinyint)().default(0),
@@ -1090,7 +1089,7 @@ var twitterProfiles = (0, import_mysql_core.mysqlTable)(
     engagementRateAd: (0, import_mysql_core.float)(),
     tweetPostAdPerformance: (0, import_mysql_core.float)(),
     insertOrigin: (0, import_mysql_core.varchar)({ length: 50 }),
-    processAt: (0, import_mysql_core.datetime)({ mode: "string" }),
+    processAt: (0, import_mysql_core.datetime)({ mode: "date" }),
     hasCreatorsInsights: (0, import_mysql_core.tinyint)().default(0)
   },
   (table) => {
@@ -1104,8 +1103,8 @@ var twitterTokens = (0, import_mysql_core.mysqlTable)(
   "twitterTokens",
   {
     profileId: (0, import_mysql_core.varchar)({ length: 50 }).notNull(),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`),
     valid: (0, import_mysql_core.tinyint)(),
     accessToken: (0, import_mysql_core.varchar)({ length: 256 }),
     oauthSecretToken: (0, import_mysql_core.varchar)({ length: 256 }),
@@ -1136,7 +1135,7 @@ var youtubeProfiles = (0, import_mysql_core.mysqlTable)(
     bio: (0, import_mysql_core.text)(),
     customUrl: (0, import_mysql_core.varchar)({ length: 255 }).default("Processando"),
     country: (0, import_mysql_core.varchar)({ length: 36 }).default("Processando").notNull(),
-    since: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    since: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
     followers: (0, import_mysql_core.int)().default(0).notNull(),
     subscribers: (0, import_mysql_core.int)().default(0).notNull(),
     engagementRate: (0, import_mysql_core.float)(),
@@ -1165,13 +1164,13 @@ var youtubeProfiles = (0, import_mysql_core.mysqlTable)(
     identificationViews: (0, import_mysql_core.int)().default(0),
     privacyStatus: (0, import_mysql_core.varchar)({ length: 36 }).default("Processando").notNull(),
     language: (0, import_mysql_core.varchar)({ length: 36 }),
-    createdAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core.datetime)({ mode: "string" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    logstashProcessedAt: (0, import_mysql_core.datetime)({ mode: "string" }),
+    createdAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core.datetime)({ mode: "date" }).default(import_drizzle_orm.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    logstashProcessedAt: (0, import_mysql_core.datetime)({ mode: "date" }),
     macro: (0, import_mysql_core.tinyint)().default(0),
     brandUser: (0, import_mysql_core.tinyint)().default(0),
     insertOrigin: (0, import_mysql_core.varchar)({ length: 50 }),
-    processAt: (0, import_mysql_core.datetime)({ mode: "string" }),
+    processAt: (0, import_mysql_core.datetime)({ mode: "date" }),
     hasCreatorsInsights: (0, import_mysql_core.tinyint)().default(0)
   },
   (table) => {
@@ -1484,13 +1483,12 @@ var charges = (0, import_mysql_core3.mysqlTable)(
   "charges",
   {
     seqId: (0, import_mysql_core3.bigint)({ mode: "number" }).autoincrement().notNull(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "string" }).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
-    deletedAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
+    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
     amount: (0, import_mysql_core3.double)({ precision: 10, scale: 2 }).notNull(),
     totalAmount: (0, import_mysql_core3.double)({ precision: 10, scale: 2 }).notNull(),
     fees: (0, import_mysql_core3.double)({ precision: 10, scale: 2 }).notNull(),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     dueDate: (0, import_mysql_core3.date)({ mode: "date" }),
     currency: (0, import_mysql_core3.varchar)({ length: 3 }).default("BRL").notNull(),
     paymentOrderUrl: (0, import_mysql_core3.longtext)(),
@@ -1531,10 +1529,8 @@ var compositions = (0, import_mysql_core3.mysqlTable)(
     paymentType: (0, import_mysql_core3.varchar)({ length: 5 }),
     document: (0, import_mysql_core3.varchar)({ length: 50 }),
     fullName: (0, import_mysql_core3.varchar)({ length: 255 }),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     birthday: (0, import_mysql_core3.date)({ mode: "date" }),
     transactionId: (0, import_mysql_core3.varchar)({ length: 60 }),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     dueDate: (0, import_mysql_core3.date)({ mode: "date" }),
     transactionStatus: (0, import_mysql_core3.varchar)({ length: 50 }),
     netValue: (0, import_mysql_core3.float)(),
@@ -1567,9 +1563,9 @@ var customerPayments = (0, import_mysql_core3.mysqlTable)(
   {
     seqId: (0, import_mysql_core3.bigint)({ mode: "number" }).autoincrement().notNull(),
     transactionId: (0, import_mysql_core3.varchar)({ length: 60 }).notNull().references(() => transactions.transactionId),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "string" }).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
-    deletedAt: (0, import_mysql_core3.datetime)({ mode: "string" })
+    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core3.datetime)({ mode: "date" })
   },
   (table) => {
     return {
@@ -1586,9 +1582,9 @@ var influencerPayments = (0, import_mysql_core3.mysqlTable)(
     recruitmentId: (0, import_mysql_core3.varchar)({ length: 60 }).notNull(),
     campaignId: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
     campaignName: (0, import_mysql_core3.varchar)({ length: 150 }).notNull(),
-    campaignEndDate: (0, import_mysql_core3.datetime)({ mode: "string" }),
+    campaignEndDate: (0, import_mysql_core3.datetime)({ mode: "date" }),
     campaignTimezone: (0, import_mysql_core3.varchar)({ length: 100 }),
-    dateUsedToCalculate: (0, import_mysql_core3.datetime)({ mode: "string" }),
+    dateUsedToCalculate: (0, import_mysql_core3.datetime)({ mode: "date" }),
     squidId: (0, import_mysql_core3.varchar)({ length: 60 }).notNull(),
     instagramUsername: (0, import_mysql_core3.varchar)({ length: 50 }),
     instagramProfileId: (0, import_mysql_core3.bigint)({ mode: "number" }),
@@ -1599,9 +1595,9 @@ var influencerPayments = (0, import_mysql_core3.mysqlTable)(
     nfId: (0, import_mysql_core3.varchar)({ length: 60 }),
     whitelabelId: (0, import_mysql_core3.varchar)({ length: 24 }),
     whitelabelDomain: (0, import_mysql_core3.varchar)({ length: 150 }),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "string" }).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
-    deletedAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
+    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
     paymentStatus: (0, import_mysql_core3.varchar)({ length: 50 }).default("").notNull(),
     // Warning: Can't parse float(10,2) from database
     // float(10,2)Type: float(10,2)("amount").notNull(),
@@ -1613,7 +1609,6 @@ var influencerPayments = (0, import_mysql_core3.mysqlTable)(
     responsibleId: (0, import_mysql_core3.varchar)({ length: 200 }),
     idPipefy: (0, import_mysql_core3.varchar)({ length: 60 }),
     description: (0, import_mysql_core3.varchar)({ length: 50 }),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     customDueDate: (0, import_mysql_core3.date)({ mode: "date" }),
     note: (0, import_mysql_core3.varchar)({ length: 1e3 })
   },
@@ -1643,9 +1638,9 @@ var influencerZoopBankAccounts = (0, import_mysql_core3.mysqlTable)(
     bankAccountVerificationNumber: (0, import_mysql_core3.varchar)({ length: 1 }).notNull(),
     bankAccountType: (0, import_mysql_core3.varchar)({ length: 20 }).notNull(),
     bankAccountHolderType: (0, import_mysql_core3.varchar)({ length: 20 }).notNull(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
-    deletedAt: (0, import_mysql_core3.datetime)({ mode: "string" })
+    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
+    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core3.datetime)({ mode: "date" })
   },
   (table) => {
     return {
@@ -1714,21 +1709,19 @@ var nfs = (0, import_mysql_core3.mysqlTable)(
     squidId: (0, import_mysql_core3.varchar)({ length: 60 }).notNull(),
     serialnumber: (0, import_mysql_core3.varchar)({ length: 45 }),
     value: (0, import_mysql_core3.double)(),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     emissionDate: (0, import_mysql_core3.date)({ mode: "date" }),
     urlStorage: (0, import_mysql_core3.text)().notNull(),
     xmlUrlStorage: (0, import_mysql_core3.text)(),
     backofficeApproved: (0, import_mysql_core3.tinyint)().default(0).notNull(),
     parsedValue: (0, import_mysql_core3.double)(),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     parsedEmissionDate: (0, import_mysql_core3.date)({ mode: "date" }),
     parsedSerialNumber: (0, import_mysql_core3.varchar)({ length: 45 }),
     parsedCnae: (0, import_mysql_core3.varchar)({ length: 45 }),
     // Warning: Can't parse float(10,2) from database
     // float(10,2)Type: float(10,2)("issValue"),
     imported: (0, import_mysql_core3.varchar)({ length: 90 }),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    deletedAt: (0, import_mysql_core3.datetime)({ mode: "string" })
+    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    deletedAt: (0, import_mysql_core3.datetime)({ mode: "date" })
   },
   (table) => {
     return {
@@ -1753,9 +1746,9 @@ var transactionBankAccounts = (0, import_mysql_core3.mysqlTable)(
     bankAccountType: (0, import_mysql_core3.varchar)({ length: 20 }).default("checking").notNull(),
     bankAccountHolderType: (0, import_mysql_core3.varchar)({ length: 2 }).default("PF").notNull(),
     paymentGatewayToken: (0, import_mysql_core3.varchar)({ length: 60 }),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "string" }).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
-    deletedAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
+    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
     paymentGatewayWithdrawTransactionId: (0, import_mysql_core3.varchar)({ length: 60 }),
     paymentGatewayWithdrawAuthorizationCode: (0, import_mysql_core3.varchar)({ length: 100 })
   },
@@ -1776,12 +1769,11 @@ var transactionBeneficiaries = (0, import_mysql_core3.mysqlTable)(
     beneficiaryLastName: (0, import_mysql_core3.varchar)({ length: 100 }),
     beneficiaryEmail: (0, import_mysql_core3.varchar)({ length: 100 }).notNull(),
     beneficiaryDocumentNumber: (0, import_mysql_core3.varchar)({ length: 20 }).notNull(),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     beneficiaryBirthDate: (0, import_mysql_core3.date)({ mode: "date" }),
     paymentGatewayId: (0, import_mysql_core3.varchar)({ length: 60 }),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "string" }).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
-    deletedAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
+    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
     recordEmployment: (0, import_mysql_core3.varchar)({ length: 50 }),
     companyFileId: (0, import_mysql_core3.int)()
   },
@@ -1838,14 +1830,13 @@ var transactions = (0, import_mysql_core3.mysqlTable)(
     paymentGatewayTransactionId: (0, import_mysql_core3.varchar)({ length: 255 }),
     paymentGatewayReceiptUrl: (0, import_mysql_core3.varchar)({ length: 450 }),
     paymentGatewayReceiptBankUrl: (0, import_mysql_core3.varchar)({ length: 450 }),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     dueDate: (0, import_mysql_core3.date)({ mode: "date" }),
-    transactionDate: (0, import_mysql_core3.datetime)({ mode: "string" }).notNull(),
-    paidedAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
-    withdrawingDate: (0, import_mysql_core3.datetime)({ mode: "string" }),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "string" }).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
-    deletedAt: (0, import_mysql_core3.datetime)({ mode: "string" })
+    transactionDate: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
+    paidedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
+    withdrawingDate: (0, import_mysql_core3.datetime)({ mode: "date" }),
+    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core3.datetime)({ mode: "date" })
   },
   (table) => {
     return {
@@ -1880,20 +1871,18 @@ var transactionsHistory = (0, import_mysql_core3.mysqlTable)("transactionsHistor
   amount: (0, import_mysql_core3.float)().notNull(),
   transactionStatusDetail: (0, import_mysql_core3.varchar)({ length: 450 }),
   transactionErrorDetail: (0, import_mysql_core3.varchar)({ length: 200 }),
-  transactionDate: (0, import_mysql_core3.datetime)({ mode: "string" }).notNull(),
-  // you can use { mode: 'date' }, if you want to have Date as type for this column
+  transactionDate: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
   dueDate: (0, import_mysql_core3.date)({ mode: "date" }),
-  createdAt: (0, import_mysql_core3.datetime)({ mode: "string" }).notNull(),
-  updatedAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
-  paidedAt: (0, import_mysql_core3.datetime)({ mode: "string" }),
-  withdrawingDate: (0, import_mysql_core3.datetime)({ mode: "string" }),
-  deletedAt: (0, import_mysql_core3.datetime)({ mode: "string" })
+  createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
+  updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
+  paidedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
+  withdrawingDate: (0, import_mysql_core3.datetime)({ mode: "date" }),
+  deletedAt: (0, import_mysql_core3.datetime)({ mode: "date" })
 });
 var transactionsSchedule = (0, import_mysql_core3.mysqlTable)(
   "transactions_schedule",
   {
     id: (0, import_mysql_core3.int)().autoincrement().notNull(),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     scheduleDate: (0, import_mysql_core3.date)("schedule_date", { mode: "string" }).notNull(),
     flowId: (0, import_mysql_core3.int)("flow_id").notNull(),
     description: (0, import_mysql_core3.varchar)({ length: 45 }),

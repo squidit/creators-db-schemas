@@ -79,10 +79,10 @@ var blockedusers = mysqlTable(
     responsibleId: varchar({ length: 255 }).notNull(),
     responsibleFullName: varchar({ length: 255 }).notNull(),
     unregistered: tinyint().default(0).notNull(),
-    createdAt: datetime({ mode: "string" }).notNull(),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-    logstashProcessedAt: datetime({ mode: "string" }),
-    deletedAt: datetime({ mode: "string" }),
+    createdAt: datetime({ mode: "date" }).notNull(),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    logstashProcessedAt: datetime({ mode: "date" }),
+    deletedAt: datetime({ mode: "date" }),
     campaignId: varchar({ length: 255 }),
     campaignName: varchar({ length: 255 })
   },
@@ -116,10 +116,10 @@ var facebookTokens = mysqlTable(
   "facebookTokens",
   {
     profileId: varchar({ length: 50 }).notNull(),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`),
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`),
     valid: tinyint(),
-    expiresAt: datetime({ mode: "string" }),
+    expiresAt: datetime({ mode: "date" }),
     status: varchar({ length: 1e3 }),
     permanentToken: varchar({ length: 512 }),
     accessToken: varchar({ length: 512 }),
@@ -156,10 +156,10 @@ var googleTokens = mysqlTable(
   "googleTokens",
   {
     profileId: varchar({ length: 50 }).notNull(),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`),
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`),
     valid: tinyint(),
-    expiresAt: datetime({ mode: "string" }),
+    expiresAt: datetime({ mode: "date" }),
     status: varchar({ length: 1e3 }),
     provider: varchar({ length: 50 }),
     accessToken: varchar({ length: 512 }),
@@ -184,13 +184,13 @@ var influencerMetrics = mysqlTable(
   {
     name: varchar({ length: 200 }).notNull(),
     value: float(),
-    date: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`),
+    date: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`),
     id: varchar({ length: 100 }).notNull(),
     socialNetwork: varchar({ length: 100 }).notNull(),
     observation: varchar({ length: 200 }),
     type: varchar({ length: 45 }),
-    createdAt: datetime({ mode: "string" }),
-    updatedAt: datetime({ mode: "string" })
+    createdAt: datetime({ mode: "date" }),
+    updatedAt: datetime({ mode: "date" })
   },
   (table) => {
     return {
@@ -230,9 +230,9 @@ var instagramProfiles = mysqlTable(
     likes: int().default(0).notNull(),
     comments: int().default(0).notNull(),
     tier: varchar({ length: 45 }).default("undefined").notNull(),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-    logstashProcessedAt: datetime({ mode: "string" }),
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    logstashProcessedAt: datetime({ mode: "date" }),
     score: float(),
     score1: float(),
     score2: float(),
@@ -244,7 +244,7 @@ var instagramProfiles = mysqlTable(
     storiesEffectiveReach: float(),
     profileViews: int(),
     hasMediaKit: tinyint().default(0),
-    categorizedAt: datetime({ mode: "string" }),
+    categorizedAt: datetime({ mode: "date" }),
     averageComments: float().notNull(),
     averageCommentsImage: float().notNull(),
     averageCommentsVideo: float().notNull(),
@@ -302,7 +302,7 @@ var instagramProfiles = mysqlTable(
     averageStoriesFrequency: float().notNull(),
     adPostPermanceEngagementRate: float(),
     adStoriesPermanceEngagementRate: float(),
-    identifyAt: datetime({ mode: "string" }),
+    identifyAt: datetime({ mode: "date" }),
     estimateMetric: tinyint().default(0),
     totalReels: float(),
     totalReachReels: float(),
@@ -388,7 +388,6 @@ var instagramProfiles = mysqlTable(
     return {
       usernameIdx: index("username_index").on(table.username),
       idxInstagramProfilesFacebookUserId: index("idx_instagramProfiles_facebookUserId").on(table.facebookUserId),
-      // searchableIdx: index().on(table.searchable),
       oldIgIdIdx: index("instagramProfiles_oldIgId_IDX").on(table.oldIgId),
       instagramProfilesId: primaryKey({ columns: [table.id], name: "instagramProfiles_id" })
     };
@@ -401,8 +400,8 @@ var locations = mysqlTable(
     name: varchar({ length: 255 }).notNull(),
     latitude: decimal({ precision: 9, scale: 6 }).notNull(),
     longitude: decimal({ precision: 9, scale: 6 }).notNull(),
-    createdAt: datetime({ mode: "string" }).notNull(),
-    updatedAt: datetime({ mode: "string" }).notNull()
+    createdAt: datetime({ mode: "date" }).notNull(),
+    updatedAt: datetime({ mode: "date" }).notNull()
   },
   (table) => {
     return {
@@ -417,8 +416,8 @@ var notSearchableUsers = mysqlTable(
     username: varchar({ length: 45 }),
     reasons: varchar({ length: 45 }).notNull(),
     socialNetwork: varchar({ length: 45 }).notNull(),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
     tags: varchar({ length: 255 }),
     followers: int(),
     engagement: float()
@@ -440,7 +439,7 @@ var pinterestProfiles = mysqlTable(
     picture: varchar({ length: 255 }).default("Processando").notNull(),
     fullName: varchar({ length: 255 }),
     about: text(),
-    since: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    since: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
     engagementRate: float().notNull(),
     reach: int().default(0).notNull(),
     totalPins: int().default(0).notNull(),
@@ -452,8 +451,8 @@ var pinterestProfiles = mysqlTable(
     identificationCloseups: int().default(0).notNull(),
     identificationComments: int().default(0).notNull(),
     selfToken: tinyint().default(1).notNull(),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull()
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
@@ -479,8 +478,8 @@ var profileAdditionalInfoBanks = mysqlTable(
     holderName: varchar({ length: 150 }),
     holderTradingName: varchar({ length: 150 }),
     isPersonAccount: tinyint().notNull(),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
     nationalDocument: varchar({ length: 50 }),
     recordEmployment: varchar({ length: 50 }),
     companyName: varchar({ length: 150 }),
@@ -495,7 +494,7 @@ var profileAdditionalInfoBanks = mysqlTable(
     bankAccountAgencyDigit: varchar({ length: 15 }),
     verificationStatus: float(),
     verificationId: char({ length: 36 }),
-    verificatedAt: datetime({ mode: "string" })
+    verificatedAt: datetime({ mode: "date" })
   },
   (table) => {
     return {
@@ -530,8 +529,8 @@ var profileAdditionalInfos = mysqlTable(
     registeredFromSource: varchar({ length: 255 }),
     registeredFromCampaign: varchar({ length: 255 }),
     registeredFromMedium: varchar({ length: 255 }),
-    createdAt: datetime({ mode: "string" }).notNull(),
-    updatedAt: datetime({ mode: "string" }).notNull(),
+    createdAt: datetime({ mode: "date" }).notNull(),
+    updatedAt: datetime({ mode: "date" }).notNull(),
     allowSms: tinyint().default(0),
     allowWhatsapp: tinyint().default(1),
     allowSuggestionEmail: tinyint().default(1),
@@ -541,7 +540,7 @@ var profileAdditionalInfos = mysqlTable(
     language: varchar({ length: 10 }).default("pt-br").notNull(),
     phoneValid: tinyint().default(0),
     phoneValidCode: varchar({ length: 15 }),
-    phoneValidCodeCreatedAt: datetime({ mode: "string" }),
+    phoneValidCodeCreatedAt: datetime({ mode: "date" }),
     race: int(),
     registeredFromAdId: varchar({ length: 255 }),
     registeredFromContent: varchar({ length: 255 }),
@@ -589,8 +588,8 @@ var profileAdditionalInfosOld = mysqlTable(
     registeredFromSource: varchar({ length: 255 }),
     registeredFromCampaign: varchar({ length: 255 }),
     registeredFromMedium: varchar({ length: 255 }),
-    createdAt: datetime({ mode: "string" }).notNull(),
-    updatedAt: datetime({ mode: "string" }).notNull(),
+    createdAt: datetime({ mode: "date" }).notNull(),
+    updatedAt: datetime({ mode: "date" }).notNull(),
     allowSms: tinyint().default(0),
     allowWhatsapp: tinyint().default(1),
     allowSuggestionEmail: tinyint().default(1),
@@ -601,7 +600,7 @@ var profileAdditionalInfosOld = mysqlTable(
     language: varchar({ length: 5 }).default("pt-br").notNull(),
     phoneValid: tinyint().default(0),
     phoneValidCode: varchar({ length: 15 }),
-    phoneValidCodeCreatedAt: datetime({ mode: "string" }),
+    phoneValidCodeCreatedAt: datetime({ mode: "date" }),
     race: int(),
     registeredFromAdId: varchar({ length: 255 }),
     registeredFromContent: varchar({ length: 255 }),
@@ -643,8 +642,8 @@ var profileAdditionalInfosWhitelabels = mysqlTable(
     registeredFromSource: varchar({ length: 255 }),
     registeredFromCampaign: varchar({ length: 255 }),
     registeredFromMedium: varchar({ length: 255 }),
-    createdAt: datetime({ mode: "string" }).notNull(),
-    updatedAt: datetime({ mode: "string" }).notNull(),
+    createdAt: datetime({ mode: "date" }).notNull(),
+    updatedAt: datetime({ mode: "date" }).notNull(),
     allowSms: tinyint().default(0),
     allowWhatsapp: tinyint().default(1),
     allowSuggestionEmail: tinyint().default(1),
@@ -654,7 +653,7 @@ var profileAdditionalInfosWhitelabels = mysqlTable(
     language: varchar({ length: 10 }).default("pt-br").notNull(),
     phoneValid: tinyint().default(0),
     phoneValidCode: varchar({ length: 15 }),
-    phoneValidCodeCreatedAt: datetime({ mode: "string" }),
+    phoneValidCodeCreatedAt: datetime({ mode: "date" }),
     race: int(),
     registeredFromAdId: varchar({ length: 255 }),
     registeredFromContent: varchar({ length: 255 }),
@@ -715,9 +714,9 @@ var profiles = mysqlTable(
   "profiles",
   {
     id: varchar({ length: 36 }).notNull(),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
     deletedNetworks: varchar({ length: 100 }),
-    deletedAt: datetime({ mode: "string" })
+    deletedAt: datetime({ mode: "date" })
   },
   (table) => {
     return {
@@ -881,8 +880,8 @@ var socialNetworkProfiles = mysqlTable(
     id: varchar({ length: 50 }).notNull(),
     squidId: varchar({ length: 36 }).references(() => profiles.id, { onDelete: "cascade", onUpdate: "cascade" }),
     socialNetwork: varchar({ length: 45 }).notNull(),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull()
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
@@ -896,8 +895,8 @@ var socialNetworkProfilesCache = mysqlTable(
     profileId: varchar({ length: 255 }).notNull(),
     contentType: varchar({ length: 50 }).notNull(),
     contentValue: decimal({ precision: 10, scale: 2 }),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull()
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
@@ -910,8 +909,8 @@ var socialNetworkProfilesCacheNew = mysqlTable("socialNetworkProfilesCache_new",
   profileId: varchar({ length: 50 }).notNull(),
   contentType: varchar("ContentType", { length: 100 }).notNull(),
   contentValue: decimal({ precision: 10, scale: 2 }),
-  createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`),
-  updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`)
+  createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`)
 });
 var socialNetworkProfilesCategories = mysqlTable(
   "socialNetworkProfilesCategories",
@@ -920,7 +919,7 @@ var socialNetworkProfilesCategories = mysqlTable(
     categoryId: int().notNull().references(() => profileCategories.id, { onUpdate: "cascade" }),
     profileId: varchar({ length: 50 }).notNull().references(() => socialNetworkProfiles.id, { onUpdate: "cascade" }),
     socialNetwork: varchar({ length: 45 }).notNull(),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`)
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {
@@ -938,7 +937,7 @@ var socialNetworkProfilesCategoriesWhitelabels = mysqlTable(
     socialNetwork: varchar({ length: 45 }),
     whitelabel: varchar({ length: 24 }),
     organization: varchar({ length: 24 }),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`)
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {
@@ -955,8 +954,8 @@ var socialNetworkProfilesWhitelabels = mysqlTable(
     socialNetwork: varchar({ length: 45 }).notNull(),
     whitelabel: varchar({ length: 24 }).default("-").notNull(),
     organization: varchar({ length: 24 }).default("-").notNull(),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull()
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
@@ -1001,12 +1000,12 @@ var tiktokProfiles = mysqlTable(
     averageShares: float(),
     views: float(),
     averageViews: float(),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-    lastPictureUpdatedAt: datetime({ mode: "string" }),
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    lastPictureUpdatedAt: datetime({ mode: "date" }),
     tcmStatus: varchar({ length: 15 }),
     insertOrigin: varchar({ length: 50 }),
-    processAt: datetime({ mode: "string" }),
+    processAt: datetime({ mode: "date" }),
     hasCreatorsInsights: tinyint().default(0)
   },
   (table) => {
@@ -1025,9 +1024,9 @@ var tiktokTokens = mysqlTable(
     status: varchar({ length: 1e3 }),
     accessToken: varchar({ length: 512 }),
     refreshToken: varchar({ length: 128 }),
-    expiresAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`)
+    expiresAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`),
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {
@@ -1046,8 +1045,8 @@ var twitterProfiles = mysqlTable(
     followers: int().default(0).notNull(),
     follows: int().default(0).notNull(),
     bio: text(),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
     brandUser: tinyint().default(0).notNull(),
     exists: tinyint().default(1).notNull(),
     macro: tinyint().default(0),
@@ -1068,7 +1067,7 @@ var twitterProfiles = mysqlTable(
     engagementRateAd: float(),
     tweetPostAdPerformance: float(),
     insertOrigin: varchar({ length: 50 }),
-    processAt: datetime({ mode: "string" }),
+    processAt: datetime({ mode: "date" }),
     hasCreatorsInsights: tinyint().default(0)
   },
   (table) => {
@@ -1082,8 +1081,8 @@ var twitterTokens = mysqlTable(
   "twitterTokens",
   {
     profileId: varchar({ length: 50 }).notNull(),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`),
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`),
     valid: tinyint(),
     accessToken: varchar({ length: 256 }),
     oauthSecretToken: varchar({ length: 256 }),
@@ -1114,7 +1113,7 @@ var youtubeProfiles = mysqlTable(
     bio: text(),
     customUrl: varchar({ length: 255 }).default("Processando"),
     country: varchar({ length: 36 }).default("Processando").notNull(),
-    since: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    since: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
     followers: int().default(0).notNull(),
     subscribers: int().default(0).notNull(),
     engagementRate: float(),
@@ -1143,13 +1142,13 @@ var youtubeProfiles = mysqlTable(
     identificationViews: int().default(0),
     privacyStatus: varchar({ length: 36 }).default("Processando").notNull(),
     language: varchar({ length: 36 }),
-    createdAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: datetime({ mode: "string" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-    logstashProcessedAt: datetime({ mode: "string" }),
+    createdAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: datetime({ mode: "date" }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+    logstashProcessedAt: datetime({ mode: "date" }),
     macro: tinyint().default(0),
     brandUser: tinyint().default(0),
     insertOrigin: varchar({ length: 50 }),
-    processAt: datetime({ mode: "string" }),
+    processAt: datetime({ mode: "date" }),
     hasCreatorsInsights: tinyint().default(0)
   },
   (table) => {
@@ -1462,13 +1461,12 @@ var charges = mysqlTable3(
   "charges",
   {
     seqId: bigint2({ mode: "number" }).autoincrement().notNull(),
-    createdAt: datetime3({ mode: "string" }).notNull(),
-    updatedAt: datetime3({ mode: "string" }),
-    deletedAt: datetime3({ mode: "string" }),
+    createdAt: datetime3({ mode: "date" }).notNull(),
+    updatedAt: datetime3({ mode: "date" }),
+    deletedAt: datetime3({ mode: "date" }),
     amount: double2({ precision: 10, scale: 2 }).notNull(),
     totalAmount: double2({ precision: 10, scale: 2 }).notNull(),
     fees: double2({ precision: 10, scale: 2 }).notNull(),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     dueDate: date2({ mode: "date" }),
     currency: varchar3({ length: 3 }).default("BRL").notNull(),
     paymentOrderUrl: longtext(),
@@ -1509,10 +1507,8 @@ var compositions = mysqlTable3(
     paymentType: varchar3({ length: 5 }),
     document: varchar3({ length: 50 }),
     fullName: varchar3({ length: 255 }),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     birthday: date2({ mode: "date" }),
     transactionId: varchar3({ length: 60 }),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     dueDate: date2({ mode: "date" }),
     transactionStatus: varchar3({ length: 50 }),
     netValue: float2(),
@@ -1545,9 +1541,9 @@ var customerPayments = mysqlTable3(
   {
     seqId: bigint2({ mode: "number" }).autoincrement().notNull(),
     transactionId: varchar3({ length: 60 }).notNull().references(() => transactions.transactionId),
-    createdAt: datetime3({ mode: "string" }).notNull(),
-    updatedAt: datetime3({ mode: "string" }),
-    deletedAt: datetime3({ mode: "string" })
+    createdAt: datetime3({ mode: "date" }).notNull(),
+    updatedAt: datetime3({ mode: "date" }),
+    deletedAt: datetime3({ mode: "date" })
   },
   (table) => {
     return {
@@ -1564,9 +1560,9 @@ var influencerPayments = mysqlTable3(
     recruitmentId: varchar3({ length: 60 }).notNull(),
     campaignId: varchar3({ length: 50 }).notNull(),
     campaignName: varchar3({ length: 150 }).notNull(),
-    campaignEndDate: datetime3({ mode: "string" }),
+    campaignEndDate: datetime3({ mode: "date" }),
     campaignTimezone: varchar3({ length: 100 }),
-    dateUsedToCalculate: datetime3({ mode: "string" }),
+    dateUsedToCalculate: datetime3({ mode: "date" }),
     squidId: varchar3({ length: 60 }).notNull(),
     instagramUsername: varchar3({ length: 50 }),
     instagramProfileId: bigint2({ mode: "number" }),
@@ -1577,9 +1573,9 @@ var influencerPayments = mysqlTable3(
     nfId: varchar3({ length: 60 }),
     whitelabelId: varchar3({ length: 24 }),
     whitelabelDomain: varchar3({ length: 150 }),
-    createdAt: datetime3({ mode: "string" }).notNull(),
-    updatedAt: datetime3({ mode: "string" }),
-    deletedAt: datetime3({ mode: "string" }),
+    createdAt: datetime3({ mode: "date" }).notNull(),
+    updatedAt: datetime3({ mode: "date" }),
+    deletedAt: datetime3({ mode: "date" }),
     paymentStatus: varchar3({ length: 50 }).default("").notNull(),
     // Warning: Can't parse float(10,2) from database
     // float(10,2)Type: float(10,2)("amount").notNull(),
@@ -1591,7 +1587,6 @@ var influencerPayments = mysqlTable3(
     responsibleId: varchar3({ length: 200 }),
     idPipefy: varchar3({ length: 60 }),
     description: varchar3({ length: 50 }),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     customDueDate: date2({ mode: "date" }),
     note: varchar3({ length: 1e3 })
   },
@@ -1621,9 +1616,9 @@ var influencerZoopBankAccounts = mysqlTable3(
     bankAccountVerificationNumber: varchar3({ length: 1 }).notNull(),
     bankAccountType: varchar3({ length: 20 }).notNull(),
     bankAccountHolderType: varchar3({ length: 20 }).notNull(),
-    createdAt: datetime3({ mode: "string" }),
-    updatedAt: datetime3({ mode: "string" }),
-    deletedAt: datetime3({ mode: "string" })
+    createdAt: datetime3({ mode: "date" }),
+    updatedAt: datetime3({ mode: "date" }),
+    deletedAt: datetime3({ mode: "date" })
   },
   (table) => {
     return {
@@ -1692,21 +1687,19 @@ var nfs = mysqlTable3(
     squidId: varchar3({ length: 60 }).notNull(),
     serialnumber: varchar3({ length: 45 }),
     value: double2(),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     emissionDate: date2({ mode: "date" }),
     urlStorage: text2().notNull(),
     xmlUrlStorage: text2(),
     backofficeApproved: tinyint3().default(0).notNull(),
     parsedValue: double2(),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     parsedEmissionDate: date2({ mode: "date" }),
     parsedSerialNumber: varchar3({ length: 45 }),
     parsedCnae: varchar3({ length: 45 }),
     // Warning: Can't parse float(10,2) from database
     // float(10,2)Type: float(10,2)("issValue"),
     imported: varchar3({ length: 90 }),
-    createdAt: datetime3({ mode: "string" }).default(sql3`(CURRENT_TIMESTAMP)`).notNull(),
-    deletedAt: datetime3({ mode: "string" })
+    createdAt: datetime3({ mode: "date" }).default(sql3`(CURRENT_TIMESTAMP)`).notNull(),
+    deletedAt: datetime3({ mode: "date" })
   },
   (table) => {
     return {
@@ -1731,9 +1724,9 @@ var transactionBankAccounts = mysqlTable3(
     bankAccountType: varchar3({ length: 20 }).default("checking").notNull(),
     bankAccountHolderType: varchar3({ length: 2 }).default("PF").notNull(),
     paymentGatewayToken: varchar3({ length: 60 }),
-    createdAt: datetime3({ mode: "string" }).notNull(),
-    updatedAt: datetime3({ mode: "string" }),
-    deletedAt: datetime3({ mode: "string" }),
+    createdAt: datetime3({ mode: "date" }).notNull(),
+    updatedAt: datetime3({ mode: "date" }),
+    deletedAt: datetime3({ mode: "date" }),
     paymentGatewayWithdrawTransactionId: varchar3({ length: 60 }),
     paymentGatewayWithdrawAuthorizationCode: varchar3({ length: 100 })
   },
@@ -1754,12 +1747,11 @@ var transactionBeneficiaries = mysqlTable3(
     beneficiaryLastName: varchar3({ length: 100 }),
     beneficiaryEmail: varchar3({ length: 100 }).notNull(),
     beneficiaryDocumentNumber: varchar3({ length: 20 }).notNull(),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     beneficiaryBirthDate: date2({ mode: "date" }),
     paymentGatewayId: varchar3({ length: 60 }),
-    createdAt: datetime3({ mode: "string" }).notNull(),
-    updatedAt: datetime3({ mode: "string" }),
-    deletedAt: datetime3({ mode: "string" }),
+    createdAt: datetime3({ mode: "date" }).notNull(),
+    updatedAt: datetime3({ mode: "date" }),
+    deletedAt: datetime3({ mode: "date" }),
     recordEmployment: varchar3({ length: 50 }),
     companyFileId: int3()
   },
@@ -1816,14 +1808,13 @@ var transactions = mysqlTable3(
     paymentGatewayTransactionId: varchar3({ length: 255 }),
     paymentGatewayReceiptUrl: varchar3({ length: 450 }),
     paymentGatewayReceiptBankUrl: varchar3({ length: 450 }),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     dueDate: date2({ mode: "date" }),
-    transactionDate: datetime3({ mode: "string" }).notNull(),
-    paidedAt: datetime3({ mode: "string" }),
-    withdrawingDate: datetime3({ mode: "string" }),
-    createdAt: datetime3({ mode: "string" }).notNull(),
-    updatedAt: datetime3({ mode: "string" }),
-    deletedAt: datetime3({ mode: "string" })
+    transactionDate: datetime3({ mode: "date" }).notNull(),
+    paidedAt: datetime3({ mode: "date" }),
+    withdrawingDate: datetime3({ mode: "date" }),
+    createdAt: datetime3({ mode: "date" }).notNull(),
+    updatedAt: datetime3({ mode: "date" }),
+    deletedAt: datetime3({ mode: "date" })
   },
   (table) => {
     return {
@@ -1858,20 +1849,18 @@ var transactionsHistory = mysqlTable3("transactionsHistory", {
   amount: float2().notNull(),
   transactionStatusDetail: varchar3({ length: 450 }),
   transactionErrorDetail: varchar3({ length: 200 }),
-  transactionDate: datetime3({ mode: "string" }).notNull(),
-  // you can use { mode: 'date' }, if you want to have Date as type for this column
+  transactionDate: datetime3({ mode: "date" }).notNull(),
   dueDate: date2({ mode: "date" }),
-  createdAt: datetime3({ mode: "string" }).notNull(),
-  updatedAt: datetime3({ mode: "string" }),
-  paidedAt: datetime3({ mode: "string" }),
-  withdrawingDate: datetime3({ mode: "string" }),
-  deletedAt: datetime3({ mode: "string" })
+  createdAt: datetime3({ mode: "date" }).notNull(),
+  updatedAt: datetime3({ mode: "date" }),
+  paidedAt: datetime3({ mode: "date" }),
+  withdrawingDate: datetime3({ mode: "date" }),
+  deletedAt: datetime3({ mode: "date" })
 });
 var transactionsSchedule = mysqlTable3(
   "transactions_schedule",
   {
     id: int3().autoincrement().notNull(),
-    // you can use { mode: 'date' }, if you want to have Date as type for this column
     scheduleDate: date2("schedule_date", { mode: "string" }).notNull(),
     flowId: int3("flow_id").notNull(),
     description: varchar3({ length: 45 }),

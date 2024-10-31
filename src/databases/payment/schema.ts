@@ -1,15 +1,15 @@
+import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import { sql } from "drizzle-orm";
 import { bigint, char, date, datetime, double, float, index, int, json, longtext, mediumtext, mysqlTable, mysqlView, primaryKey, text, tinyint, unique, varchar } from "drizzle-orm/mysql-core";
 
 export const charges = mysqlTable("charges", {
 	seqId: bigint({ mode: "number" }).autoincrement().notNull(),
-	createdAt: datetime({ mode: 'string'}).notNull(),
-	updatedAt: datetime({ mode: 'string'}),
-	deletedAt: datetime({ mode: 'string'}),
+	createdAt: datetime({ mode: 'date'}).notNull(),
+	updatedAt: datetime({ mode: 'date'}),
+	deletedAt: datetime({ mode: 'date'}),
 	amount: double({ precision: 10, scale: 2 }).notNull(),
 	totalAmount: double({ precision: 10, scale: 2 }).notNull(),
 	fees: double({ precision: 10, scale: 2 }).notNull(),
-	// you can use { mode: 'date' }, if you want to have Date as type for this column
 	dueDate: date({ mode: 'date' }),
 	currency: varchar({ length: 3 }).default('BRL').notNull(),
 	paymentOrderUrl: longtext(),
@@ -20,6 +20,9 @@ export const charges = mysqlTable("charges", {
 		chargesSeqId: primaryKey({ columns: [table.seqId], name: "charges_seqId"}),
 	}
 });
+
+export type Charge = InferSelectModel<typeof charges>;
+export type NewCharge = InferInsertModel<typeof charges>;
 
 export const companyFiles = mysqlTable("companyFiles", {
 	seqId: bigint({ mode: "number" }).autoincrement().notNull(),
@@ -38,6 +41,9 @@ export const companyFiles = mysqlTable("companyFiles", {
 	}
 });
 
+export type CompanyFile = InferSelectModel<typeof companyFiles>;
+export type NewCompanyFile = InferInsertModel<typeof companyFiles>;
+
 export const compositions = mysqlTable("compositions", {
 	seqId: int().autoincrement().notNull(),
 	chargeId: int().notNull(),
@@ -46,10 +52,8 @@ export const compositions = mysqlTable("compositions", {
 	paymentType: varchar({ length: 5 }),
 	document: varchar({ length: 50 }),
 	fullName: varchar({ length: 255 }),
-	// you can use { mode: 'date' }, if you want to have Date as type for this column
 	birthday: date({ mode: 'date' }),
 	transactionId: varchar({ length: 60 }),
-	// you can use { mode: 'date' }, if you want to have Date as type for this column
 	dueDate: date({ mode: 'date' }),
 	transactionStatus: varchar({ length: 50 }),
 	netValue: float(),
@@ -80,9 +84,9 @@ export const compositions = mysqlTable("compositions", {
 export const customerPayments = mysqlTable("customerPayments", {
 	seqId: bigint({ mode: "number" }).autoincrement().notNull(),
 	transactionId: varchar({ length: 60 }).notNull().references(() => transactions.transactionId),
-	createdAt: datetime({ mode: 'string'}).notNull(),
-	updatedAt: datetime({ mode: 'string'}),
-	deletedAt: datetime({ mode: 'string'}),
+	createdAt: datetime({ mode: 'date'}).notNull(),
+	updatedAt: datetime({ mode: 'date'}),
+	deletedAt: datetime({ mode: 'date'}),
 },
 (table) => {
 	return {
@@ -91,15 +95,18 @@ export const customerPayments = mysqlTable("customerPayments", {
 	}
 });
 
+export type CustomerPayment = InferSelectModel<typeof customerPayments>;
+export type NewCustomerPayment = InferInsertModel<typeof customerPayments>;
+
 export const influencerPayments = mysqlTable("influencerPayments", {
 	seqId: bigint({ mode: "number" }).autoincrement().notNull(),
 	transactionId: varchar({ length: 60 }).notNull().references(() => transactions.transactionId, { onDelete: "cascade", onUpdate: "cascade" } ),
 	recruitmentId: varchar({ length: 60 }).notNull(),
 	campaignId: varchar({ length: 50 }).notNull(),
 	campaignName: varchar({ length: 150 }).notNull(),
-	campaignEndDate: datetime({ mode: 'string'}),
+	campaignEndDate: datetime({ mode: 'date'}),
 	campaignTimezone: varchar({ length: 100 }),
-	dateUsedToCalculate: datetime({ mode: 'string'}),
+	dateUsedToCalculate: datetime({ mode: 'date'}),
 	squidId: varchar({ length: 60 }).notNull(),
 	instagramUsername: varchar({ length: 50 }),
 	instagramProfileId: bigint({ mode: "number" }),
@@ -110,9 +117,9 @@ export const influencerPayments = mysqlTable("influencerPayments", {
 	nfId: varchar({ length: 60 }),
 	whitelabelId: varchar({ length: 24 }),
 	whitelabelDomain: varchar({ length: 150 }),
-	createdAt: datetime({ mode: 'string'}).notNull(),
-	updatedAt: datetime({ mode: 'string'}),
-	deletedAt: datetime({ mode: 'string'}),
+	createdAt: datetime({ mode: 'date'}).notNull(),
+	updatedAt: datetime({ mode: 'date'}),
+	deletedAt: datetime({ mode: 'date'}),
 	paymentStatus: varchar({ length: 50 }).default('').notNull(),
 	// Warning: Can't parse float(10,2) from database
 	// float(10,2)Type: float(10,2)("amount").notNull(),
@@ -124,7 +131,6 @@ export const influencerPayments = mysqlTable("influencerPayments", {
 	responsibleId: varchar({ length: 200 }),
 	idPipefy: varchar({ length: 60 }),
 	description: varchar({ length: 50 }),
-	// you can use { mode: 'date' }, if you want to have Date as type for this column
 	customDueDate: date({ mode: 'date' }),
 	note: varchar({ length: 1000 }),
 },
@@ -135,6 +141,9 @@ export const influencerPayments = mysqlTable("influencerPayments", {
 		influencerPaymentsSeqId: primaryKey({ columns: [table.seqId], name: "influencerPayments_seqId"}),
 	}
 });
+
+export type InfluencerPayment = InferSelectModel<typeof influencerPayments>;
+export type NewInfluencerPayment = InferInsertModel<typeof influencerPayments>;
 
 export const influencerZoopBankAccounts = mysqlTable("influencerZoopBankAccounts", {
 	seqId: bigint({ mode: "number" }).autoincrement().notNull(),
@@ -152,9 +161,9 @@ export const influencerZoopBankAccounts = mysqlTable("influencerZoopBankAccounts
 	bankAccountVerificationNumber: varchar({ length: 1 }).notNull(),
 	bankAccountType: varchar({ length: 20 }).notNull(),
 	bankAccountHolderType: varchar({ length: 20 }).notNull(),
-	createdAt: datetime({ mode: 'string'}),
-	updatedAt: datetime({ mode: 'string'}),
-	deletedAt: datetime({ mode: 'string'}),
+	createdAt: datetime({ mode: 'date'}),
+	updatedAt: datetime({ mode: 'date'}),
+	deletedAt: datetime({ mode: 'date'}),
 },
 (table) => {
 	return {
@@ -162,6 +171,9 @@ export const influencerZoopBankAccounts = mysqlTable("influencerZoopBankAccounts
 		squidId: unique("squidId").on(table.squidId),
 	}
 });
+
+export type InfluencerZoopBankAccount = InferSelectModel<typeof influencerZoopBankAccounts>;
+export type NewInfluencerZoopBankAccount = InferInsertModel<typeof influencerZoopBankAccounts>;
 
 export const nfCnaes = mysqlTable("nf_cnaes", {
 	id: int().autoincrement().notNull(),
@@ -176,6 +188,9 @@ export const nfCnaes = mysqlTable("nf_cnaes", {
 		idUnique: unique("id_UNIQUE").on(table.id),
 	}
 });
+
+export type NfCnae = InferSelectModel<typeof nfCnaes>;
+export type NewNfCnae = InferInsertModel<typeof nfCnaes>;
 
 export const nfImport = mysqlTable("nf_import", {
 	id: int().autoincrement().notNull(),
@@ -210,6 +225,9 @@ export const nfImport = mysqlTable("nf_import", {
 	}
 });
 
+export type NfImport = InferSelectModel<typeof nfImport>;
+export type NewNfImport = InferInsertModel<typeof nfImport>;
+
 export const nfs = mysqlTable("nfs", {
 	seqId: bigint({ mode: "number" }).autoincrement().notNull(),
 	nfId: varchar({ length: 60 }).notNull(),
@@ -217,21 +235,19 @@ export const nfs = mysqlTable("nfs", {
 	squidId: varchar({ length: 60 }).notNull(),
 	serialnumber: varchar({ length: 45 }),
 	value: double(),
-	// you can use { mode: 'date' }, if you want to have Date as type for this column
 	emissionDate: date({ mode: 'date' }),
 	urlStorage: text().notNull(),
 	xmlUrlStorage: text(),
 	backofficeApproved: tinyint().default(0).notNull(),
 	parsedValue: double(),
-	// you can use { mode: 'date' }, if you want to have Date as type for this column
 	parsedEmissionDate: date({ mode: 'date' }),
 	parsedSerialNumber: varchar({ length: 45 }),
 	parsedCnae: varchar({ length: 45 }),
 	// Warning: Can't parse float(10,2) from database
 	// float(10,2)Type: float(10,2)("issValue"),
 	imported: varchar({ length: 90 }),
-	createdAt: datetime({ mode: 'string'}).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-	deletedAt: datetime({ mode: 'string'}),
+	createdAt: datetime({ mode: 'date'}).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+	deletedAt: datetime({ mode: 'date'}),
 },
 (table) => {
 	return {
@@ -239,6 +255,9 @@ export const nfs = mysqlTable("nfs", {
 		nfsSeqId: primaryKey({ columns: [table.seqId], name: "nfs_seqId"}),
 	}
 });
+
+export type Nf = InferSelectModel<typeof nfs>;
+export type NewNf = InferInsertModel<typeof nfs>;
 
 export const transactionBankAccounts = mysqlTable("transactionBankAccounts", {
 	seqId: bigint({ mode: "number" }).autoincrement().notNull(),
@@ -254,9 +273,9 @@ export const transactionBankAccounts = mysqlTable("transactionBankAccounts", {
 	bankAccountType: varchar({ length: 20 }).default('checking').notNull(),
 	bankAccountHolderType: varchar({ length: 2 }).default('PF').notNull(),
 	paymentGatewayToken: varchar({ length: 60 }),
-	createdAt: datetime({ mode: 'string'}).notNull(),
-	updatedAt: datetime({ mode: 'string'}),
-	deletedAt: datetime({ mode: 'string'}),
+	createdAt: datetime({ mode: 'date'}).notNull(),
+	updatedAt: datetime({ mode: 'date'}),
+	deletedAt: datetime({ mode: 'date'}),
 	paymentGatewayWithdrawTransactionId: varchar({ length: 60 }),
 	paymentGatewayWithdrawAuthorizationCode: varchar({ length: 100 }),
 },
@@ -267,6 +286,9 @@ export const transactionBankAccounts = mysqlTable("transactionBankAccounts", {
 	}
 });
 
+export type TransactionBankAccount = InferSelectModel<typeof transactionBankAccounts>;
+export type NewTransactionBankAccount = InferInsertModel<typeof transactionBankAccounts>;
+
 export const transactionBeneficiaries = mysqlTable("transactionBeneficiaries", {
 	seqId: bigint({ mode: "number" }).autoincrement().notNull(),
 	transactionId: varchar({ length: 60 }).notNull().references(() => transactions.transactionId, { onDelete: "cascade", onUpdate: "cascade" } ).references(() => transactions.transactionId),
@@ -275,12 +297,11 @@ export const transactionBeneficiaries = mysqlTable("transactionBeneficiaries", {
 	beneficiaryLastName: varchar({ length: 100 }),
 	beneficiaryEmail: varchar({ length: 100 }).notNull(),
 	beneficiaryDocumentNumber: varchar({ length: 20 }).notNull(),
-	// you can use { mode: 'date' }, if you want to have Date as type for this column
 	beneficiaryBirthDate: date({ mode: 'date' }),
 	paymentGatewayId: varchar({ length: 60 }),
-	createdAt: datetime({ mode: 'string'}).notNull(),
-	updatedAt: datetime({ mode: 'string'}),
-	deletedAt: datetime({ mode: 'string'}),
+	createdAt: datetime({ mode: 'date'}).notNull(),
+	updatedAt: datetime({ mode: 'date'}),
+	deletedAt: datetime({ mode: 'date'}),
 	recordEmployment: varchar({ length: 50 }),
 	companyFileId: int(),
 },
@@ -290,6 +311,9 @@ export const transactionBeneficiaries = mysqlTable("transactionBeneficiaries", {
 		transactionIdUnique: unique("transactionId_UNIQUE").on(table.transactionId),
 	}
 });
+
+export type TransactionBeneficiary = InferSelectModel<typeof transactionBeneficiaries>;
+export type NewTransactionBeneficiary = InferInsertModel<typeof transactionBeneficiaries>;
 
 export const transactions = mysqlTable("transactions", {
 	transactionId: varchar({ length: 60 }).notNull(),
@@ -335,14 +359,13 @@ export const transactions = mysqlTable("transactions", {
 	paymentGatewayTransactionId: varchar({ length: 255 }),
 	paymentGatewayReceiptUrl: varchar({ length: 450 }),
 	paymentGatewayReceiptBankUrl: varchar({ length: 450 }),
-	// you can use { mode: 'date' }, if you want to have Date as type for this column
 	dueDate: date({ mode: 'date' }),
-	transactionDate: datetime({ mode: 'string'}).notNull(),
-	paidedAt: datetime({ mode: 'string'}),
-	withdrawingDate: datetime({ mode: 'string'}),
-	createdAt: datetime({ mode: 'string'}).notNull(),
-	updatedAt: datetime({ mode: 'string'}),
-	deletedAt: datetime({ mode: 'string'}),
+	transactionDate: datetime({ mode: 'date'}).notNull(),
+	paidedAt: datetime({ mode: 'date'}),
+	withdrawingDate: datetime({ mode: 'date'}),
+	createdAt: datetime({ mode: 'date'}).notNull(),
+	updatedAt: datetime({ mode: 'date'}),
+	deletedAt: datetime({ mode: 'date'}),
 },
 (table) => {
 	return {
@@ -351,6 +374,9 @@ export const transactions = mysqlTable("transactions", {
 		transactionsTransactionId: primaryKey({ columns: [table.transactionId], name: "transactions_transactionId"}),
 	}
 });
+
+export type Transaction = InferSelectModel<typeof transactions>;
+export type NewTransaction = InferInsertModel<typeof transactions>;
 
 export const transactionsHistory = mysqlTable("transactionsHistory", {
 	transactionId: varchar({ length: 60 }).notNull(),
@@ -377,19 +403,17 @@ export const transactionsHistory = mysqlTable("transactionsHistory", {
 	amount: float().notNull(),
 	transactionStatusDetail: varchar({ length: 450 }),
 	transactionErrorDetail: varchar({ length: 200 }),
-	transactionDate: datetime({ mode: 'string'}).notNull(),
-	// you can use { mode: 'date' }, if you want to have Date as type for this column
+	transactionDate: datetime({ mode: 'date'}).notNull(),
 	dueDate: date({ mode: 'date' }),
-	createdAt: datetime({ mode: 'string'}).notNull(),
-	updatedAt: datetime({ mode: 'string'}),
-	paidedAt: datetime({ mode: 'string'}),
-	withdrawingDate: datetime({ mode: 'string'}),
-	deletedAt: datetime({ mode: 'string'}),
+	createdAt: datetime({ mode: 'date'}).notNull(),
+	updatedAt: datetime({ mode: 'date'}),
+	paidedAt: datetime({ mode: 'date'}),
+	withdrawingDate: datetime({ mode: 'date'}),
+	deletedAt: datetime({ mode: 'date'}),
 });
 
 export const transactionsSchedule = mysqlTable("transactions_schedule", {
 	id: int().autoincrement().notNull(),
-	// you can use { mode: 'date' }, if you want to have Date as type for this column
 	scheduleDate: date("schedule_date", { mode: 'string' }).notNull(),
 	flowId: int("flow_id").notNull(),
 	description: varchar({ length: 45 }),
@@ -403,6 +427,9 @@ export const transactionsSchedule = mysqlTable("transactions_schedule", {
 	}
 });
 
+export type TransactionsSchedule = InferSelectModel<typeof transactionsSchedule>;
+export type NewTransactionsSchedule = InferInsertModel<typeof transactionsSchedule>
+
 export const transfeeraRawDataCallback = mysqlTable("transfeeraRawDataCallback", {
 	id: int({ unsigned: true }).autoincrement().notNull(),
 	header: mediumtext().notNull(),
@@ -415,6 +442,9 @@ export const transfeeraRawDataCallback = mysqlTable("transfeeraRawDataCallback",
 		transfeeraRawDataCallbackId: primaryKey({ columns: [table.id], name: "transfeeraRawDataCallback_id"}),
 	}
 });
+
+export type TransfeeraRawDataCallback = InferSelectModel<typeof transfeeraRawDataCallback>;
+export type NewTransfeeraRawDataCallback = InferInsertModel<typeof transfeeraRawDataCallback>
 
 export const webhooksLogs = mysqlTable("webhooks_logs", {
 	id: int().autoincrement().notNull(),
@@ -431,6 +461,10 @@ export const webhooksLogs = mysqlTable("webhooks_logs", {
 		idUnique: unique("id_UNIQUE").on(table.id),
 	}
 });
+
+export type WebhooksLog = InferSelectModel<typeof webhooksLogs>;
+export type NewWebhooksLog = InferInsertModel<typeof webhooksLogs>;
+
 export const dueDateTransactions = mysqlView("dueDate_transactions", {
 	dueDate: int().default(0).notNull(),
 	minCreatedAt: int("min_createdAt").default(0).notNull(),
@@ -450,6 +484,7 @@ export const dueDateTransactions = mysqlView("dueDate_transactions", {
 	countWithdrawing: int("count_withdrawing").default(0).notNull(),
 	somaWithdrawing: int("soma_withdrawing").default(0).notNull(),
 }).algorithm("undefined").sqlSecurity("definer").as(sql`select 1 AS \`dueDate\`,1 AS \`min_createdAt\`,1 AS \`max_createdAt\`,1 AS \`count_total\`,1 AS \`sum_total\`,1 AS \`count_paid\`,1 AS \`soma_paid\`,1 AS \`count_new\`,1 AS \`soma_new\`,1 AS \`count_pending\`,1 AS \`soma_pending\`,1 AS \`count_processing\`,1 AS \`soma_processing\`,1 AS \`count_readyToPay\`,1 AS \`soma_readyToPay\`,1 AS \`count_withdrawing\`,1 AS \`soma_withdrawing\``);
+
 
 export const transactionConsolidated = mysqlView("transaction_consolidated", {
 	transactionId: int().default(0).notNull(),

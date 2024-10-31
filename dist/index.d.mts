@@ -1,4 +1,5 @@
 import * as drizzle_orm_mysql_core from 'drizzle-orm/mysql-core';
+import { InferSelectModel, InferInsertModel } from 'drizzle-orm';
 
 declare const blockedtags: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "blockedtags";
@@ -158,9 +159,9 @@ declare const blockedusers: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "blockedusers";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -174,9 +175,9 @@ declare const blockedusers: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "blockedusers";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -190,9 +191,9 @@ declare const blockedusers: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         logstashProcessedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "logstashProcessedAt";
             tableName: "blockedusers";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -206,9 +207,9 @@ declare const blockedusers: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deletedAt";
             tableName: "blockedusers";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -444,9 +445,9 @@ declare const facebookTokens: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "facebookTokens";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -460,9 +461,9 @@ declare const facebookTokens: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "facebookTokens";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -492,9 +493,9 @@ declare const facebookTokens: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         expiresAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "expiresAt";
             tableName: "facebookTokens";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -730,9 +731,9 @@ declare const googleTokens: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "googleTokens";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -746,9 +747,9 @@ declare const googleTokens: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "googleTokens";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -778,9 +779,9 @@ declare const googleTokens: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         expiresAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "expiresAt";
             tableName: "googleTokens";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -984,9 +985,9 @@ declare const influencerMetrics: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         date: drizzle_orm_mysql_core.MySqlColumn<{
             name: "date";
             tableName: "influencer_metrics";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -1064,9 +1065,9 @@ declare const influencerMetrics: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "influencer_metrics";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -1080,9 +1081,9 @@ declare const influencerMetrics: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "influencer_metrics";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -1551,9 +1552,9 @@ declare const instagramProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "instagramProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -1567,9 +1568,9 @@ declare const instagramProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "instagramProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -1583,9 +1584,9 @@ declare const instagramProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         logstashProcessedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "logstashProcessedAt";
             tableName: "instagramProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -1775,9 +1776,9 @@ declare const instagramProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         categorizedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "categorizedAt";
             tableName: "instagramProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -2703,9 +2704,9 @@ declare const instagramProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         identifyAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "identifyAt";
             tableName: "instagramProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -4070,9 +4071,9 @@ declare const locations: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "locations";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -4086,9 +4087,9 @@ declare const locations: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "locations";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -4173,9 +4174,9 @@ declare const notSearchableUsers: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "notSearchableUsers";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -4189,9 +4190,9 @@ declare const notSearchableUsers: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "notSearchableUsers";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -4388,9 +4389,9 @@ declare const pinterestProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         since: drizzle_orm_mysql_core.MySqlColumn<{
             name: "since";
             tableName: "pinterestProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -4580,9 +4581,9 @@ declare const pinterestProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "pinterestProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -4596,9 +4597,9 @@ declare const pinterestProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "pinterestProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -4843,9 +4844,9 @@ declare const profileAdditionalInfoBanks: drizzle_orm_mysql_core.MySqlTableWithC
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "profileAdditionalInfoBanks";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -4859,9 +4860,9 @@ declare const profileAdditionalInfoBanks: drizzle_orm_mysql_core.MySqlTableWithC
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "profileAdditionalInfoBanks";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -5099,9 +5100,9 @@ declare const profileAdditionalInfoBanks: drizzle_orm_mysql_core.MySqlTableWithC
         verificatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "verificatedAt";
             tableName: "profileAdditionalInfoBanks";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -5474,9 +5475,9 @@ declare const profileAdditionalInfos: drizzle_orm_mysql_core.MySqlTableWithColum
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "profileAdditionalInfos";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -5490,9 +5491,9 @@ declare const profileAdditionalInfos: drizzle_orm_mysql_core.MySqlTableWithColum
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "profileAdditionalInfos";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -5650,9 +5651,9 @@ declare const profileAdditionalInfos: drizzle_orm_mysql_core.MySqlTableWithColum
         phoneValidCodeCreatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "phoneValidCodeCreatedAt";
             tableName: "profileAdditionalInfos";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -6233,9 +6234,9 @@ declare const profileAdditionalInfosOld: drizzle_orm_mysql_core.MySqlTableWithCo
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "profileAdditionalInfos_old";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -6249,9 +6250,9 @@ declare const profileAdditionalInfosOld: drizzle_orm_mysql_core.MySqlTableWithCo
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "profileAdditionalInfos_old";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -6425,9 +6426,9 @@ declare const profileAdditionalInfosOld: drizzle_orm_mysql_core.MySqlTableWithCo
         phoneValidCodeCreatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "phoneValidCodeCreatedAt";
             tableName: "profileAdditionalInfos_old";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -6928,9 +6929,9 @@ declare const profileAdditionalInfosWhitelabels: drizzle_orm_mysql_core.MySqlTab
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "profileAdditionalInfos_whitelabels";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -6944,9 +6945,9 @@ declare const profileAdditionalInfosWhitelabels: drizzle_orm_mysql_core.MySqlTab
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "profileAdditionalInfos_whitelabels";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -7104,9 +7105,9 @@ declare const profileAdditionalInfosWhitelabels: drizzle_orm_mysql_core.MySqlTab
         phoneValidCodeCreatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "phoneValidCodeCreatedAt";
             tableName: "profileAdditionalInfos_whitelabels";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -7557,9 +7558,9 @@ declare const profiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "profiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -7589,9 +7590,9 @@ declare const profiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deletedAt";
             tableName: "profiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -8532,9 +8533,9 @@ declare const socialNetworkProfiles: drizzle_orm_mysql_core.MySqlTableWithColumn
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "socialNetworkProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -8548,9 +8549,9 @@ declare const socialNetworkProfiles: drizzle_orm_mysql_core.MySqlTableWithColumn
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "socialNetworkProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -8619,9 +8620,9 @@ declare const socialNetworkProfilesCache: drizzle_orm_mysql_core.MySqlTableWithC
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "socialNetworkProfilesCache";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -8635,9 +8636,9 @@ declare const socialNetworkProfilesCache: drizzle_orm_mysql_core.MySqlTableWithC
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "socialNetworkProfilesCache";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -8706,9 +8707,9 @@ declare const socialNetworkProfilesCacheNew: drizzle_orm_mysql_core.MySqlTableWi
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "socialNetworkProfilesCache_new";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -8722,9 +8723,9 @@ declare const socialNetworkProfilesCacheNew: drizzle_orm_mysql_core.MySqlTableWi
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "socialNetworkProfilesCache_new";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -8809,9 +8810,9 @@ declare const socialNetworkProfilesCategories: drizzle_orm_mysql_core.MySqlTable
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "socialNetworkProfilesCategories";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -8928,9 +8929,9 @@ declare const socialNetworkProfilesCategoriesWhitelabels: drizzle_orm_mysql_core
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "socialNetworkProfilesCategories_whitelabels";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -9031,9 +9032,9 @@ declare const socialNetworkProfilesWhitelabels: drizzle_orm_mysql_core.MySqlTabl
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "socialNetworkProfiles_whitelabels";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -9047,9 +9048,9 @@ declare const socialNetworkProfilesWhitelabels: drizzle_orm_mysql_core.MySqlTabl
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "socialNetworkProfiles_whitelabels";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -9461,9 +9462,9 @@ declare const tiktokProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "tiktokProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -9477,9 +9478,9 @@ declare const tiktokProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "tiktokProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -9493,9 +9494,9 @@ declare const tiktokProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         lastPictureUpdatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "lastPictureUpdatedAt";
             tableName: "tiktokProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -9541,9 +9542,9 @@ declare const tiktokProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         processAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "processAt";
             tableName: "tiktokProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -9660,9 +9661,9 @@ declare const tiktokTokens: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         expiresAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "expiresAt";
             tableName: "tiktokTokens";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -9676,9 +9677,9 @@ declare const tiktokTokens: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "tiktokTokens";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -9692,9 +9693,9 @@ declare const tiktokTokens: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "tiktokTokens";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -9827,9 +9828,9 @@ declare const twitterProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "twitterProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -9843,9 +9844,9 @@ declare const twitterProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "twitterProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -10179,9 +10180,9 @@ declare const twitterProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         processAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "processAt";
             tableName: "twitterProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -10234,9 +10235,9 @@ declare const twitterTokens: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "twitterTokens";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -10250,9 +10251,9 @@ declare const twitterTokens: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "twitterTokens";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -10577,9 +10578,9 @@ declare const youtubeProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         since: drizzle_orm_mysql_core.MySqlColumn<{
             name: "since";
             tableName: "youtubeProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -11041,9 +11042,9 @@ declare const youtubeProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "youtubeProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -11057,9 +11058,9 @@ declare const youtubeProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "youtubeProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -11073,9 +11074,9 @@ declare const youtubeProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         logstashProcessedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "logstashProcessedAt";
             tableName: "youtubeProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -11137,9 +11138,9 @@ declare const youtubeProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         processAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "processAt";
             tableName: "youtubeProfiles";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -14398,9 +14399,9 @@ declare const charges: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "charges";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -14414,9 +14415,9 @@ declare const charges: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "charges";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -14430,9 +14431,9 @@ declare const charges: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deletedAt";
             tableName: "charges";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -14558,6 +14559,8 @@ declare const charges: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     };
     dialect: "mysql";
 }>;
+type Charge = InferSelectModel<typeof charges>;
+type NewCharge = InferInsertModel<typeof charges>;
 declare const companyFiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "companyFiles";
     schema: undefined;
@@ -14709,6 +14712,8 @@ declare const companyFiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     };
     dialect: "mysql";
 }>;
+type CompanyFile = InferSelectModel<typeof companyFiles>;
+type NewCompanyFile = InferInsertModel<typeof companyFiles>;
 declare const compositions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "compositions";
     schema: undefined;
@@ -15203,9 +15208,9 @@ declare const customerPayments: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "customerPayments";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -15219,9 +15224,9 @@ declare const customerPayments: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "customerPayments";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -15235,9 +15240,9 @@ declare const customerPayments: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deletedAt";
             tableName: "customerPayments";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -15251,6 +15256,8 @@ declare const customerPayments: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     };
     dialect: "mysql";
 }>;
+type CustomerPayment = InferSelectModel<typeof customerPayments>;
+type NewCustomerPayment = InferInsertModel<typeof customerPayments>;
 declare const influencerPayments: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "influencerPayments";
     schema: undefined;
@@ -15338,9 +15345,9 @@ declare const influencerPayments: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         campaignEndDate: drizzle_orm_mysql_core.MySqlColumn<{
             name: "campaignEndDate";
             tableName: "influencerPayments";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -15370,9 +15377,9 @@ declare const influencerPayments: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         dateUsedToCalculate: drizzle_orm_mysql_core.MySqlColumn<{
             name: "dateUsedToCalculate";
             tableName: "influencerPayments";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -15546,9 +15553,9 @@ declare const influencerPayments: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "influencerPayments";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -15562,9 +15569,9 @@ declare const influencerPayments: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "influencerPayments";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -15578,9 +15585,9 @@ declare const influencerPayments: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deletedAt";
             tableName: "influencerPayments";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -15770,6 +15777,8 @@ declare const influencerPayments: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     };
     dialect: "mysql";
 }>;
+type InfluencerPayment = InferSelectModel<typeof influencerPayments>;
+type NewInfluencerPayment = InferInsertModel<typeof influencerPayments>;
 declare const influencerZoopBankAccounts: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "influencerZoopBankAccounts";
     schema: undefined;
@@ -16017,9 +16026,9 @@ declare const influencerZoopBankAccounts: drizzle_orm_mysql_core.MySqlTableWithC
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "influencerZoopBankAccounts";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -16033,9 +16042,9 @@ declare const influencerZoopBankAccounts: drizzle_orm_mysql_core.MySqlTableWithC
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "influencerZoopBankAccounts";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -16049,9 +16058,9 @@ declare const influencerZoopBankAccounts: drizzle_orm_mysql_core.MySqlTableWithC
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deletedAt";
             tableName: "influencerZoopBankAccounts";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -16065,6 +16074,8 @@ declare const influencerZoopBankAccounts: drizzle_orm_mysql_core.MySqlTableWithC
     };
     dialect: "mysql";
 }>;
+type InfluencerZoopBankAccount = InferSelectModel<typeof influencerZoopBankAccounts>;
+type NewInfluencerZoopBankAccount = InferInsertModel<typeof influencerZoopBankAccounts>;
 declare const nfCnaes: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "nf_cnaes";
     schema: undefined;
@@ -16152,6 +16163,8 @@ declare const nfCnaes: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     };
     dialect: "mysql";
 }>;
+type NfCnae = InferSelectModel<typeof nfCnaes>;
+type NewNfCnae = InferInsertModel<typeof nfCnaes>;
 declare const nfImport: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "nf_import";
     schema: undefined;
@@ -16527,6 +16540,8 @@ declare const nfImport: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     };
     dialect: "mysql";
 }>;
+type NfImport = InferSelectModel<typeof nfImport>;
+type NewNfImport = InferInsertModel<typeof nfImport>;
 declare const nfs: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "nfs";
     schema: undefined;
@@ -16774,9 +16789,9 @@ declare const nfs: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "nfs";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -16790,9 +16805,9 @@ declare const nfs: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deletedAt";
             tableName: "nfs";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -16806,6 +16821,8 @@ declare const nfs: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     };
     dialect: "mysql";
 }>;
+type Nf = InferSelectModel<typeof nfs>;
+type NewNf = InferInsertModel<typeof nfs>;
 declare const transactionBankAccounts: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "transactionBankAccounts";
     schema: undefined;
@@ -17021,9 +17038,9 @@ declare const transactionBankAccounts: drizzle_orm_mysql_core.MySqlTableWithColu
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "transactionBankAccounts";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -17037,9 +17054,9 @@ declare const transactionBankAccounts: drizzle_orm_mysql_core.MySqlTableWithColu
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "transactionBankAccounts";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -17053,9 +17070,9 @@ declare const transactionBankAccounts: drizzle_orm_mysql_core.MySqlTableWithColu
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deletedAt";
             tableName: "transactionBankAccounts";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -17101,6 +17118,8 @@ declare const transactionBankAccounts: drizzle_orm_mysql_core.MySqlTableWithColu
     };
     dialect: "mysql";
 }>;
+type TransactionBankAccount = InferSelectModel<typeof transactionBankAccounts>;
+type NewTransactionBankAccount = InferInsertModel<typeof transactionBankAccounts>;
 declare const transactionBeneficiaries: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "transactionBeneficiaries";
     schema: undefined;
@@ -17252,9 +17271,9 @@ declare const transactionBeneficiaries: drizzle_orm_mysql_core.MySqlTableWithCol
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "transactionBeneficiaries";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -17268,9 +17287,9 @@ declare const transactionBeneficiaries: drizzle_orm_mysql_core.MySqlTableWithCol
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "transactionBeneficiaries";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -17284,9 +17303,9 @@ declare const transactionBeneficiaries: drizzle_orm_mysql_core.MySqlTableWithCol
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deletedAt";
             tableName: "transactionBeneficiaries";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -17332,6 +17351,8 @@ declare const transactionBeneficiaries: drizzle_orm_mysql_core.MySqlTableWithCol
     };
     dialect: "mysql";
 }>;
+type TransactionBeneficiary = InferSelectModel<typeof transactionBeneficiaries>;
+type NewTransactionBeneficiary = InferInsertModel<typeof transactionBeneficiaries>;
 declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "transactions";
     schema: undefined;
@@ -17627,9 +17648,9 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         transactionDate: drizzle_orm_mysql_core.MySqlColumn<{
             name: "transactionDate";
             tableName: "transactions";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -17643,9 +17664,9 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         paidedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "paidedAt";
             tableName: "transactions";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -17659,9 +17680,9 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         withdrawingDate: drizzle_orm_mysql_core.MySqlColumn<{
             name: "withdrawingDate";
             tableName: "transactions";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -17675,9 +17696,9 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "transactions";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -17691,9 +17712,9 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "transactions";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -17707,9 +17728,9 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deletedAt";
             tableName: "transactions";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -17723,6 +17744,8 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     };
     dialect: "mysql";
 }>;
+type Transaction = InferSelectModel<typeof transactions>;
+type NewTransaction = InferInsertModel<typeof transactions>;
 declare const transactionsHistory: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "transactionsHistory";
     schema: undefined;
@@ -18082,9 +18105,9 @@ declare const transactionsHistory: drizzle_orm_mysql_core.MySqlTableWithColumns<
         transactionDate: drizzle_orm_mysql_core.MySqlColumn<{
             name: "transactionDate";
             tableName: "transactionsHistory";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -18114,9 +18137,9 @@ declare const transactionsHistory: drizzle_orm_mysql_core.MySqlTableWithColumns<
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "createdAt";
             tableName: "transactionsHistory";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -18130,9 +18153,9 @@ declare const transactionsHistory: drizzle_orm_mysql_core.MySqlTableWithColumns<
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updatedAt";
             tableName: "transactionsHistory";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -18146,9 +18169,9 @@ declare const transactionsHistory: drizzle_orm_mysql_core.MySqlTableWithColumns<
         paidedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "paidedAt";
             tableName: "transactionsHistory";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -18162,9 +18185,9 @@ declare const transactionsHistory: drizzle_orm_mysql_core.MySqlTableWithColumns<
         withdrawingDate: drizzle_orm_mysql_core.MySqlColumn<{
             name: "withdrawingDate";
             tableName: "transactionsHistory";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -18178,9 +18201,9 @@ declare const transactionsHistory: drizzle_orm_mysql_core.MySqlTableWithColumns<
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deletedAt";
             tableName: "transactionsHistory";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -18297,6 +18320,8 @@ declare const transactionsSchedule: drizzle_orm_mysql_core.MySqlTableWithColumns
     };
     dialect: "mysql";
 }>;
+type TransactionsSchedule = InferSelectModel<typeof transactionsSchedule>;
+type NewTransactionsSchedule = InferInsertModel<typeof transactionsSchedule>;
 declare const transfeeraRawDataCallback: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "transfeeraRawDataCallback";
     schema: undefined;
@@ -18384,6 +18409,8 @@ declare const transfeeraRawDataCallback: drizzle_orm_mysql_core.MySqlTableWithCo
     };
     dialect: "mysql";
 }>;
+type TransfeeraRawDataCallback = InferSelectModel<typeof transfeeraRawDataCallback>;
+type NewTransfeeraRawDataCallback = InferInsertModel<typeof transfeeraRawDataCallback>;
 declare const webhooksLogs: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "webhooks_logs";
     schema: undefined;
@@ -18503,6 +18530,8 @@ declare const webhooksLogs: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     };
     dialect: "mysql";
 }>;
+type WebhooksLog = InferSelectModel<typeof webhooksLogs>;
+type NewWebhooksLog = InferInsertModel<typeof webhooksLogs>;
 declare const dueDateTransactions: drizzle_orm_mysql_core.MySqlViewWithSelection<"dueDate_transactions", false, {
     dueDate: drizzle_orm_mysql_core.MySqlColumn<{
         name: "dueDate";
@@ -21018,6 +21047,34 @@ declare const vmTransactionsReadyToPayInCurrentMonth: drizzle_orm_mysql_core.MyS
     }, object>;
 }>;
 
+type schema_Charge = Charge;
+type schema_CompanyFile = CompanyFile;
+type schema_CustomerPayment = CustomerPayment;
+type schema_InfluencerPayment = InfluencerPayment;
+type schema_InfluencerZoopBankAccount = InfluencerZoopBankAccount;
+type schema_NewCharge = NewCharge;
+type schema_NewCompanyFile = NewCompanyFile;
+type schema_NewCustomerPayment = NewCustomerPayment;
+type schema_NewInfluencerPayment = NewInfluencerPayment;
+type schema_NewInfluencerZoopBankAccount = NewInfluencerZoopBankAccount;
+type schema_NewNf = NewNf;
+type schema_NewNfCnae = NewNfCnae;
+type schema_NewNfImport = NewNfImport;
+type schema_NewTransaction = NewTransaction;
+type schema_NewTransactionBankAccount = NewTransactionBankAccount;
+type schema_NewTransactionBeneficiary = NewTransactionBeneficiary;
+type schema_NewTransactionsSchedule = NewTransactionsSchedule;
+type schema_NewTransfeeraRawDataCallback = NewTransfeeraRawDataCallback;
+type schema_NewWebhooksLog = NewWebhooksLog;
+type schema_Nf = Nf;
+type schema_NfCnae = NfCnae;
+type schema_NfImport = NfImport;
+type schema_Transaction = Transaction;
+type schema_TransactionBankAccount = TransactionBankAccount;
+type schema_TransactionBeneficiary = TransactionBeneficiary;
+type schema_TransactionsSchedule = TransactionsSchedule;
+type schema_TransfeeraRawDataCallback = TransfeeraRawDataCallback;
+type schema_WebhooksLog = WebhooksLog;
 declare const schema_anoMesDueDateTransactions: typeof anoMesDueDateTransactions;
 declare const schema_campaignsTransactions: typeof campaignsTransactions;
 declare const schema_charges: typeof charges;
@@ -21044,7 +21101,7 @@ declare const schema_vwTransactionsWithoutInfluencerPayment: typeof vwTransactio
 declare const schema_vwTransfeeraWebhookReturn: typeof vwTransfeeraWebhookReturn;
 declare const schema_webhooksLogs: typeof webhooksLogs;
 declare namespace schema {
-  export { schema_anoMesDueDateTransactions as anoMesDueDateTransactions, schema_campaignsTransactions as campaignsTransactions, schema_charges as charges, schema_companyFiles as companyFiles, schema_compositions as compositions, schema_customerPayments as customerPayments, schema_dueDateTransactions as dueDateTransactions, schema_influencerPayments as influencerPayments, schema_influencerZoopBankAccounts as influencerZoopBankAccounts, schema_influencersTotalTransactions as influencersTotalTransactions, schema_nfCnaes as nfCnaes, schema_nfImport as nfImport, schema_nfs as nfs, schema_pagamentosForaDoPrazo as pagamentosForaDoPrazo, schema_transactionBankAccounts as transactionBankAccounts, schema_transactionBeneficiaries as transactionBeneficiaries, schema_transactionConsolidated as transactionConsolidated, schema_transactions as transactions, schema_transactionsHistory as transactionsHistory, schema_transactionsSchedule as transactionsSchedule, schema_transfeeraRawDataCallback as transfeeraRawDataCallback, schema_vmTransactionsReadyToPayInCurrentMonth as vmTransactionsReadyToPayInCurrentMonth, schema_vwTransactionsWithoutInfluencerPayment as vwTransactionsWithoutInfluencerPayment, schema_vwTransfeeraWebhookReturn as vwTransfeeraWebhookReturn, schema_webhooksLogs as webhooksLogs };
+  export { type schema_Charge as Charge, type schema_CompanyFile as CompanyFile, type schema_CustomerPayment as CustomerPayment, type schema_InfluencerPayment as InfluencerPayment, type schema_InfluencerZoopBankAccount as InfluencerZoopBankAccount, type schema_NewCharge as NewCharge, type schema_NewCompanyFile as NewCompanyFile, type schema_NewCustomerPayment as NewCustomerPayment, type schema_NewInfluencerPayment as NewInfluencerPayment, type schema_NewInfluencerZoopBankAccount as NewInfluencerZoopBankAccount, type schema_NewNf as NewNf, type schema_NewNfCnae as NewNfCnae, type schema_NewNfImport as NewNfImport, type schema_NewTransaction as NewTransaction, type schema_NewTransactionBankAccount as NewTransactionBankAccount, type schema_NewTransactionBeneficiary as NewTransactionBeneficiary, type schema_NewTransactionsSchedule as NewTransactionsSchedule, type schema_NewTransfeeraRawDataCallback as NewTransfeeraRawDataCallback, type schema_NewWebhooksLog as NewWebhooksLog, type schema_Nf as Nf, type schema_NfCnae as NfCnae, type schema_NfImport as NfImport, type schema_Transaction as Transaction, type schema_TransactionBankAccount as TransactionBankAccount, type schema_TransactionBeneficiary as TransactionBeneficiary, type schema_TransactionsSchedule as TransactionsSchedule, type schema_TransfeeraRawDataCallback as TransfeeraRawDataCallback, type schema_WebhooksLog as WebhooksLog, schema_anoMesDueDateTransactions as anoMesDueDateTransactions, schema_campaignsTransactions as campaignsTransactions, schema_charges as charges, schema_companyFiles as companyFiles, schema_compositions as compositions, schema_customerPayments as customerPayments, schema_dueDateTransactions as dueDateTransactions, schema_influencerPayments as influencerPayments, schema_influencerZoopBankAccounts as influencerZoopBankAccounts, schema_influencersTotalTransactions as influencersTotalTransactions, schema_nfCnaes as nfCnaes, schema_nfImport as nfImport, schema_nfs as nfs, schema_pagamentosForaDoPrazo as pagamentosForaDoPrazo, schema_transactionBankAccounts as transactionBankAccounts, schema_transactionBeneficiaries as transactionBeneficiaries, schema_transactionConsolidated as transactionConsolidated, schema_transactions as transactions, schema_transactionsHistory as transactionsHistory, schema_transactionsSchedule as transactionsSchedule, schema_transfeeraRawDataCallback as transfeeraRawDataCallback, schema_vmTransactionsReadyToPayInCurrentMonth as vmTransactionsReadyToPayInCurrentMonth, schema_vwTransactionsWithoutInfluencerPayment as vwTransactionsWithoutInfluencerPayment, schema_vwTransfeeraWebhookReturn as vwTransfeeraWebhookReturn, schema_webhooksLogs as webhooksLogs };
 }
 
 export { schema$2 as influencersDb, schema$1 as npsDb, schema as paymentDb };
