@@ -4,11 +4,6 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// src/index.ts
-import * as drizzleOrm from "drizzle-orm";
-import * as drizzleMySqlCore from "drizzle-orm/mysql-core";
-import * as drizzleMysql2 from "drizzle-orm/mysql2";
-
 // src/databases/influencers/schema.ts
 var schema_exports = {};
 __export(schema_exports, {
@@ -2098,9 +2093,6 @@ var vmTransactionsReadyToPayInCurrentMonth = mysqlView2("VM_TRANSACTIONS_READY_T
   bankAccountDigit: int3().default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(sql3`select 1 AS \`squidId\`,1 AS \`verificationStatus\`,1 AS \`verificationId\`,1 AS \`transactionId\`,1 AS \`dueDate\`,1 AS \`createdAt\`,1 AS \`netValue\`,1 AS \`transactionStatus\`,1 AS \`paidedAt\`,1 AS \`withdrawingDate\`,1 AS \`verificatedAt\`,1 AS \`updatedAt\`,1 AS \`bankAccountType\`,1 AS \`profileId\`,1 AS \`holderName\`,1 AS \`holderDocument\`,1 AS \`bankCode\`,1 AS \`bankAccountAgency\`,1 AS \`bankAccountNumber\`,1 AS \`bankAccountDigit\``);
 export {
-  drizzleMySqlCore,
-  drizzleMysql2,
-  drizzleOrm,
   schema_exports as influencersDb,
   schema_exports2 as npsDb,
   schema_exports3 as paymentDb

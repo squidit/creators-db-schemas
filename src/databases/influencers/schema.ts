@@ -38,14 +38,11 @@ export const deletedProfiles = mysqlTable("deletedProfiles", {
 	profileId: varchar({ length: 50 }).notNull(),
 	community: varchar({ length: 255 }),
 	motivation: varchar({ length: 255 }).notNull(),
-
 	deletionDate: date({ mode: 'date' }).notNull(),
 	email: varchar({ length: 255 }),
 	document: varchar({ length: 45 }),
 	recordEmployment: varchar({ length: 50 }),
-
 	createdAt: date({ mode: 'date' }),
-
 	updatedAt: date({ mode: 'date' }),
 },
 (table) => {
@@ -321,7 +318,6 @@ export const instagramProfiles = mysqlTable("instagramProfiles", {
 	return {
 		usernameIdx: index("username_index").on(table.username),
 		idxInstagramProfilesFacebookUserId: index("idx_instagramProfiles_facebookUserId").on(table.facebookUserId),
-		// searchableIdx: index().on(table.searchable),
 		oldIgIdIdx: index("instagramProfiles_oldIgId_IDX").on(table.oldIgId),
 		instagramProfilesId: primaryKey({ columns: [table.id], name: "instagramProfiles_id"}),
 	}
@@ -439,7 +435,6 @@ export const profileAdditionalInfos = mysqlTable("profileAdditionalInfos", {
 	document: varchar({ length: 50 }),
 	name: varchar({ length: 255 }).notNull(),
 	blog: varchar({ length: 255 }),
-
 	birthday: date({ mode: 'date' }).notNull(),
 	gender: char({ length: 1 }),
 	phone: varchar({ length: 25 }),

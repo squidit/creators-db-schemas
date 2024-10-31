@@ -1,9 +1,7 @@
 "use strict";
-var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -17,30 +15,16 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
-  drizzleMySqlCore: () => drizzleMySqlCore,
-  drizzleMysql2: () => drizzleMysql2,
-  drizzleOrm: () => drizzleOrm,
   influencersDb: () => schema_exports,
   npsDb: () => schema_exports2,
   paymentDb: () => schema_exports3
 });
 module.exports = __toCommonJS(src_exports);
-var drizzleOrm = __toESM(require("drizzle-orm"));
-var drizzleMySqlCore = __toESM(require("drizzle-orm/mysql-core"));
-var drizzleMysql2 = __toESM(require("drizzle-orm/mysql2"));
 
 // src/databases/influencers/schema.ts
 var schema_exports = {};
@@ -2132,9 +2116,6 @@ var vmTransactionsReadyToPayInCurrentMonth = (0, import_mysql_core3.mysqlView)("
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm3.sql`select 1 AS \`squidId\`,1 AS \`verificationStatus\`,1 AS \`verificationId\`,1 AS \`transactionId\`,1 AS \`dueDate\`,1 AS \`createdAt\`,1 AS \`netValue\`,1 AS \`transactionStatus\`,1 AS \`paidedAt\`,1 AS \`withdrawingDate\`,1 AS \`verificatedAt\`,1 AS \`updatedAt\`,1 AS \`bankAccountType\`,1 AS \`profileId\`,1 AS \`holderName\`,1 AS \`holderDocument\`,1 AS \`bankCode\`,1 AS \`bankAccountAgency\`,1 AS \`bankAccountNumber\`,1 AS \`bankAccountDigit\``);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  drizzleMySqlCore,
-  drizzleMysql2,
-  drizzleOrm,
   influencersDb,
   npsDb,
   paymentDb

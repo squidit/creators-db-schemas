@@ -21,8 +21,10 @@
     "typescript-eslint": "^8.12.2"
   },
   "dependencies": {
-    "drizzle-orm": "^0.36.0",
     "mysql2": "^3.11.3",
     "tsup": "^8.3.5"
+  },
+  "peerDependencies": {
+    "drizzle-orm": "^0.36.0"
   }
 }

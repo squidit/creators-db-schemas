@@ -1,9 +1,4 @@
-import * as drizzleOrm from 'drizzle-orm';
-export { drizzleOrm };
 import * as drizzle_orm_mysql_core from 'drizzle-orm/mysql-core';
-export { drizzle_orm_mysql_core as drizzleMySqlCore };
-import * as mysql2 from 'drizzle-orm/mysql2';
-export { mysql2 as drizzleMysql2 };
 
 declare const blockedtags: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "blockedtags";
