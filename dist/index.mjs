@@ -1577,8 +1577,7 @@ var influencerPayments = mysqlTable3(
     updatedAt: datetime3({ mode: "date" }),
     deletedAt: datetime3({ mode: "date" }),
     paymentStatus: varchar3({ length: 50 }).default("").notNull(),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("amount").notNull(),
+    amount: float2().notNull(),
     sourceId: bigint2({ mode: "number" }),
     socialNetwork: varchar3({ length: 255 }),
     socialNetworkId: varchar3({ length: 255 }),
@@ -1769,35 +1768,22 @@ var transactions = mysqlTable3(
     squidId: varchar3({ length: 60 }),
     transactionStatus: varchar3({ length: 50 }).default("pending").notNull(),
     paymentType: varchar3({ length: 5 }),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("netValue").notNull(),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("grossValue").notNull(),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("inssAliquot"),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("inssValue"),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("irAliquot"),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("irDeduct"),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("irValue"),
+    netValue: float2().notNull(),
+    grossValue: float2().notNull(),
+    inssAliquot: float2(),
+    inssValue: float2(),
+    irAliquot: float2(),
+    irDeduct: float2(),
+    irValue: float2(),
     nfId: varchar3({ length: 60 }),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("issAliquot"),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("issValue"),
+    issAliquot: float2(),
+    issValue: float2(),
     agent: tinyint3().default(0),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("credit"),
+    credit: float2(),
     transactionStatusDetail: varchar3({ length: 450 }),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("amount").notNull(),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("anticipationValue"),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("anticipationAliquot"),
+    amount: float2().notNull(),
+    anticipationValue: float2(),
+    anticipationAliquot: float2(),
     anticipationContractAccepted: varchar3({ length: 450 }),
     anticipationReceiptUrl: varchar3({ length: 450 }),
     anticipationIgnore: tinyint3().default(0).notNull(),

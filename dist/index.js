@@ -1599,8 +1599,7 @@ var influencerPayments = (0, import_mysql_core3.mysqlTable)(
     updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
     deletedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
     paymentStatus: (0, import_mysql_core3.varchar)({ length: 50 }).default("").notNull(),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("amount").notNull(),
+    amount: (0, import_mysql_core3.float)().notNull(),
     sourceId: (0, import_mysql_core3.bigint)({ mode: "number" }),
     socialNetwork: (0, import_mysql_core3.varchar)({ length: 255 }),
     socialNetworkId: (0, import_mysql_core3.varchar)({ length: 255 }),
@@ -1791,35 +1790,22 @@ var transactions = (0, import_mysql_core3.mysqlTable)(
     squidId: (0, import_mysql_core3.varchar)({ length: 60 }),
     transactionStatus: (0, import_mysql_core3.varchar)({ length: 50 }).default("pending").notNull(),
     paymentType: (0, import_mysql_core3.varchar)({ length: 5 }),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("netValue").notNull(),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("grossValue").notNull(),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("inssAliquot"),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("inssValue"),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("irAliquot"),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("irDeduct"),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("irValue"),
+    netValue: (0, import_mysql_core3.float)().notNull(),
+    grossValue: (0, import_mysql_core3.float)().notNull(),
+    inssAliquot: (0, import_mysql_core3.float)(),
+    inssValue: (0, import_mysql_core3.float)(),
+    irAliquot: (0, import_mysql_core3.float)(),
+    irDeduct: (0, import_mysql_core3.float)(),
+    irValue: (0, import_mysql_core3.float)(),
     nfId: (0, import_mysql_core3.varchar)({ length: 60 }),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("issAliquot"),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("issValue"),
+    issAliquot: (0, import_mysql_core3.float)(),
+    issValue: (0, import_mysql_core3.float)(),
     agent: (0, import_mysql_core3.tinyint)().default(0),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("credit"),
+    credit: (0, import_mysql_core3.float)(),
     transactionStatusDetail: (0, import_mysql_core3.varchar)({ length: 450 }),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("amount").notNull(),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("anticipationValue"),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("anticipationAliquot"),
+    amount: (0, import_mysql_core3.float)().notNull(),
+    anticipationValue: (0, import_mysql_core3.float)(),
+    anticipationAliquot: (0, import_mysql_core3.float)(),
     anticipationContractAccepted: (0, import_mysql_core3.varchar)({ length: 450 }),
     anticipationReceiptUrl: (0, import_mysql_core3.varchar)({ length: 450 }),
     anticipationIgnore: (0, import_mysql_core3.tinyint)().default(0).notNull(),
