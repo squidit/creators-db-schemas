@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm/relations";
-import { transactions, customerPayments, influencerPayments, nfs, transactionBankAccounts, transactionBeneficiaries } from "./schema";
+import { customerPayments, influencerPayments, nfs, transactionBankAccounts, transactionBeneficiaries, transactions } from "./schema";
 
 export const customerPaymentsRelations = relations(customerPayments, ({one}) => ({
 	transaction: one(transactions, {
@@ -13,9 +13,6 @@ export const transactionsRelations = relations(transactions, ({many}) => ({
 	influencerPayments: many(influencerPayments),
 	nfs: many(nfs),
 	transactionBankAccounts: many(transactionBankAccounts),
-	transactionBeneficiaries_transactionId: many(transactionBeneficiaries, {
-		relationName: "transactionBeneficiaries_transactionId_transactions_transactionId"
-	}),
 	transactionBeneficiaries_transactionId: many(transactionBeneficiaries, {
 		relationName: "transactionBeneficiaries_transactionId_transactions_transactionId"
 	}),
@@ -43,11 +40,6 @@ export const transactionBankAccountsRelations = relations(transactionBankAccount
 }));
 
 export const transactionBeneficiariesRelations = relations(transactionBeneficiaries, ({one}) => ({
-	transaction_transactionId: one(transactions, {
-		fields: [transactionBeneficiaries.transactionId],
-		references: [transactions.transactionId],
-		relationName: "transactionBeneficiaries_transactionId_transactions_transactionId"
-	}),
 	transaction_transactionId: one(transactions, {
 		fields: [transactionBeneficiaries.transactionId],
 		references: [transactions.transactionId],
