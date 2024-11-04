@@ -1,7 +1,7 @@
 {
   "name": "creators-db-schemas",
   "version": "1.0.0",
-  "description": "Repositório com todos os schemas de bancos relacionais e suas relações.",
+  "description": "Submódulo responsável por agrupar e padronizar todos os schemas de bancos relacionais e suas relações.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
