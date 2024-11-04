@@ -178,8 +178,8 @@ export const nfCnaes = mysqlTable("nf_cnaes", {
   id: int().autoincrement().notNull(),
   uf: char({ length: 2 }).notNull(),
   codigo: varchar({ length: 45 }).notNull(),
-  createdAt: datetime("created_at", { mode: 'string' }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-  updatedAt: datetime("updated_at", { mode: 'string' }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+  createdAt: datetime("created_at", { mode: 'date' }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+  updatedAt: datetime("updated_at", { mode: 'date' }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
 },
   (table) => {
     return {
@@ -195,7 +195,7 @@ export const nfImport = mysqlTable("nf_import", {
   id: int().autoincrement().notNull(),
   objectId: varchar({ length: 24 }).notNull(),
   numeroNf: varchar("numero_nf", { length: 45 }).notNull(),
-  dataEmissao: datetime("data_emissao", { mode: 'string' }).notNull(),
+  dataEmissao: datetime("data_emissao", { mode: 'date' }).notNull(),
   ufGerador: char("uf_gerador", { length: 2 }).notNull(),
   codigoMunicipio: varchar("codigo_municipio", { length: 45 }),
   razaoSocial: varchar("razao_social", { length: 450 }).notNull(),
@@ -212,9 +212,9 @@ export const nfImport = mysqlTable("nf_import", {
   chave: varchar({ length: 90 }).notNull(),
   nfStorageTmp: varchar("nf_storage_tmp", { length: 150 }).notNull(),
   codigoVerificacao: varchar("codigo_verificacao", { length: 45 }).notNull(),
-  createdAt: datetime("created_at", { mode: 'string' }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-  updatedAt: datetime("updated_at", { mode: 'string' }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-  deletedAt: datetime("deleted_at", { mode: 'string' }),
+  createdAt: datetime("created_at", { mode: 'date' }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+  updatedAt: datetime("updated_at", { mode: 'date' }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+  deletedAt: datetime("deleted_at", { mode: 'date' }),
 },
   (table) => {
     return {
@@ -399,11 +399,11 @@ export const transactionsHistory = mysqlTable("transactionsHistory", {
 
 export const transactionsSchedule = mysqlTable("transactions_schedule", {
   id: int().autoincrement().notNull(),
-  scheduleDate: date("schedule_date", { mode: 'string' }).notNull(),
+  scheduleDate: date("schedule_date", { mode: 'date' }).notNull(),
   flowId: int("flow_id").notNull(),
   description: varchar({ length: 45 }),
-  createdAt: datetime("created_at", { mode: 'string' }).default(sql`(CURRENT_TIMESTAMP)`),
-  updatedAt: datetime("updated_at", { mode: 'string' }).default(sql`(CURRENT_TIMESTAMP)`),
+  createdAt: datetime("created_at", { mode: 'date' }).default(sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: datetime("updated_at", { mode: 'date' }).default(sql`(CURRENT_TIMESTAMP)`),
 },
   (table) => {
     return {
@@ -420,7 +420,7 @@ export const transfeeraRawDataCallback = mysqlTable("transfeeraRawDataCallback",
   header: mediumtext().notNull(),
   payload: json(),
   validationTest: json(),
-  createdAt: datetime("created_at", { mode: 'string' }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
+  createdAt: datetime("created_at", { mode: 'date' }).default(sql`(CURRENT_TIMESTAMP)`).notNull(),
 },
   (table) => {
     return {
@@ -438,7 +438,7 @@ export const webhooksLogs = mysqlTable("webhooks_logs", {
   querystring: varchar({ length: 255 }),
   service: varchar({ length: 45 }).notNull(),
   authentication: longtext(),
-  createdAt: datetime("created_at", { mode: 'string' }).default(sql`(CURRENT_TIMESTAMP)`),
+  createdAt: datetime("created_at", { mode: 'date' }).default(sql`(CURRENT_TIMESTAMP)`),
 },
   (table) => {
     return {

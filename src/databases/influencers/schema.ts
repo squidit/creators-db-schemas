@@ -611,7 +611,7 @@ export const profileWhitelabels = mysqlTable("profileWhitelabels", {
 	id: varchar({ length: 36 }).notNull(),
 	profileId: varchar({ length: 36 }).notNull().references(() => profiles.id, { onUpdate: "cascade" } ),
 	whitelabel: varchar({ length: 24 }),
-	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow().notNull(),
+	createdAt: timestamp("created_at", { mode: 'date' }).defaultNow().notNull(),
 	registeredFromSource: varchar({ length: 255 }),
 	registeredFromCampaign: varchar({ length: 255 }),
 	registeredFromMedium: varchar({ length: 255 }),
@@ -645,9 +645,9 @@ export const progressiveRegistrationAnswers = mysqlTable("progressive_registrati
 	squidId: varchar({ length: 50 }).notNull().references(() => profiles.id),
 	answer: varchar({ length: 255 }),
 	answerOption: varchar("answer_option", { length: 36 }).references(() => progressiveRegistrationQuestionOptions.id, { onDelete: "cascade" } ),
-	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow().notNull(),
-	updatedAt: timestamp("updated_at", { mode: 'string' }).defaultNow().notNull(),
-	deletedAt: timestamp("deleted_at", { mode: 'string' }),
+	createdAt: timestamp("created_at", { mode: 'date' }).defaultNow().notNull(),
+	updatedAt: timestamp("updated_at", { mode: 'date' }).defaultNow().notNull(),
+	deletedAt: timestamp("deleted_at", { mode: 'date' }),
 },
 (table) => {
 	return {
@@ -664,9 +664,9 @@ export const progressiveRegistrationGroups = mysqlTable("progressive_registratio
 	label: varchar({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade", onUpdate: "cascade" } ),
 	icon: varchar({ length: 255 }).default('poll-people').notNull(),
 	order: int().default(1).notNull(),
-	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow().notNull(),
-	updatedAt: timestamp("updated_at", { mode: 'string' }).defaultNow().notNull(),
-	deletedAt: timestamp("deleted_at", { mode: 'string' }),
+	createdAt: timestamp("created_at", { mode: 'date' }).defaultNow().notNull(),
+	updatedAt: timestamp("updated_at", { mode: 'date' }).defaultNow().notNull(),
+	deletedAt: timestamp("deleted_at", { mode: 'date' }),
 },
 (table) => {
 	return {
@@ -682,9 +682,9 @@ export const progressiveRegistrationLabels = mysqlTable("progressive_registratio
 	pt: varchar({ length: 255 }),
 	en: varchar({ length: 255 }),
 	es: varchar({ length: 255 }),
-	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow().notNull(),
-	updatedAt: timestamp("updated_at", { mode: 'string' }).defaultNow().notNull(),
-	deletedAt: timestamp("deleted_at", { mode: 'string' }),
+	createdAt: timestamp("created_at", { mode: 'date' }).defaultNow().notNull(),
+	updatedAt: timestamp("updated_at", { mode: 'date' }).defaultNow().notNull(),
+	deletedAt: timestamp("deleted_at", { mode: 'date' }),
 },
 (table) => {
 	return {
@@ -698,9 +698,9 @@ export const progressiveRegistrationQuestionOptions = mysqlTable("progressive_re
 	id: varchar({ length: 36 }).notNull(),
 	question: varchar({ length: 255 }).notNull().references(() => progressiveRegistrationQuestions.id, { onDelete: "cascade" } ),
 	label: varchar({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade" } ),
-	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow().notNull(),
-	updatedAt: timestamp("updated_at", { mode: 'string' }).defaultNow().notNull(),
-	deletedAt: timestamp("deleted_at", { mode: 'string' }),
+	createdAt: timestamp("created_at", { mode: 'date' }).defaultNow().notNull(),
+	updatedAt: timestamp("updated_at", { mode: 'date' }).defaultNow().notNull(),
+	deletedAt: timestamp("deleted_at", { mode: 'date' }),
 },
 (table) => {
 	return {
@@ -717,9 +717,9 @@ export const progressiveRegistrationQuestions = mysqlTable("progressive_registra
 	label: varchar({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade" } ),
 	type: varchar({ length: 255 }).default('text').notNull(),
 	group: varchar({ length: 255 }).notNull().references(() => progressiveRegistrationGroups.id, { onDelete: "cascade" } ),
-	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow().notNull(),
-	updatedAt: timestamp("updated_at", { mode: 'string' }).defaultNow().notNull(),
-	deletedAt: timestamp("deleted_at", { mode: 'string' }),
+	createdAt: timestamp("created_at", { mode: 'date' }).defaultNow().notNull(),
+	updatedAt: timestamp("updated_at", { mode: 'date' }).defaultNow().notNull(),
+	deletedAt: timestamp("deleted_at", { mode: 'date' }),
 },
 (table) => {
 	return {
@@ -738,9 +738,9 @@ export const progressiveRegistrationWhitelabels = mysqlTable("progressive_regist
 	active: tinyint().default(0).notNull(),
 	order: int().default(1).notNull(),
 	required: tinyint().default(0).notNull(),
-	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow().notNull(),
-	updatedAt: timestamp("updated_at", { mode: 'string' }).defaultNow().notNull(),
-	deletedAt: timestamp("deleted_at", { mode: 'string' }),
+	createdAt: timestamp("created_at", { mode: 'date' }).defaultNow().notNull(),
+	updatedAt: timestamp("updated_at", { mode: 'date' }).defaultNow().notNull(),
+	deletedAt: timestamp("deleted_at", { mode: 'date' }),
 },
 (table) => {
 	return {
