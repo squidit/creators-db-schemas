@@ -1,0 +1,18 @@
+{
+  "editor.codeActionsOnSave": {                               // ao salvar:
+    "standard.autoFixOnSave": "explicit",                     //   corrige formatação e erros de lint
+    "source.fixAll.eslint": "explicit",                       //   corrige formatação e erros de lint
+    "source.addMissingImports": "explicit",                   //   adiciona imports que estão faltando
+    "source.organizeImports": "explicit"                      //   organiza os imports por ordem alfabética
+  },
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "package.json",
+    "yaml",
+    "github-actions-workflow",
+  ],
+  "typescript.preferences.importModuleSpecifier": "relative", // garante que imports sejam sempre em formato relativo (ex: "../../foo/bar")
+  "typescript.tsdk": "node_modules/typescript/lib",           // utiliza a versão do typescript instalada no projeto
+  "git.detectSubmodules": false                               // desabilita a detecção de submódulos pelo git para acelerar/simplificar processo de commit
+}
