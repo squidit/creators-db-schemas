@@ -7423,9 +7423,9 @@ declare const profileWhitelabels: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "created_at";
             tableName: "profileWhitelabels";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -7693,9 +7693,9 @@ declare const progressiveRegistrationAnswers: drizzle_orm_mysql_core.MySqlTableW
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "created_at";
             tableName: "progressive_registration_answers";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -7709,9 +7709,9 @@ declare const progressiveRegistrationAnswers: drizzle_orm_mysql_core.MySqlTableW
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updated_at";
             tableName: "progressive_registration_answers";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -7725,9 +7725,9 @@ declare const progressiveRegistrationAnswers: drizzle_orm_mysql_core.MySqlTableW
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deleted_at";
             tableName: "progressive_registration_answers";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -7812,9 +7812,9 @@ declare const progressiveRegistrationGroups: drizzle_orm_mysql_core.MySqlTableWi
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "created_at";
             tableName: "progressive_registration_groups";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -7828,9 +7828,9 @@ declare const progressiveRegistrationGroups: drizzle_orm_mysql_core.MySqlTableWi
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updated_at";
             tableName: "progressive_registration_groups";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -7844,9 +7844,9 @@ declare const progressiveRegistrationGroups: drizzle_orm_mysql_core.MySqlTableWi
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deleted_at";
             tableName: "progressive_registration_groups";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -7931,9 +7931,9 @@ declare const progressiveRegistrationLabels: drizzle_orm_mysql_core.MySqlTableWi
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "created_at";
             tableName: "progressive_registration_labels";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -7947,9 +7947,9 @@ declare const progressiveRegistrationLabels: drizzle_orm_mysql_core.MySqlTableWi
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updated_at";
             tableName: "progressive_registration_labels";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -7963,9 +7963,9 @@ declare const progressiveRegistrationLabels: drizzle_orm_mysql_core.MySqlTableWi
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deleted_at";
             tableName: "progressive_registration_labels";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -8034,9 +8034,9 @@ declare const progressiveRegistrationQuestionOptions: drizzle_orm_mysql_core.MyS
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "created_at";
             tableName: "progressive_registration_question_options";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -8050,9 +8050,9 @@ declare const progressiveRegistrationQuestionOptions: drizzle_orm_mysql_core.MyS
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updated_at";
             tableName: "progressive_registration_question_options";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -8066,9 +8066,9 @@ declare const progressiveRegistrationQuestionOptions: drizzle_orm_mysql_core.MyS
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deleted_at";
             tableName: "progressive_registration_question_options";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -8153,9 +8153,9 @@ declare const progressiveRegistrationQuestions: drizzle_orm_mysql_core.MySqlTabl
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "created_at";
             tableName: "progressive_registration_questions";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -8169,9 +8169,9 @@ declare const progressiveRegistrationQuestions: drizzle_orm_mysql_core.MySqlTabl
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updated_at";
             tableName: "progressive_registration_questions";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -8185,9 +8185,9 @@ declare const progressiveRegistrationQuestions: drizzle_orm_mysql_core.MySqlTabl
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deleted_at";
             tableName: "progressive_registration_questions";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -8304,9 +8304,9 @@ declare const progressiveRegistrationWhitelabels: drizzle_orm_mysql_core.MySqlTa
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "created_at";
             tableName: "progressive_registration_whitelabels";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -8320,9 +8320,9 @@ declare const progressiveRegistrationWhitelabels: drizzle_orm_mysql_core.MySqlTa
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updated_at";
             tableName: "progressive_registration_whitelabels";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -8336,9 +8336,9 @@ declare const progressiveRegistrationWhitelabels: drizzle_orm_mysql_core.MySqlTa
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deleted_at";
             tableName: "progressive_registration_whitelabels";
-            dataType: "string";
-            columnType: "MySqlTimestampString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlTimestamp";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -16147,9 +16147,9 @@ declare const nfCnaes: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "created_at";
             tableName: "nf_cnaes";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -16163,9 +16163,9 @@ declare const nfCnaes: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updated_at";
             tableName: "nf_cnaes";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -16236,9 +16236,9 @@ declare const nfImport: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         dataEmissao: drizzle_orm_mysql_core.MySqlColumn<{
             name: "data_emissao";
             tableName: "nf_import";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -16508,9 +16508,9 @@ declare const nfImport: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "created_at";
             tableName: "nf_import";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -16524,9 +16524,9 @@ declare const nfImport: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updated_at";
             tableName: "nf_import";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -16540,9 +16540,9 @@ declare const nfImport: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         deletedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "deleted_at";
             tableName: "nf_import";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: false;
@@ -16783,6 +16783,22 @@ declare const nfs: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             isAutoincrement: false;
             hasRuntimeDefault: false;
             enumValues: [string, ...string[]];
+            baseColumn: never;
+            generated: undefined;
+        }, object>;
+        issValue: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "issValue";
+            tableName: "nfs";
+            dataType: "number";
+            columnType: "MySqlFloat";
+            data: number;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
             baseColumn: never;
             generated: undefined;
         }, object>;
@@ -18262,6 +18278,22 @@ declare const transactionsHistory: drizzle_orm_mysql_core.MySqlTableWithColumns<
             baseColumn: never;
             generated: undefined;
         }, object>;
+        paymentGatewayTransactionId: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "paymentGatewayTransactionId";
+            tableName: "transactionsHistory";
+            dataType: "string";
+            columnType: "MySqlText";
+            data: string;
+            driverParam: string;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            generated: undefined;
+        }, object>;
         currency: drizzle_orm_mysql_core.MySqlColumn<{
             name: "currency";
             tableName: "transactionsHistory";
@@ -18464,9 +18496,9 @@ declare const transactionsSchedule: drizzle_orm_mysql_core.MySqlTableWithColumns
         scheduleDate: drizzle_orm_mysql_core.MySqlColumn<{
             name: "schedule_date";
             tableName: "transactions_schedule";
-            dataType: "string";
-            columnType: "MySqlDateString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDate";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
@@ -18512,9 +18544,9 @@ declare const transactionsSchedule: drizzle_orm_mysql_core.MySqlTableWithColumns
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "created_at";
             tableName: "transactions_schedule";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -18528,9 +18560,9 @@ declare const transactionsSchedule: drizzle_orm_mysql_core.MySqlTableWithColumns
         updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "updated_at";
             tableName: "transactions_schedule";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
@@ -18617,9 +18649,9 @@ declare const transfeeraRawDataCallback: drizzle_orm_mysql_core.MySqlTableWithCo
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "created_at";
             tableName: "transfeeraRawDataCallback";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: true;
             hasDefault: true;
@@ -18738,9 +18770,9 @@ declare const webhooksLogs: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         createdAt: drizzle_orm_mysql_core.MySqlColumn<{
             name: "created_at";
             tableName: "webhooks_logs";
-            dataType: "string";
-            columnType: "MySqlDateTimeString";
-            data: string;
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
             driverParam: string | number;
             notNull: false;
             hasDefault: true;

@@ -382,8 +382,7 @@ export const transactionsHistory = mysqlTable("transactionsHistory", {
   anticipationAliquot: float(),
   anticipationValue: float(),
   anticipationContractAccepted: varchar({ length: 450 }),
-  // Warning: Can't parse blob from database
-  // blobType: blob("paymentGatewayTransactionId"),
+  paymentGatewayTransactionId: longtext(),
   currency: varchar({ length: 3 }).default('BRL').notNull(),
   amount: float().notNull(),
   transactionStatusDetail: varchar({ length: 450 }),

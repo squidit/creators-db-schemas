@@ -695,7 +695,7 @@ var profileWhitelabels = mysqlTable(
     id: varchar({ length: 36 }).notNull(),
     profileId: varchar({ length: 36 }).notNull().references(() => profiles.id, { onUpdate: "cascade" }),
     whitelabel: varchar({ length: 24 }),
-    createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
     registeredFromSource: varchar({ length: 255 }),
     registeredFromCampaign: varchar({ length: 255 }),
     registeredFromMedium: varchar({ length: 255 }),
@@ -733,9 +733,9 @@ var progressiveRegistrationAnswers = mysqlTable(
     squidId: varchar({ length: 50 }).notNull().references(() => profiles.id),
     answer: varchar({ length: 255 }),
     answerOption: varchar("answer_option", { length: 36 }).references(() => progressiveRegistrationQuestionOptions.id, { onDelete: "cascade" }),
-    createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { mode: "string" }).defaultNow().notNull(),
-    deletedAt: timestamp("deleted_at", { mode: "string" })
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: timestamp("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
@@ -754,9 +754,9 @@ var progressiveRegistrationGroups = mysqlTable(
     label: varchar({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade", onUpdate: "cascade" }),
     icon: varchar({ length: 255 }).default("poll-people").notNull(),
     order: int().default(1).notNull(),
-    createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { mode: "string" }).defaultNow().notNull(),
-    deletedAt: timestamp("deleted_at", { mode: "string" })
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: timestamp("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
@@ -774,9 +774,9 @@ var progressiveRegistrationLabels = mysqlTable(
     pt: varchar({ length: 255 }),
     en: varchar({ length: 255 }),
     es: varchar({ length: 255 }),
-    createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { mode: "string" }).defaultNow().notNull(),
-    deletedAt: timestamp("deleted_at", { mode: "string" })
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: timestamp("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
@@ -792,9 +792,9 @@ var progressiveRegistrationQuestionOptions = mysqlTable(
     id: varchar({ length: 36 }).notNull(),
     question: varchar({ length: 255 }).notNull().references(() => progressiveRegistrationQuestions.id, { onDelete: "cascade" }),
     label: varchar({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade" }),
-    createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { mode: "string" }).defaultNow().notNull(),
-    deletedAt: timestamp("deleted_at", { mode: "string" })
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: timestamp("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
@@ -813,9 +813,9 @@ var progressiveRegistrationQuestions = mysqlTable(
     label: varchar({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade" }),
     type: varchar({ length: 255 }).default("text").notNull(),
     group: varchar({ length: 255 }).notNull().references(() => progressiveRegistrationGroups.id, { onDelete: "cascade" }),
-    createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { mode: "string" }).defaultNow().notNull(),
-    deletedAt: timestamp("deleted_at", { mode: "string" })
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: timestamp("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
@@ -836,9 +836,9 @@ var progressiveRegistrationWhitelabels = mysqlTable(
     active: tinyint().default(0).notNull(),
     order: int().default(1).notNull(),
     required: tinyint().default(0).notNull(),
-    createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { mode: "string" }).defaultNow().notNull(),
-    deletedAt: timestamp("deleted_at", { mode: "string" })
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: timestamp("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
@@ -1632,8 +1632,8 @@ var nfCnaes = mysqlTable3(
     id: int3().autoincrement().notNull(),
     uf: char2({ length: 2 }).notNull(),
     codigo: varchar3({ length: 45 }).notNull(),
-    createdAt: datetime3("created_at", { mode: "string" }).default(sql3`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: datetime3("updated_at", { mode: "string" }).default(sql3`(CURRENT_TIMESTAMP)`).notNull()
+    createdAt: datetime3("created_at", { mode: "date" }).default(sql3`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: datetime3("updated_at", { mode: "date" }).default(sql3`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
@@ -1648,7 +1648,7 @@ var nfImport = mysqlTable3(
     id: int3().autoincrement().notNull(),
     objectId: varchar3({ length: 24 }).notNull(),
     numeroNf: varchar3("numero_nf", { length: 45 }).notNull(),
-    dataEmissao: datetime3("data_emissao", { mode: "string" }).notNull(),
+    dataEmissao: datetime3("data_emissao", { mode: "date" }).notNull(),
     ufGerador: char2("uf_gerador", { length: 2 }).notNull(),
     codigoMunicipio: varchar3("codigo_municipio", { length: 45 }),
     razaoSocial: varchar3("razao_social", { length: 450 }).notNull(),
@@ -1665,9 +1665,9 @@ var nfImport = mysqlTable3(
     chave: varchar3({ length: 90 }).notNull(),
     nfStorageTmp: varchar3("nf_storage_tmp", { length: 150 }).notNull(),
     codigoVerificacao: varchar3("codigo_verificacao", { length: 45 }).notNull(),
-    createdAt: datetime3("created_at", { mode: "string" }).default(sql3`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: datetime3("updated_at", { mode: "string" }).default(sql3`(CURRENT_TIMESTAMP)`).notNull(),
-    deletedAt: datetime3("deleted_at", { mode: "string" })
+    createdAt: datetime3("created_at", { mode: "date" }).default(sql3`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: datetime3("updated_at", { mode: "date" }).default(sql3`(CURRENT_TIMESTAMP)`).notNull(),
+    deletedAt: datetime3("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
@@ -1694,8 +1694,7 @@ var nfs = mysqlTable3(
     parsedEmissionDate: date2({ mode: "date" }),
     parsedSerialNumber: varchar3({ length: 45 }),
     parsedCnae: varchar3({ length: 45 }),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("issValue"),
+    issValue: float2(),
     imported: varchar3({ length: 90 }),
     createdAt: datetime3({ mode: "date" }).default(sql3`(CURRENT_TIMESTAMP)`).notNull(),
     deletedAt: datetime3({ mode: "date" })
@@ -1829,8 +1828,7 @@ var transactionsHistory = mysqlTable3("transactionsHistory", {
   anticipationAliquot: float2(),
   anticipationValue: float2(),
   anticipationContractAccepted: varchar3({ length: 450 }),
-  // Warning: Can't parse blob from database
-  // blobType: blob("paymentGatewayTransactionId"),
+  paymentGatewayTransactionId: longtext(),
   currency: varchar3({ length: 3 }).default("BRL").notNull(),
   amount: float2().notNull(),
   transactionStatusDetail: varchar3({ length: 450 }),
@@ -1847,11 +1845,11 @@ var transactionsSchedule = mysqlTable3(
   "transactions_schedule",
   {
     id: int3().autoincrement().notNull(),
-    scheduleDate: date2("schedule_date", { mode: "string" }).notNull(),
+    scheduleDate: date2("schedule_date", { mode: "date" }).notNull(),
     flowId: int3("flow_id").notNull(),
     description: varchar3({ length: 45 }),
-    createdAt: datetime3("created_at", { mode: "string" }).default(sql3`(CURRENT_TIMESTAMP)`),
-    updatedAt: datetime3("updated_at", { mode: "string" }).default(sql3`(CURRENT_TIMESTAMP)`)
+    createdAt: datetime3("created_at", { mode: "date" }).default(sql3`(CURRENT_TIMESTAMP)`),
+    updatedAt: datetime3("updated_at", { mode: "date" }).default(sql3`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {
@@ -1867,7 +1865,7 @@ var transfeeraRawDataCallback = mysqlTable3(
     header: mediumtext().notNull(),
     payload: json(),
     validationTest: json(),
-    createdAt: datetime3("created_at", { mode: "string" }).default(sql3`(CURRENT_TIMESTAMP)`).notNull()
+    createdAt: datetime3("created_at", { mode: "date" }).default(sql3`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
@@ -1884,7 +1882,7 @@ var webhooksLogs = mysqlTable3(
     querystring: varchar3({ length: 255 }),
     service: varchar3({ length: 45 }).notNull(),
     authentication: longtext(),
-    createdAt: datetime3("created_at", { mode: "string" }).default(sql3`(CURRENT_TIMESTAMP)`)
+    createdAt: datetime3("created_at", { mode: "date" }).default(sql3`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {

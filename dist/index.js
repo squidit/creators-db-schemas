@@ -717,7 +717,7 @@ var profileWhitelabels = (0, import_mysql_core.mysqlTable)(
     id: (0, import_mysql_core.varchar)({ length: 36 }).notNull(),
     profileId: (0, import_mysql_core.varchar)({ length: 36 }).notNull().references(() => profiles.id, { onUpdate: "cascade" }),
     whitelabel: (0, import_mysql_core.varchar)({ length: 24 }),
-    createdAt: (0, import_mysql_core.timestamp)("created_at", { mode: "string" }).defaultNow().notNull(),
+    createdAt: (0, import_mysql_core.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
     registeredFromSource: (0, import_mysql_core.varchar)({ length: 255 }),
     registeredFromCampaign: (0, import_mysql_core.varchar)({ length: 255 }),
     registeredFromMedium: (0, import_mysql_core.varchar)({ length: 255 }),
@@ -755,9 +755,9 @@ var progressiveRegistrationAnswers = (0, import_mysql_core.mysqlTable)(
     squidId: (0, import_mysql_core.varchar)({ length: 50 }).notNull().references(() => profiles.id),
     answer: (0, import_mysql_core.varchar)({ length: 255 }),
     answerOption: (0, import_mysql_core.varchar)("answer_option", { length: 36 }).references(() => progressiveRegistrationQuestionOptions.id, { onDelete: "cascade" }),
-    createdAt: (0, import_mysql_core.timestamp)("created_at", { mode: "string" }).defaultNow().notNull(),
-    updatedAt: (0, import_mysql_core.timestamp)("updated_at", { mode: "string" }).defaultNow().notNull(),
-    deletedAt: (0, import_mysql_core.timestamp)("deleted_at", { mode: "string" })
+    createdAt: (0, import_mysql_core.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: (0, import_mysql_core.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: (0, import_mysql_core.timestamp)("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
@@ -776,9 +776,9 @@ var progressiveRegistrationGroups = (0, import_mysql_core.mysqlTable)(
     label: (0, import_mysql_core.varchar)({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade", onUpdate: "cascade" }),
     icon: (0, import_mysql_core.varchar)({ length: 255 }).default("poll-people").notNull(),
     order: (0, import_mysql_core.int)().default(1).notNull(),
-    createdAt: (0, import_mysql_core.timestamp)("created_at", { mode: "string" }).defaultNow().notNull(),
-    updatedAt: (0, import_mysql_core.timestamp)("updated_at", { mode: "string" }).defaultNow().notNull(),
-    deletedAt: (0, import_mysql_core.timestamp)("deleted_at", { mode: "string" })
+    createdAt: (0, import_mysql_core.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: (0, import_mysql_core.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: (0, import_mysql_core.timestamp)("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
@@ -796,9 +796,9 @@ var progressiveRegistrationLabels = (0, import_mysql_core.mysqlTable)(
     pt: (0, import_mysql_core.varchar)({ length: 255 }),
     en: (0, import_mysql_core.varchar)({ length: 255 }),
     es: (0, import_mysql_core.varchar)({ length: 255 }),
-    createdAt: (0, import_mysql_core.timestamp)("created_at", { mode: "string" }).defaultNow().notNull(),
-    updatedAt: (0, import_mysql_core.timestamp)("updated_at", { mode: "string" }).defaultNow().notNull(),
-    deletedAt: (0, import_mysql_core.timestamp)("deleted_at", { mode: "string" })
+    createdAt: (0, import_mysql_core.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: (0, import_mysql_core.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: (0, import_mysql_core.timestamp)("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
@@ -814,9 +814,9 @@ var progressiveRegistrationQuestionOptions = (0, import_mysql_core.mysqlTable)(
     id: (0, import_mysql_core.varchar)({ length: 36 }).notNull(),
     question: (0, import_mysql_core.varchar)({ length: 255 }).notNull().references(() => progressiveRegistrationQuestions.id, { onDelete: "cascade" }),
     label: (0, import_mysql_core.varchar)({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade" }),
-    createdAt: (0, import_mysql_core.timestamp)("created_at", { mode: "string" }).defaultNow().notNull(),
-    updatedAt: (0, import_mysql_core.timestamp)("updated_at", { mode: "string" }).defaultNow().notNull(),
-    deletedAt: (0, import_mysql_core.timestamp)("deleted_at", { mode: "string" })
+    createdAt: (0, import_mysql_core.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: (0, import_mysql_core.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: (0, import_mysql_core.timestamp)("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
@@ -835,9 +835,9 @@ var progressiveRegistrationQuestions = (0, import_mysql_core.mysqlTable)(
     label: (0, import_mysql_core.varchar)({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade" }),
     type: (0, import_mysql_core.varchar)({ length: 255 }).default("text").notNull(),
     group: (0, import_mysql_core.varchar)({ length: 255 }).notNull().references(() => progressiveRegistrationGroups.id, { onDelete: "cascade" }),
-    createdAt: (0, import_mysql_core.timestamp)("created_at", { mode: "string" }).defaultNow().notNull(),
-    updatedAt: (0, import_mysql_core.timestamp)("updated_at", { mode: "string" }).defaultNow().notNull(),
-    deletedAt: (0, import_mysql_core.timestamp)("deleted_at", { mode: "string" })
+    createdAt: (0, import_mysql_core.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: (0, import_mysql_core.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: (0, import_mysql_core.timestamp)("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
@@ -858,9 +858,9 @@ var progressiveRegistrationWhitelabels = (0, import_mysql_core.mysqlTable)(
     active: (0, import_mysql_core.tinyint)().default(0).notNull(),
     order: (0, import_mysql_core.int)().default(1).notNull(),
     required: (0, import_mysql_core.tinyint)().default(0).notNull(),
-    createdAt: (0, import_mysql_core.timestamp)("created_at", { mode: "string" }).defaultNow().notNull(),
-    updatedAt: (0, import_mysql_core.timestamp)("updated_at", { mode: "string" }).defaultNow().notNull(),
-    deletedAt: (0, import_mysql_core.timestamp)("deleted_at", { mode: "string" })
+    createdAt: (0, import_mysql_core.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: (0, import_mysql_core.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: (0, import_mysql_core.timestamp)("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
@@ -1654,8 +1654,8 @@ var nfCnaes = (0, import_mysql_core3.mysqlTable)(
     id: (0, import_mysql_core3.int)().autoincrement().notNull(),
     uf: (0, import_mysql_core3.char)({ length: 2 }).notNull(),
     codigo: (0, import_mysql_core3.varchar)({ length: 45 }).notNull(),
-    createdAt: (0, import_mysql_core3.datetime)("created_at", { mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)("updated_at", { mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull()
+    createdAt: (0, import_mysql_core3.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core3.datetime)("updated_at", { mode: "date" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
@@ -1670,7 +1670,7 @@ var nfImport = (0, import_mysql_core3.mysqlTable)(
     id: (0, import_mysql_core3.int)().autoincrement().notNull(),
     objectId: (0, import_mysql_core3.varchar)({ length: 24 }).notNull(),
     numeroNf: (0, import_mysql_core3.varchar)("numero_nf", { length: 45 }).notNull(),
-    dataEmissao: (0, import_mysql_core3.datetime)("data_emissao", { mode: "string" }).notNull(),
+    dataEmissao: (0, import_mysql_core3.datetime)("data_emissao", { mode: "date" }).notNull(),
     ufGerador: (0, import_mysql_core3.char)("uf_gerador", { length: 2 }).notNull(),
     codigoMunicipio: (0, import_mysql_core3.varchar)("codigo_municipio", { length: 45 }),
     razaoSocial: (0, import_mysql_core3.varchar)("razao_social", { length: 450 }).notNull(),
@@ -1687,9 +1687,9 @@ var nfImport = (0, import_mysql_core3.mysqlTable)(
     chave: (0, import_mysql_core3.varchar)({ length: 90 }).notNull(),
     nfStorageTmp: (0, import_mysql_core3.varchar)("nf_storage_tmp", { length: 150 }).notNull(),
     codigoVerificacao: (0, import_mysql_core3.varchar)("codigo_verificacao", { length: 45 }).notNull(),
-    createdAt: (0, import_mysql_core3.datetime)("created_at", { mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)("updated_at", { mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    deletedAt: (0, import_mysql_core3.datetime)("deleted_at", { mode: "string" })
+    createdAt: (0, import_mysql_core3.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core3.datetime)("updated_at", { mode: "date" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    deletedAt: (0, import_mysql_core3.datetime)("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
@@ -1716,8 +1716,7 @@ var nfs = (0, import_mysql_core3.mysqlTable)(
     parsedEmissionDate: (0, import_mysql_core3.date)({ mode: "date" }),
     parsedSerialNumber: (0, import_mysql_core3.varchar)({ length: 45 }),
     parsedCnae: (0, import_mysql_core3.varchar)({ length: 45 }),
-    // Warning: Can't parse float(10,2) from database
-    // float(10,2)Type: float(10,2)("issValue"),
+    issValue: (0, import_mysql_core3.float)(),
     imported: (0, import_mysql_core3.varchar)({ length: 90 }),
     createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
     deletedAt: (0, import_mysql_core3.datetime)({ mode: "date" })
@@ -1851,8 +1850,7 @@ var transactionsHistory = (0, import_mysql_core3.mysqlTable)("transactionsHistor
   anticipationAliquot: (0, import_mysql_core3.float)(),
   anticipationValue: (0, import_mysql_core3.float)(),
   anticipationContractAccepted: (0, import_mysql_core3.varchar)({ length: 450 }),
-  // Warning: Can't parse blob from database
-  // blobType: blob("paymentGatewayTransactionId"),
+  paymentGatewayTransactionId: (0, import_mysql_core3.longtext)(),
   currency: (0, import_mysql_core3.varchar)({ length: 3 }).default("BRL").notNull(),
   amount: (0, import_mysql_core3.float)().notNull(),
   transactionStatusDetail: (0, import_mysql_core3.varchar)({ length: 450 }),
@@ -1869,11 +1867,11 @@ var transactionsSchedule = (0, import_mysql_core3.mysqlTable)(
   "transactions_schedule",
   {
     id: (0, import_mysql_core3.int)().autoincrement().notNull(),
-    scheduleDate: (0, import_mysql_core3.date)("schedule_date", { mode: "string" }).notNull(),
+    scheduleDate: (0, import_mysql_core3.date)("schedule_date", { mode: "date" }).notNull(),
     flowId: (0, import_mysql_core3.int)("flow_id").notNull(),
     description: (0, import_mysql_core3.varchar)({ length: 45 }),
-    createdAt: (0, import_mysql_core3.datetime)("created_at", { mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: (0, import_mysql_core3.datetime)("updated_at", { mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`)
+    createdAt: (0, import_mysql_core3.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: (0, import_mysql_core3.datetime)("updated_at", { mode: "date" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {
@@ -1889,7 +1887,7 @@ var transfeeraRawDataCallback = (0, import_mysql_core3.mysqlTable)(
     header: (0, import_mysql_core3.mediumtext)().notNull(),
     payload: (0, import_mysql_core3.json)(),
     validationTest: (0, import_mysql_core3.json)(),
-    createdAt: (0, import_mysql_core3.datetime)("created_at", { mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull()
+    createdAt: (0, import_mysql_core3.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
@@ -1906,7 +1904,7 @@ var webhooksLogs = (0, import_mysql_core3.mysqlTable)(
     querystring: (0, import_mysql_core3.varchar)({ length: 255 }),
     service: (0, import_mysql_core3.varchar)({ length: 45 }).notNull(),
     authentication: (0, import_mysql_core3.longtext)(),
-    createdAt: (0, import_mysql_core3.datetime)("created_at", { mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`)
+    createdAt: (0, import_mysql_core3.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {
