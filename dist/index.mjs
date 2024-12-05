@@ -1587,7 +1587,8 @@ var influencerPayments = mysqlTable3(
     idPipefy: varchar3({ length: 60 }),
     description: varchar3({ length: 50 }),
     customDueDate: date2({ mode: "date" }),
-    note: varchar3({ length: 1e3 })
+    note: varchar3({ length: 1e3 }),
+    scopeId: varchar3({ length: 32 })
   },
   (table) => {
     return {

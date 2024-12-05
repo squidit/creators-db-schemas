@@ -132,6 +132,7 @@ export const influencerPayments = mysqlTable("influencerPayments", {
   description: varchar({ length: 50 }),
   customDueDate: date({ mode: 'date' }),
   note: varchar({ length: 1000 }),
+  scopeId: varchar({ length: 32 }),
 },
   (table) => {
     return {
