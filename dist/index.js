@@ -1609,7 +1609,8 @@ var influencerPayments = (0, import_mysql_core3.mysqlTable)(
     idPipefy: (0, import_mysql_core3.varchar)({ length: 60 }),
     description: (0, import_mysql_core3.varchar)({ length: 50 }),
     customDueDate: (0, import_mysql_core3.date)({ mode: "date" }),
-    note: (0, import_mysql_core3.varchar)({ length: 1e3 })
+    note: (0, import_mysql_core3.varchar)({ length: 1e3 }),
+    scopeId: (0, import_mysql_core3.varchar)({ length: 32 })
   },
   (table) => {
     return {

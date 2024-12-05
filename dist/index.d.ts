@@ -15790,6 +15790,22 @@ declare const influencerPayments: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             baseColumn: never;
             generated: undefined;
         }, object>;
+        scopeId: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "scopeId";
+            tableName: "influencerPayments";
+            dataType: "string";
+            columnType: "MySqlVarChar";
+            data: string;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            generated: undefined;
+        }, object>;
     };
     dialect: "mysql";
 }>;
