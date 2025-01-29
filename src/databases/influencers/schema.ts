@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { bigint, char, date, datetime, decimal, double, float, index, int, mysqlTable, mysqlView, primaryKey, text, timestamp, tinyint, unique, varchar } from "drizzle-orm/mysql-core";
+import { bigint, char, date, datetime, decimal, double, float, index, int, mysqlEnum, mysqlTable, mysqlView, primaryKey, text, timestamp, tinyint, unique, varchar } from "drizzle-orm/mysql-core";
 
 export const blockedtags = mysqlTable("blockedtags", {
 	id: int().autoincrement().notNull(),
@@ -120,7 +120,7 @@ export const influencerMetrics = mysqlTable("influencer_metrics", {
 	id: varchar({ length: 100 }).notNull(),
 	socialNetwork: varchar({ length: 100 }).notNull(),
 	observation: varchar({ length: 200 }),
-	type: varchar({ length: 45 }),
+	type: mysqlEnum(['facebook', 'tiktok', 'twitter', 'youtube']),
 	createdAt: datetime({ mode: 'date'}),
 	updatedAt: datetime({ mode: 'date'}),
 },
