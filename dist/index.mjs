@@ -1840,7 +1840,8 @@ var instagramProfiles = mysqlTable2(
     storiesCpm: float2(),
     storiesValue: float2(),
     profileDescription: varchar2({ length: 255 }),
-    hasCreatorsInsights: tinyint2()
+    hasCreatorsInsights: tinyint2(),
+    isSharedCreatorsInsights: tinyint2()
   },
   (table) => {
     return {
@@ -2464,7 +2465,8 @@ var tiktokProfiles = mysqlTable2(
     tcmStatus: varchar2({ length: 15 }),
     insertOrigin: varchar2({ length: 50 }),
     processAt: datetime2({ mode: "date" }),
-    hasCreatorsInsights: tinyint2().default(0)
+    hasCreatorsInsights: tinyint2().default(0),
+    isSharedCreatorsInsights: tinyint2().default(0)
   },
   (table) => {
     return {
@@ -2607,7 +2609,8 @@ var youtubeProfiles = mysqlTable2(
     brandUser: tinyint2().default(0),
     insertOrigin: varchar2({ length: 50 }),
     processAt: datetime2({ mode: "date" }),
-    hasCreatorsInsights: tinyint2().default(0)
+    hasCreatorsInsights: tinyint2().default(0),
+    isSharedCreatorsInsights: tinyint2().default(0)
   },
   (table) => {
     return {
