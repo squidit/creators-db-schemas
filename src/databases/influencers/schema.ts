@@ -313,7 +313,7 @@ export const instagramProfiles = mysqlTable("instagramProfiles", {
 	storiesValue: float(),
 	profileDescription: varchar({ length: 255 }),
 	hasCreatorsInsights: tinyint(),
-	isSharedCreatorsInsights: tinyint(),
+	isSharedCreatorsInsights: tinyint().default(0),
 },
 (table) => {
 	return {
