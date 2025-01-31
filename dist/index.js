@@ -1863,7 +1863,8 @@ var instagramProfiles = (0, import_mysql_core2.mysqlTable)(
     storiesCpm: (0, import_mysql_core2.float)(),
     storiesValue: (0, import_mysql_core2.float)(),
     profileDescription: (0, import_mysql_core2.varchar)({ length: 255 }),
-    hasCreatorsInsights: (0, import_mysql_core2.tinyint)()
+    hasCreatorsInsights: (0, import_mysql_core2.tinyint)(),
+    isSharedCreatorsInsights: (0, import_mysql_core2.tinyint)().default(0)
   },
   (table) => {
     return {
@@ -2487,7 +2488,8 @@ var tiktokProfiles = (0, import_mysql_core2.mysqlTable)(
     tcmStatus: (0, import_mysql_core2.varchar)({ length: 15 }),
     insertOrigin: (0, import_mysql_core2.varchar)({ length: 50 }),
     processAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
-    hasCreatorsInsights: (0, import_mysql_core2.tinyint)().default(0)
+    hasCreatorsInsights: (0, import_mysql_core2.tinyint)().default(0),
+    isSharedCreatorsInsights: (0, import_mysql_core2.tinyint)().default(0)
   },
   (table) => {
     return {
@@ -2630,7 +2632,8 @@ var youtubeProfiles = (0, import_mysql_core2.mysqlTable)(
     brandUser: (0, import_mysql_core2.tinyint)().default(0),
     insertOrigin: (0, import_mysql_core2.varchar)({ length: 50 }),
     processAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
-    hasCreatorsInsights: (0, import_mysql_core2.tinyint)().default(0)
+    hasCreatorsInsights: (0, import_mysql_core2.tinyint)().default(0),
+    isSharedCreatorsInsights: (0, import_mysql_core2.tinyint)().default(0)
   },
   (table) => {
     return {

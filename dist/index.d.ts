@@ -19130,6 +19130,22 @@ declare const instagramProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             baseColumn: never;
             generated: undefined;
         }, object>;
+        isSharedCreatorsInsights: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "isSharedCreatorsInsights";
+            tableName: "instagramProfiles";
+            dataType: "number";
+            columnType: "MySqlTinyInt";
+            data: number;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            generated: undefined;
+        }, object>;
     };
     dialect: "mysql";
 }>;
@@ -24704,6 +24720,22 @@ declare const tiktokProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             baseColumn: never;
             generated: undefined;
         }, object>;
+        isSharedCreatorsInsights: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "isSharedCreatorsInsights";
+            tableName: "tiktokProfiles";
+            dataType: "number";
+            columnType: "MySqlTinyInt";
+            data: number;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            generated: undefined;
+        }, object>;
     };
     dialect: "mysql";
 }>;
@@ -26286,6 +26318,22 @@ declare const youtubeProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
         }, object>;
         hasCreatorsInsights: drizzle_orm_mysql_core.MySqlColumn<{
             name: "hasCreatorsInsights";
+            tableName: "youtubeProfiles";
+            dataType: "number";
+            columnType: "MySqlTinyInt";
+            data: number;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            generated: undefined;
+        }, object>;
+        isSharedCreatorsInsights: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "isSharedCreatorsInsights";
             tableName: "youtubeProfiles";
             dataType: "number";
             columnType: "MySqlTinyInt";

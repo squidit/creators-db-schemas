@@ -313,6 +313,7 @@ export const instagramProfiles = mysqlTable("instagramProfiles", {
 	storiesValue: float(),
 	profileDescription: varchar({ length: 255 }),
 	hasCreatorsInsights: tinyint(),
+	isSharedCreatorsInsights: tinyint().default(0),
 },
 (table) => {
 	return {
@@ -892,6 +893,7 @@ export const tiktokProfiles = mysqlTable("tiktokProfiles", {
 	insertOrigin: varchar({ length: 50 }),
 	processAt: datetime({ mode: 'date'}),
 	hasCreatorsInsights: tinyint().default(0),
+	isSharedCreatorsInsights: tinyint().default(0),
 },
 (table) => {
 	return {
@@ -1027,6 +1029,7 @@ export const youtubeProfiles = mysqlTable("youtubeProfiles", {
 	insertOrigin: varchar({ length: 50 }),
 	processAt: datetime({ mode: 'date'}),
 	hasCreatorsInsights: tinyint().default(0),
+	isSharedCreatorsInsights: tinyint().default(0),
 },
 (table) => {
 	return {
