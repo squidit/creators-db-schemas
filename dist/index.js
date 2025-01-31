@@ -1864,7 +1864,7 @@ var instagramProfiles = (0, import_mysql_core2.mysqlTable)(
     storiesValue: (0, import_mysql_core2.float)(),
     profileDescription: (0, import_mysql_core2.varchar)({ length: 255 }),
     hasCreatorsInsights: (0, import_mysql_core2.tinyint)(),
-    isSharedCreatorsInsights: (0, import_mysql_core2.tinyint)()
+    isSharedCreatorsInsights: (0, import_mysql_core2.tinyint)().default(0)
   },
   (table) => {
     return {

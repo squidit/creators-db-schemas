@@ -19138,7 +19138,7 @@ declare const instagramProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             data: number;
             driverParam: string | number;
             notNull: false;
-            hasDefault: false;
+            hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
@@ -26340,7 +26340,7 @@ declare const youtubeProfiles: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             data: number;
             driverParam: string | number;
             notNull: false;
-            hasDefault: false;
+            hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;

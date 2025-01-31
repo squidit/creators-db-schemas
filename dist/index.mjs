@@ -1841,7 +1841,7 @@ var instagramProfiles = mysqlTable2(
     storiesValue: float2(),
     profileDescription: varchar2({ length: 255 }),
     hasCreatorsInsights: tinyint2(),
-    isSharedCreatorsInsights: tinyint2()
+    isSharedCreatorsInsights: tinyint2().default(0)
   },
   (table) => {
     return {
