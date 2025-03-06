@@ -397,6 +397,7 @@ export const transactionsHistory = mysqlTable("transactionsHistory", {
   paidedAt: datetime({ mode: 'date' }),
   withdrawingDate: datetime({ mode: 'date' }),
   deletedAt: datetime({ mode: 'date' }),
+  userCreated: varchar({ length: 255 })
 });
 
 export const transactionsSchedule = mysqlTable("transactions_schedule", {
