@@ -3261,7 +3261,9 @@ var transactions = mysqlTable4(
     withdrawingDate: datetime4({ mode: "date" }),
     createdAt: datetime4({ mode: "date" }).notNull(),
     updatedAt: datetime4({ mode: "date" }),
-    deletedAt: datetime4({ mode: "date" })
+    deletedAt: datetime4({ mode: "date" }),
+    userCreated: varchar4({ length: 255 }),
+    userUpdated: varchar4({ length: 255 })
   },
   (table) => {
     return {
@@ -3301,7 +3303,8 @@ var transactionsHistory = mysqlTable4("transactionsHistory", {
   updatedAt: datetime4({ mode: "date" }),
   paidedAt: datetime4({ mode: "date" }),
   withdrawingDate: datetime4({ mode: "date" }),
-  deletedAt: datetime4({ mode: "date" })
+  deletedAt: datetime4({ mode: "date" }),
+  userCreated: varchar4({ length: 255 })
 });
 var transactionsSchedule = mysqlTable4(
   "transactions_schedule",
