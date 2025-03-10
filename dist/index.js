@@ -3284,7 +3284,9 @@ var transactions = (0, import_mysql_core4.mysqlTable)(
     withdrawingDate: (0, import_mysql_core4.datetime)({ mode: "date" }),
     createdAt: (0, import_mysql_core4.datetime)({ mode: "date" }).notNull(),
     updatedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" })
+    deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
+    userCreated: (0, import_mysql_core4.varchar)({ length: 255 }),
+    userUpdated: (0, import_mysql_core4.varchar)({ length: 255 })
   },
   (table) => {
     return {
@@ -3324,7 +3326,8 @@ var transactionsHistory = (0, import_mysql_core4.mysqlTable)("transactionsHistor
   updatedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
   paidedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
   withdrawingDate: (0, import_mysql_core4.datetime)({ mode: "date" }),
-  deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" })
+  deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
+  userCreated: (0, import_mysql_core4.varchar)({ length: 255 })
 });
 var transactionsSchedule = (0, import_mysql_core4.mysqlTable)(
   "transactions_schedule",

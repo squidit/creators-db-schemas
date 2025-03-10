@@ -352,6 +352,8 @@ export const transactions = mysqlTable("transactions", {
   createdAt: datetime({ mode: 'date' }).notNull(),
   updatedAt: datetime({ mode: 'date' }),
   deletedAt: datetime({ mode: 'date' }),
+  userCreated: varchar({ length: 255 }),
+  userUpdated: varchar({ length: 255 })
 },
   (table) => {
     return {
@@ -395,6 +397,7 @@ export const transactionsHistory = mysqlTable("transactionsHistory", {
   paidedAt: datetime({ mode: 'date' }),
   withdrawingDate: datetime({ mode: 'date' }),
   deletedAt: datetime({ mode: 'date' }),
+  userCreated: varchar({ length: 255 })
 });
 
 export const transactionsSchedule = mysqlTable("transactions_schedule", {
