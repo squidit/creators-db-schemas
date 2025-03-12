@@ -1,6 +1,6 @@
 {
   "name": "creators-db-schemas",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Submódulo responsável por agrupar e padronizar todos os schemas de bancos relacionais e suas relações.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
