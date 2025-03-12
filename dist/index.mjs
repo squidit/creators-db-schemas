@@ -1469,6 +1469,8 @@ __export(schema_exports2, {
   blockedusers: () => blockedusers,
   deletedProfiles: () => deletedProfiles,
   facebookTokens: () => facebookTokens,
+  facebookTokensHistory: () => facebookTokensHistory,
+  facebookTokensMetadata: () => facebookTokensMetadata,
   fullInstagramProfile: () => fullInstagramProfile,
   fullInstagramProfileAll: () => fullInstagramProfileAll,
   genders: () => genders,
@@ -1593,6 +1595,47 @@ var facebookTokens = mysqlTable2(
       notificationIdx: index2("notification_index").on(table.valid, table.expiredTokenNotified, table.sevenDaysNotified, table.expiresAt),
       instagramBusinessIdIdx: index2("facebookTokens_instagramBusinessId_IDX").on(table.instagramBusinessId),
       facebookTokensProfileId: primaryKey2({ columns: [table.profileId], name: "facebookTokens_profileId" })
+    };
+  }
+);
+var facebookTokensMetadata = mysqlTable2(
+  "facebookTokensMetadata",
+  {
+    instagramBusinessAccountId: varchar2({ length: 50 }).notNull().references(() => facebookTokens.profileId, { onDelete: "cascade", onUpdate: "cascade" }),
+    createdAt: datetime2({ mode: "date" }).default(sql2`(CURRENT_TIMESTAMP)`),
+    updatedAt: datetime2({ mode: "date" }).default(sql2`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`),
+    checkResult: varchar2({ length: 20 }),
+    validationCode: varchar2({ length: 100 }),
+    facebookDataFetchDetails: text2(),
+    facebookValidateDetails: text2(),
+    tokenType: varchar2({ length: 50 }),
+    userAccessToken: varchar2({ length: 255 })
+  },
+  (table) => {
+    return {
+      facebookTokensMetadataProfileId: primaryKey2({ columns: [table.instagramBusinessAccountId], name: "facebookTokensMetadata_instagramBusinessAccountId" }),
+      idxInstagramBusinessAccount: index2("idx_instagram_business_account").on(table.instagramBusinessAccountId),
+      idxCreatedAt: index2("idx_created_at").on(table.createdAt),
+      idxcheckResult: index2("idx_instagram_business_account").on(table.checkResult)
+    };
+  }
+);
+var facebookTokensHistory = mysqlTable2(
+  "facebookTokensHistory",
+  {
+    instagramBusinessAccountId: varchar2({ length: 50 }).notNull().references(() => facebookTokens.profileId, { onDelete: "cascade", onUpdate: "cascade" }),
+    createdAt: datetime2({ mode: "date" }).default(sql2`(CURRENT_TIMESTAMP)`),
+    updatedAt: datetime2({ mode: "date" }).default(sql2`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`),
+    oldStatus: varchar2({ length: 20 }),
+    newStatus: varchar2({ length: 20 }),
+    updateReason: varchar2({ length: 250 })
+  },
+  (table) => {
+    return {
+      facebookTokensHistoryProfileId: primaryKey2({ columns: [table.instagramBusinessAccountId], name: "facebookTokensHistory_instagramBusinessAccountId" }),
+      idxInstagramBusinessAccount: index2("idx_instagram_business_account").on(table.instagramBusinessAccountId),
+      idxCreatedAt: index2("idx_created_at").on(table.createdAt),
+      idxUpdateReason: index2("idx_update_reason").on(table.updateReason)
     };
   }
 );
