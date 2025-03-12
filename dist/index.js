@@ -1492,6 +1492,8 @@ __export(schema_exports2, {
   blockedusers: () => blockedusers,
   deletedProfiles: () => deletedProfiles,
   facebookTokens: () => facebookTokens,
+  facebookTokensHistory: () => facebookTokensHistory,
+  facebookTokensMetadata: () => facebookTokensMetadata,
   fullInstagramProfile: () => fullInstagramProfile,
   fullInstagramProfileAll: () => fullInstagramProfileAll,
   genders: () => genders,
@@ -1616,6 +1618,47 @@ var facebookTokens = (0, import_mysql_core2.mysqlTable)(
       notificationIdx: (0, import_mysql_core2.index)("notification_index").on(table.valid, table.expiredTokenNotified, table.sevenDaysNotified, table.expiresAt),
       instagramBusinessIdIdx: (0, import_mysql_core2.index)("facebookTokens_instagramBusinessId_IDX").on(table.instagramBusinessId),
       facebookTokensProfileId: (0, import_mysql_core2.primaryKey)({ columns: [table.profileId], name: "facebookTokens_profileId" })
+    };
+  }
+);
+var facebookTokensMetadata = (0, import_mysql_core2.mysqlTable)(
+  "facebookTokensMetadata",
+  {
+    instagramBusinessAccountId: (0, import_mysql_core2.varchar)({ length: 50 }).notNull().references(() => facebookTokens.profileId, { onDelete: "cascade", onUpdate: "cascade" }),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`),
+    checkResult: (0, import_mysql_core2.varchar)({ length: 20 }),
+    validationCode: (0, import_mysql_core2.varchar)({ length: 100 }),
+    facebookDataFetchDetails: (0, import_mysql_core2.text)(),
+    facebookValidateDetails: (0, import_mysql_core2.text)(),
+    tokenType: (0, import_mysql_core2.varchar)({ length: 50 }),
+    userAccessToken: (0, import_mysql_core2.varchar)({ length: 255 })
+  },
+  (table) => {
+    return {
+      facebookTokensMetadataProfileId: (0, import_mysql_core2.primaryKey)({ columns: [table.instagramBusinessAccountId], name: "facebookTokensMetadata_instagramBusinessAccountId" }),
+      idxInstagramBusinessAccount: (0, import_mysql_core2.index)("idx_instagram_business_account").on(table.instagramBusinessAccountId),
+      idxCreatedAt: (0, import_mysql_core2.index)("idx_created_at").on(table.createdAt),
+      idxcheckResult: (0, import_mysql_core2.index)("idx_instagram_business_account").on(table.checkResult)
+    };
+  }
+);
+var facebookTokensHistory = (0, import_mysql_core2.mysqlTable)(
+  "facebookTokensHistory",
+  {
+    instagramBusinessAccountId: (0, import_mysql_core2.varchar)({ length: 50 }).notNull().references(() => facebookTokens.profileId, { onDelete: "cascade", onUpdate: "cascade" }),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`),
+    oldStatus: (0, import_mysql_core2.varchar)({ length: 20 }),
+    newStatus: (0, import_mysql_core2.varchar)({ length: 20 }),
+    updateReason: (0, import_mysql_core2.varchar)({ length: 250 })
+  },
+  (table) => {
+    return {
+      facebookTokensHistoryProfileId: (0, import_mysql_core2.primaryKey)({ columns: [table.instagramBusinessAccountId], name: "facebookTokensHistory_instagramBusinessAccountId" }),
+      idxInstagramBusinessAccount: (0, import_mysql_core2.index)("idx_instagram_business_account").on(table.instagramBusinessAccountId),
+      idxCreatedAt: (0, import_mysql_core2.index)("idx_created_at").on(table.createdAt),
+      idxUpdateReason: (0, import_mysql_core2.index)("idx_update_reason").on(table.updateReason)
     };
   }
 );

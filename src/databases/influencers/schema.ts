@@ -75,6 +75,43 @@ export const facebookTokens = mysqlTable("facebookTokens", {
 	}
 });
 
+export const facebookTokensMetadata = mysqlTable("facebookTokensMetadata", {
+	instagramBusinessAccountId: varchar({ length: 50 }).notNull().references(() => facebookTokens.profileId, { onDelete: "cascade", onUpdate: "cascade" }),
+	createdAt: datetime({ mode: 'date'}).default(sql`(CURRENT_TIMESTAMP)`),
+	updatedAt: datetime({ mode: 'date'}).default(sql`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`),
+	checkResult: varchar({ length: 20}),
+	validationCode: varchar({ length: 100}),
+	facebookDataFetchDetails: text(),
+	facebookValidateDetails:  text(),
+	tokenType:  varchar({ length: 50}),
+	userAccessToken: varchar({ length: 255}),
+},
+(table) => {
+	return {
+		facebookTokensMetadataProfileId: primaryKey({ columns: [table.instagramBusinessAccountId], name: "facebookTokensMetadata_instagramBusinessAccountId"}),
+		idxInstagramBusinessAccount: index("idx_instagram_business_account").on(table.instagramBusinessAccountId),
+		idxCreatedAt: index("idx_created_at").on(table.createdAt),
+		idxcheckResult: index("idx_check_result").on(table.checkResult),
+	}
+});
+
+export const facebookTokensHistory = mysqlTable("facebookTokensHistory", {
+	instagramBusinessAccountId: varchar({ length: 50 }).notNull().references(() => facebookTokens.profileId,{ onDelete: "cascade", onUpdate: "cascade" }),
+	createdAt: datetime({ mode: 'date'}).default(sql`(CURRENT_TIMESTAMP)`),
+	updatedAt: datetime({ mode: 'date'}).default(sql`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`),
+	oldStatus: varchar({ length: 20}),
+	newStatus: varchar({ length: 20}),
+	updateReason: varchar({ length: 250}),
+},
+(table) => {
+	return {
+		facebookTokensHistoryProfileId: primaryKey({ columns: [table.instagramBusinessAccountId], name: "facebookTokensHistory_instagramBusinessAccountId"}),
+		idxInstagramBusinessAccount: index("idx_instagram_business_account").on(table.instagramBusinessAccountId),
+		idxCreatedAt: index("idx_created_at").on(table.createdAt),
+		idxUpdateReason: index("idx_update_reason").on(table.updateReason),
+	}
+});
+
 export const genders = mysqlTable("genders", {
 	id: int().autoincrement().notNull(),
 	description: varchar({ length: 50 }).notNull(),
