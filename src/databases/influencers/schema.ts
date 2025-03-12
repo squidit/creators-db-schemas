@@ -91,7 +91,7 @@ export const facebookTokensMetadata = mysqlTable("facebookTokensMetadata", {
 		facebookTokensMetadataProfileId: primaryKey({ columns: [table.instagramBusinessAccountId], name: "facebookTokensMetadata_instagramBusinessAccountId"}),
 		idxInstagramBusinessAccount: index("idx_instagram_business_account").on(table.instagramBusinessAccountId),
 		idxCreatedAt: index("idx_created_at").on(table.createdAt),
-		idxcheckResult: index("idx_instagram_business_account").on(table.checkResult),
+		idxcheckResult: index("idx_check_result").on(table.checkResult),
 	}
 });
 
