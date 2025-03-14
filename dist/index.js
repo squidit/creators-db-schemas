@@ -18,14 +18,14 @@ var __copyProps = (to, from, except, desc) => {
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // src/index.ts
-var src_exports = {};
-__export(src_exports, {
+var index_exports = {};
+__export(index_exports, {
   businessIntelligenceDb: () => schema_exports,
   influencersDb: () => schema_exports2,
   npsDb: () => schema_exports3,
   paymentDb: () => schema_exports4
 });
-module.exports = __toCommonJS(src_exports);
+module.exports = __toCommonJS(index_exports);
 
 // src/databases/business_intelligence/schema.ts
 var schema_exports = {};
@@ -3327,7 +3327,9 @@ var transactions = (0, import_mysql_core4.mysqlTable)(
     withdrawingDate: (0, import_mysql_core4.datetime)({ mode: "date" }),
     createdAt: (0, import_mysql_core4.datetime)({ mode: "date" }).notNull(),
     updatedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" })
+    deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
+    userCreated: (0, import_mysql_core4.varchar)({ length: 255 }),
+    userUpdated: (0, import_mysql_core4.varchar)({ length: 255 })
   },
   (table) => {
     return {
@@ -3367,7 +3369,8 @@ var transactionsHistory = (0, import_mysql_core4.mysqlTable)("transactionsHistor
   updatedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
   paidedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
   withdrawingDate: (0, import_mysql_core4.datetime)({ mode: "date" }),
-  deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" })
+  deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
+  userCreated: (0, import_mysql_core4.varchar)({ length: 255 })
 });
 var transactionsSchedule = (0, import_mysql_core4.mysqlTable)(
   "transactions_schedule",
