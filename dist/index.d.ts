@@ -34879,7 +34879,7 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             columnType: "MySqlVarChar";
             data: string;
             driverParam: string | number;
-            notNull: false;
+            notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
@@ -34890,35 +34890,35 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             generated: undefined;
         }, {}, {}>;
         transactionStatus: drizzle_orm_mysql_core.MySqlColumn<{
-            name: "transactionStatus";
+            name: "transaction_status";
             tableName: "transactions";
             dataType: "string";
-            columnType: "MySqlVarChar";
-            data: string;
-            driverParam: string | number;
+            columnType: "MySqlEnumColumn";
+            data: "analyze" | "blocked" | "canceled" | "failed" | "new" | "paid" | "paidByFinance" | "pending" | "readyToPay" | "retry" | "review" | "unblocked" | "withdrawing";
+            driverParam: string;
             notNull: true;
             hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
-            enumValues: [string, ...string[]];
+            enumValues: ["analyze", "blocked", "canceled", "failed", "new", "paid", "paidByFinance", "pending", "readyToPay", "retry", "review", "unblocked", "withdrawing"];
             baseColumn: never;
             identity: undefined;
             generated: undefined;
         }, {}, {}>;
         paymentType: drizzle_orm_mysql_core.MySqlColumn<{
-            name: "paymentType";
+            name: "payment_type";
             tableName: "transactions";
             dataType: "string";
-            columnType: "MySqlVarChar";
-            data: string;
-            driverParam: string | number;
-            notNull: false;
+            columnType: "MySqlEnumColumn";
+            data: "rpa" | "nf";
+            driverParam: string;
+            notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
-            enumValues: [string, ...string[]];
+            enumValues: ["nf", "rpa"];
             baseColumn: never;
             identity: undefined;
             generated: undefined;
@@ -35372,7 +35372,7 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             columnType: "MySqlDate";
             data: Date;
             driverParam: string | number;
-            notNull: false;
+            notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
@@ -35484,8 +35484,8 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             identity: undefined;
             generated: undefined;
         }, {}, {}>;
-        userCreated: drizzle_orm_mysql_core.MySqlColumn<{
-            name: "userCreated";
+        createdById: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "createdById";
             tableName: "transactions";
             dataType: "string";
             columnType: "MySqlVarChar";
@@ -35501,8 +35501,42 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             identity: undefined;
             generated: undefined;
         }, {}, {}>;
-        userUpdated: drizzle_orm_mysql_core.MySqlColumn<{
-            name: "userUpdated";
+        updatedById: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "updatedById";
+            tableName: "transactions";
+            dataType: "string";
+            columnType: "MySqlVarChar";
+            data: string;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        createdByEmail: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "createdByEmail";
+            tableName: "transactions";
+            dataType: "string";
+            columnType: "MySqlVarChar";
+            data: string;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        updatedByEmail: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "updatedByEmail";
             tableName: "transactions";
             dataType: "string";
             columnType: "MySqlVarChar";
@@ -36037,8 +36071,25 @@ declare const transactionsHistory: drizzle_orm_mysql_core.MySqlTableWithColumns<
             identity: undefined;
             generated: undefined;
         }, {}, {}>;
-        userCreated: drizzle_orm_mysql_core.MySqlColumn<{
-            name: "userCreated";
+        createdById: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "createdById";
+            tableName: "transactionsHistory";
+            dataType: "string";
+            columnType: "MySqlVarChar";
+            data: string;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        createdByEmail: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "createdByEmail";
             tableName: "transactionsHistory";
             dataType: "string";
             columnType: "MySqlVarChar";

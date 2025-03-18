@@ -1616,7 +1616,7 @@ var facebookTokensMetadata = mysqlTable2(
       facebookTokensMetadataProfileId: primaryKey2({ columns: [table.instagramBusinessAccountId], name: "facebookTokensMetadata_instagramBusinessAccountId" }),
       idxInstagramBusinessAccount: index2("idx_instagram_business_account").on(table.instagramBusinessAccountId),
       idxCreatedAt: index2("idx_created_at").on(table.createdAt),
-      idxcheckResult: index2("idx_instagram_business_account").on(table.checkResult)
+      idxcheckResult: index2("idx_check_result").on(table.checkResult)
     };
   }
 );
@@ -2961,6 +2961,33 @@ __export(schema_exports4, {
 });
 import { sql as sql4 } from "drizzle-orm";
 import { bigint as bigint3, char as char3, date as date3, datetime as datetime4, double as double2, float as float3, index as index4, int as int4, json, longtext as longtext2, mediumtext, mysqlTable as mysqlTable4, mysqlView as mysqlView2, primaryKey as primaryKey4, text as text3, tinyint as tinyint4, unique as unique4, varchar as varchar4 } from "drizzle-orm/mysql-core";
+
+// src/databases/payment/enums.ts
+import { mysqlEnum as mysqlEnum3 } from "drizzle-orm/mysql-core";
+var transactionStatusEnum = mysqlEnum3(
+  "transaction_status",
+  [
+    "analyze",
+    "blocked",
+    "canceled",
+    "failed",
+    "new",
+    "paid",
+    "paidByFinance",
+    "pending",
+    "readyToPay",
+    "retry",
+    "review",
+    "unblocked",
+    "withdrawing"
+  ]
+);
+var paymentTypeEnum = mysqlEnum3(
+  "payment_type",
+  ["nf", "rpa"]
+);
+
+// src/databases/payment/schema.ts
 var charges = mysqlTable4(
   "charges",
   {
@@ -3269,9 +3296,9 @@ var transactions = mysqlTable4(
   "transactions",
   {
     transactionId: varchar4({ length: 60 }).notNull(),
-    squidId: varchar4({ length: 60 }),
-    transactionStatus: varchar4({ length: 50 }).default("pending").notNull(),
-    paymentType: varchar4({ length: 5 }),
+    squidId: varchar4({ length: 60 }).notNull(),
+    transactionStatus: transactionStatusEnum.notNull().default("new"),
+    paymentType: paymentTypeEnum.notNull(),
     netValue: float3().notNull(),
     grossValue: float3().notNull(),
     inssAliquot: float3(),
@@ -3298,15 +3325,17 @@ var transactions = mysqlTable4(
     paymentGatewayTransactionId: varchar4({ length: 255 }),
     paymentGatewayReceiptUrl: varchar4({ length: 450 }),
     paymentGatewayReceiptBankUrl: varchar4({ length: 450 }),
-    dueDate: date3({ mode: "date" }),
+    dueDate: date3({ mode: "date" }).notNull(),
     transactionDate: datetime4({ mode: "date" }).notNull(),
     paidedAt: datetime4({ mode: "date" }),
     withdrawingDate: datetime4({ mode: "date" }),
     createdAt: datetime4({ mode: "date" }).notNull(),
     updatedAt: datetime4({ mode: "date" }),
     deletedAt: datetime4({ mode: "date" }),
-    userCreated: varchar4({ length: 255 }),
-    userUpdated: varchar4({ length: 255 })
+    createdById: varchar4({ length: 255 }),
+    updatedById: varchar4({ length: 255 }),
+    createdByEmail: varchar4({ length: 255 }),
+    updatedByEmail: varchar4({ length: 255 })
   },
   (table) => {
     return {
@@ -3347,7 +3376,8 @@ var transactionsHistory = mysqlTable4("transactionsHistory", {
   paidedAt: datetime4({ mode: "date" }),
   withdrawingDate: datetime4({ mode: "date" }),
   deletedAt: datetime4({ mode: "date" }),
-  userCreated: varchar4({ length: 255 })
+  createdById: varchar4({ length: 255 }),
+  createdByEmail: varchar4({ length: 255 })
 });
 var transactionsSchedule = mysqlTable4(
   "transactions_schedule",

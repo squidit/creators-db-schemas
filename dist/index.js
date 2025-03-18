@@ -1639,7 +1639,7 @@ var facebookTokensMetadata = (0, import_mysql_core2.mysqlTable)(
       facebookTokensMetadataProfileId: (0, import_mysql_core2.primaryKey)({ columns: [table.instagramBusinessAccountId], name: "facebookTokensMetadata_instagramBusinessAccountId" }),
       idxInstagramBusinessAccount: (0, import_mysql_core2.index)("idx_instagram_business_account").on(table.instagramBusinessAccountId),
       idxCreatedAt: (0, import_mysql_core2.index)("idx_created_at").on(table.createdAt),
-      idxcheckResult: (0, import_mysql_core2.index)("idx_instagram_business_account").on(table.checkResult)
+      idxcheckResult: (0, import_mysql_core2.index)("idx_check_result").on(table.checkResult)
     };
   }
 );
@@ -2983,618 +2983,648 @@ __export(schema_exports4, {
   webhooksLogs: () => webhooksLogs
 });
 var import_drizzle_orm4 = require("drizzle-orm");
+var import_mysql_core5 = require("drizzle-orm/mysql-core");
+
+// src/databases/payment/enums.ts
 var import_mysql_core4 = require("drizzle-orm/mysql-core");
-var charges = (0, import_mysql_core4.mysqlTable)(
+var transactionStatusEnum = (0, import_mysql_core4.mysqlEnum)(
+  "transaction_status",
+  [
+    "analyze",
+    "blocked",
+    "canceled",
+    "failed",
+    "new",
+    "paid",
+    "paidByFinance",
+    "pending",
+    "readyToPay",
+    "retry",
+    "review",
+    "unblocked",
+    "withdrawing"
+  ]
+);
+var paymentTypeEnum = (0, import_mysql_core4.mysqlEnum)(
+  "payment_type",
+  ["nf", "rpa"]
+);
+
+// src/databases/payment/schema.ts
+var charges = (0, import_mysql_core5.mysqlTable)(
   "charges",
   {
-    seqId: (0, import_mysql_core4.bigint)({ mode: "number" }).autoincrement().notNull(),
-    createdAt: (0, import_mysql_core4.datetime)({ mode: "date" }).notNull(),
-    updatedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    amount: (0, import_mysql_core4.double)({ precision: 10, scale: 2 }).notNull(),
-    totalAmount: (0, import_mysql_core4.double)({ precision: 10, scale: 2 }).notNull(),
-    fees: (0, import_mysql_core4.double)({ precision: 10, scale: 2 }).notNull(),
-    dueDate: (0, import_mysql_core4.date)({ mode: "date" }),
-    currency: (0, import_mysql_core4.varchar)({ length: 3 }).default("BRL").notNull(),
-    paymentOrderUrl: (0, import_mysql_core4.longtext)(),
-    paymentGatewayTransactionId: (0, import_mysql_core4.longtext)()
+    seqId: (0, import_mysql_core5.bigint)({ mode: "number" }).autoincrement().notNull(),
+    createdAt: (0, import_mysql_core5.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    amount: (0, import_mysql_core5.double)({ precision: 10, scale: 2 }).notNull(),
+    totalAmount: (0, import_mysql_core5.double)({ precision: 10, scale: 2 }).notNull(),
+    fees: (0, import_mysql_core5.double)({ precision: 10, scale: 2 }).notNull(),
+    dueDate: (0, import_mysql_core5.date)({ mode: "date" }),
+    currency: (0, import_mysql_core5.varchar)({ length: 3 }).default("BRL").notNull(),
+    paymentOrderUrl: (0, import_mysql_core5.longtext)(),
+    paymentGatewayTransactionId: (0, import_mysql_core5.longtext)()
   },
   (table) => {
     return {
-      chargesSeqId: (0, import_mysql_core4.primaryKey)({ columns: [table.seqId], name: "charges_seqId" })
+      chargesSeqId: (0, import_mysql_core5.primaryKey)({ columns: [table.seqId], name: "charges_seqId" })
     };
   }
 );
-var companyFiles = (0, import_mysql_core4.mysqlTable)(
+var companyFiles = (0, import_mysql_core5.mysqlTable)(
   "companyFiles",
   {
-    seqId: (0, import_mysql_core4.bigint)({ mode: "number" }).autoincrement().notNull(),
-    squidId: (0, import_mysql_core4.varchar)({ length: 36 }).notNull(),
-    companyDocument: (0, import_mysql_core4.varchar)({ length: 50 }).notNull(),
-    urlStorage: (0, import_mysql_core4.text)(),
-    status: (0, import_mysql_core4.varchar)({ length: 40 }).notNull(),
-    reason: (0, import_mysql_core4.varchar)({ length: 100 }),
-    uploadedAt: (0, import_mysql_core4.date)({ mode: "date" }),
-    validatedAt: (0, import_mysql_core4.date)({ mode: "date" }),
-    deletedAt: (0, import_mysql_core4.date)({ mode: "date" })
+    seqId: (0, import_mysql_core5.bigint)({ mode: "number" }).autoincrement().notNull(),
+    squidId: (0, import_mysql_core5.varchar)({ length: 36 }).notNull(),
+    companyDocument: (0, import_mysql_core5.varchar)({ length: 50 }).notNull(),
+    urlStorage: (0, import_mysql_core5.text)(),
+    status: (0, import_mysql_core5.varchar)({ length: 40 }).notNull(),
+    reason: (0, import_mysql_core5.varchar)({ length: 100 }),
+    uploadedAt: (0, import_mysql_core5.date)({ mode: "date" }),
+    validatedAt: (0, import_mysql_core5.date)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core5.date)({ mode: "date" })
   },
   (table) => {
     return {
-      companyFilesSeqId: (0, import_mysql_core4.primaryKey)({ columns: [table.seqId], name: "companyFiles_seqId" })
+      companyFilesSeqId: (0, import_mysql_core5.primaryKey)({ columns: [table.seqId], name: "companyFiles_seqId" })
     };
   }
 );
-var compositions = (0, import_mysql_core4.mysqlTable)(
+var compositions = (0, import_mysql_core5.mysqlTable)(
   "compositions",
   {
-    seqId: (0, import_mysql_core4.int)().autoincrement().notNull(),
-    chargeId: (0, import_mysql_core4.int)().notNull(),
-    squidId: (0, import_mysql_core4.varchar)({ length: 36 }),
-    username: (0, import_mysql_core4.varchar)({ length: 255 }),
-    paymentType: (0, import_mysql_core4.varchar)({ length: 5 }),
-    document: (0, import_mysql_core4.varchar)({ length: 50 }),
-    fullName: (0, import_mysql_core4.varchar)({ length: 255 }),
-    birthday: (0, import_mysql_core4.date)({ mode: "date" }),
-    transactionId: (0, import_mysql_core4.varchar)({ length: 60 }),
-    dueDate: (0, import_mysql_core4.date)({ mode: "date" }),
-    transactionStatus: (0, import_mysql_core4.varchar)({ length: 50 }),
-    netValue: (0, import_mysql_core4.float)(),
-    grossValue: (0, import_mysql_core4.float)(),
-    nf: (0, import_mysql_core4.varchar)({ length: 255 }),
-    pis: (0, import_mysql_core4.varchar)({ length: 50 }),
-    address: (0, import_mysql_core4.varchar)({ length: 255 }),
-    addressNumber: (0, import_mysql_core4.varchar)({ length: 45 }),
-    neighborhood: (0, import_mysql_core4.varchar)({ length: 255 }),
-    zipcode: (0, import_mysql_core4.varchar)({ length: 15 }),
-    city: (0, import_mysql_core4.varchar)({ length: 255 }),
-    uf: (0, import_mysql_core4.varchar)({ length: 255 }),
-    country: (0, import_mysql_core4.varchar)({ length: 255 }),
-    bankAccountNumber: (0, import_mysql_core4.varchar)({ length: 50 }),
-    bankAccountDigit: (0, import_mysql_core4.varchar)({ length: 5 }),
-    bankAccountAgency: (0, import_mysql_core4.varchar)({ length: 11 }),
-    bankCode: (0, import_mysql_core4.varchar)({ length: 10 }),
-    bankName: (0, import_mysql_core4.varchar)({ length: 100 }),
-    bankAccountType: (0, import_mysql_core4.varchar)({ length: 20 })
+    seqId: (0, import_mysql_core5.int)().autoincrement().notNull(),
+    chargeId: (0, import_mysql_core5.int)().notNull(),
+    squidId: (0, import_mysql_core5.varchar)({ length: 36 }),
+    username: (0, import_mysql_core5.varchar)({ length: 255 }),
+    paymentType: (0, import_mysql_core5.varchar)({ length: 5 }),
+    document: (0, import_mysql_core5.varchar)({ length: 50 }),
+    fullName: (0, import_mysql_core5.varchar)({ length: 255 }),
+    birthday: (0, import_mysql_core5.date)({ mode: "date" }),
+    transactionId: (0, import_mysql_core5.varchar)({ length: 60 }),
+    dueDate: (0, import_mysql_core5.date)({ mode: "date" }),
+    transactionStatus: (0, import_mysql_core5.varchar)({ length: 50 }),
+    netValue: (0, import_mysql_core5.float)(),
+    grossValue: (0, import_mysql_core5.float)(),
+    nf: (0, import_mysql_core5.varchar)({ length: 255 }),
+    pis: (0, import_mysql_core5.varchar)({ length: 50 }),
+    address: (0, import_mysql_core5.varchar)({ length: 255 }),
+    addressNumber: (0, import_mysql_core5.varchar)({ length: 45 }),
+    neighborhood: (0, import_mysql_core5.varchar)({ length: 255 }),
+    zipcode: (0, import_mysql_core5.varchar)({ length: 15 }),
+    city: (0, import_mysql_core5.varchar)({ length: 255 }),
+    uf: (0, import_mysql_core5.varchar)({ length: 255 }),
+    country: (0, import_mysql_core5.varchar)({ length: 255 }),
+    bankAccountNumber: (0, import_mysql_core5.varchar)({ length: 50 }),
+    bankAccountDigit: (0, import_mysql_core5.varchar)({ length: 5 }),
+    bankAccountAgency: (0, import_mysql_core5.varchar)({ length: 11 }),
+    bankCode: (0, import_mysql_core5.varchar)({ length: 10 }),
+    bankName: (0, import_mysql_core5.varchar)({ length: 100 }),
+    bankAccountType: (0, import_mysql_core5.varchar)({ length: 20 })
   },
   (table) => {
     return {
-      compositionsSeqId: (0, import_mysql_core4.primaryKey)({ columns: [table.seqId], name: "compositions_seqId" }),
-      transactionId: (0, import_mysql_core4.unique)("transactionId").on(table.transactionId)
+      compositionsSeqId: (0, import_mysql_core5.primaryKey)({ columns: [table.seqId], name: "compositions_seqId" }),
+      transactionId: (0, import_mysql_core5.unique)("transactionId").on(table.transactionId)
     };
   }
 );
-var customerPayments = (0, import_mysql_core4.mysqlTable)(
+var customerPayments = (0, import_mysql_core5.mysqlTable)(
   "customerPayments",
   {
-    seqId: (0, import_mysql_core4.bigint)({ mode: "number" }).autoincrement().notNull(),
-    transactionId: (0, import_mysql_core4.varchar)({ length: 60 }).notNull().references(() => transactions.transactionId),
-    createdAt: (0, import_mysql_core4.datetime)({ mode: "date" }).notNull(),
-    updatedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" })
+    seqId: (0, import_mysql_core5.bigint)({ mode: "number" }).autoincrement().notNull(),
+    transactionId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull().references(() => transactions.transactionId),
+    createdAt: (0, import_mysql_core5.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core5.datetime)({ mode: "date" })
   },
   (table) => {
     return {
-      transactionId: (0, import_mysql_core4.index)("transactionId").on(table.transactionId),
-      customerPaymentsSeqId: (0, import_mysql_core4.primaryKey)({ columns: [table.seqId], name: "customerPayments_seqId" })
+      transactionId: (0, import_mysql_core5.index)("transactionId").on(table.transactionId),
+      customerPaymentsSeqId: (0, import_mysql_core5.primaryKey)({ columns: [table.seqId], name: "customerPayments_seqId" })
     };
   }
 );
-var influencerPayments = (0, import_mysql_core4.mysqlTable)(
+var influencerPayments = (0, import_mysql_core5.mysqlTable)(
   "influencerPayments",
   {
-    seqId: (0, import_mysql_core4.bigint)({ mode: "number" }).autoincrement().notNull(),
-    transactionId: (0, import_mysql_core4.varchar)({ length: 60 }).notNull().references(() => transactions.transactionId, { onDelete: "cascade", onUpdate: "cascade" }),
-    recruitmentId: (0, import_mysql_core4.varchar)({ length: 60 }).notNull(),
-    campaignId: (0, import_mysql_core4.varchar)({ length: 50 }).notNull(),
-    campaignName: (0, import_mysql_core4.varchar)({ length: 150 }).notNull(),
-    campaignEndDate: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    campaignTimezone: (0, import_mysql_core4.varchar)({ length: 100 }),
-    dateUsedToCalculate: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    squidId: (0, import_mysql_core4.varchar)({ length: 60 }).notNull(),
-    instagramUsername: (0, import_mysql_core4.varchar)({ length: 50 }),
-    instagramProfileId: (0, import_mysql_core4.bigint)({ mode: "number" }),
-    youtubeChannel: (0, import_mysql_core4.varchar)({ length: 50 }),
-    youtubeChannelId: (0, import_mysql_core4.varchar)({ length: 36 }),
-    pinterestUsername: (0, import_mysql_core4.varchar)({ length: 50 }),
-    pinterestProfileId: (0, import_mysql_core4.varchar)({ length: 36 }),
-    nfId: (0, import_mysql_core4.varchar)({ length: 60 }),
-    whitelabelId: (0, import_mysql_core4.varchar)({ length: 24 }),
-    whitelabelDomain: (0, import_mysql_core4.varchar)({ length: 150 }),
-    createdAt: (0, import_mysql_core4.datetime)({ mode: "date" }).notNull(),
-    updatedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    paymentStatus: (0, import_mysql_core4.varchar)({ length: 50 }).default("").notNull(),
-    amount: (0, import_mysql_core4.float)().notNull(),
-    sourceId: (0, import_mysql_core4.bigint)({ mode: "number" }),
-    socialNetwork: (0, import_mysql_core4.varchar)({ length: 255 }),
-    socialNetworkId: (0, import_mysql_core4.varchar)({ length: 255 }),
-    socialNetworkUsername: (0, import_mysql_core4.varchar)({ length: 255 }),
-    responsiblePayment: (0, import_mysql_core4.varchar)({ length: 200 }),
-    responsibleId: (0, import_mysql_core4.varchar)({ length: 200 }),
-    idPipefy: (0, import_mysql_core4.varchar)({ length: 60 }),
-    description: (0, import_mysql_core4.varchar)({ length: 50 }),
-    customDueDate: (0, import_mysql_core4.date)({ mode: "date" }),
-    note: (0, import_mysql_core4.varchar)({ length: 1e3 }),
-    scopeId: (0, import_mysql_core4.varchar)({ length: 32 })
+    seqId: (0, import_mysql_core5.bigint)({ mode: "number" }).autoincrement().notNull(),
+    transactionId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull().references(() => transactions.transactionId, { onDelete: "cascade", onUpdate: "cascade" }),
+    recruitmentId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull(),
+    campaignId: (0, import_mysql_core5.varchar)({ length: 50 }).notNull(),
+    campaignName: (0, import_mysql_core5.varchar)({ length: 150 }).notNull(),
+    campaignEndDate: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    campaignTimezone: (0, import_mysql_core5.varchar)({ length: 100 }),
+    dateUsedToCalculate: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    squidId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull(),
+    instagramUsername: (0, import_mysql_core5.varchar)({ length: 50 }),
+    instagramProfileId: (0, import_mysql_core5.bigint)({ mode: "number" }),
+    youtubeChannel: (0, import_mysql_core5.varchar)({ length: 50 }),
+    youtubeChannelId: (0, import_mysql_core5.varchar)({ length: 36 }),
+    pinterestUsername: (0, import_mysql_core5.varchar)({ length: 50 }),
+    pinterestProfileId: (0, import_mysql_core5.varchar)({ length: 36 }),
+    nfId: (0, import_mysql_core5.varchar)({ length: 60 }),
+    whitelabelId: (0, import_mysql_core5.varchar)({ length: 24 }),
+    whitelabelDomain: (0, import_mysql_core5.varchar)({ length: 150 }),
+    createdAt: (0, import_mysql_core5.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    paymentStatus: (0, import_mysql_core5.varchar)({ length: 50 }).default("").notNull(),
+    amount: (0, import_mysql_core5.float)().notNull(),
+    sourceId: (0, import_mysql_core5.bigint)({ mode: "number" }),
+    socialNetwork: (0, import_mysql_core5.varchar)({ length: 255 }),
+    socialNetworkId: (0, import_mysql_core5.varchar)({ length: 255 }),
+    socialNetworkUsername: (0, import_mysql_core5.varchar)({ length: 255 }),
+    responsiblePayment: (0, import_mysql_core5.varchar)({ length: 200 }),
+    responsibleId: (0, import_mysql_core5.varchar)({ length: 200 }),
+    idPipefy: (0, import_mysql_core5.varchar)({ length: 60 }),
+    description: (0, import_mysql_core5.varchar)({ length: 50 }),
+    customDueDate: (0, import_mysql_core5.date)({ mode: "date" }),
+    note: (0, import_mysql_core5.varchar)({ length: 1e3 }),
+    scopeId: (0, import_mysql_core5.varchar)({ length: 32 })
   },
   (table) => {
     return {
-      deletedAtIdx: (0, import_mysql_core4.index)("influencerPayments_deletedAt_IDX").on(table.deletedAt),
-      idPipefyIdx: (0, import_mysql_core4.index)("influencerPayments_idPipefy_IDX").on(table.idPipefy, table.campaignId, table.seqId),
-      influencerPaymentsSeqId: (0, import_mysql_core4.primaryKey)({ columns: [table.seqId], name: "influencerPayments_seqId" })
+      deletedAtIdx: (0, import_mysql_core5.index)("influencerPayments_deletedAt_IDX").on(table.deletedAt),
+      idPipefyIdx: (0, import_mysql_core5.index)("influencerPayments_idPipefy_IDX").on(table.idPipefy, table.campaignId, table.seqId),
+      influencerPaymentsSeqId: (0, import_mysql_core5.primaryKey)({ columns: [table.seqId], name: "influencerPayments_seqId" })
     };
   }
 );
-var influencerZoopBankAccounts = (0, import_mysql_core4.mysqlTable)(
+var influencerZoopBankAccounts = (0, import_mysql_core5.mysqlTable)(
   "influencerZoopBankAccounts",
   {
-    seqId: (0, import_mysql_core4.bigint)({ mode: "number" }).autoincrement().notNull(),
-    squidId: (0, import_mysql_core4.varchar)({ length: 60 }).notNull(),
-    paymentGatewaySellerId: (0, import_mysql_core4.varchar)({ length: 60 }).notNull(),
-    paymentGatewayBankAccountId: (0, import_mysql_core4.varchar)({ length: 60 }).notNull(),
-    paymentGatewayBankAccountToken: (0, import_mysql_core4.varchar)({ length: 60 }).default(""),
-    bankCode: (0, import_mysql_core4.varchar)({ length: 10 }).notNull(),
-    bankName: (0, import_mysql_core4.varchar)({ length: 100 }).notNull(),
-    bankAccountHolderName: (0, import_mysql_core4.varchar)({ length: 100 }),
-    bankAccountHolderDocument: (0, import_mysql_core4.varchar)({ length: 15 }).notNull(),
-    bankAccountHolderTradingName: (0, import_mysql_core4.varchar)({ length: 100 }),
-    bankAccountRoutingNumber: (0, import_mysql_core4.varchar)({ length: 10 }).notNull(),
-    bankAccountNumber: (0, import_mysql_core4.varchar)({ length: 50 }).notNull(),
-    bankAccountVerificationNumber: (0, import_mysql_core4.varchar)({ length: 1 }).notNull(),
-    bankAccountType: (0, import_mysql_core4.varchar)({ length: 20 }).notNull(),
-    bankAccountHolderType: (0, import_mysql_core4.varchar)({ length: 20 }).notNull(),
-    createdAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    updatedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" })
+    seqId: (0, import_mysql_core5.bigint)({ mode: "number" }).autoincrement().notNull(),
+    squidId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull(),
+    paymentGatewaySellerId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull(),
+    paymentGatewayBankAccountId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull(),
+    paymentGatewayBankAccountToken: (0, import_mysql_core5.varchar)({ length: 60 }).default(""),
+    bankCode: (0, import_mysql_core5.varchar)({ length: 10 }).notNull(),
+    bankName: (0, import_mysql_core5.varchar)({ length: 100 }).notNull(),
+    bankAccountHolderName: (0, import_mysql_core5.varchar)({ length: 100 }),
+    bankAccountHolderDocument: (0, import_mysql_core5.varchar)({ length: 15 }).notNull(),
+    bankAccountHolderTradingName: (0, import_mysql_core5.varchar)({ length: 100 }),
+    bankAccountRoutingNumber: (0, import_mysql_core5.varchar)({ length: 10 }).notNull(),
+    bankAccountNumber: (0, import_mysql_core5.varchar)({ length: 50 }).notNull(),
+    bankAccountVerificationNumber: (0, import_mysql_core5.varchar)({ length: 1 }).notNull(),
+    bankAccountType: (0, import_mysql_core5.varchar)({ length: 20 }).notNull(),
+    bankAccountHolderType: (0, import_mysql_core5.varchar)({ length: 20 }).notNull(),
+    createdAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    updatedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core5.datetime)({ mode: "date" })
   },
   (table) => {
     return {
-      influencerZoopBankAccountsSeqId: (0, import_mysql_core4.primaryKey)({ columns: [table.seqId], name: "influencerZoopBankAccounts_seqId" }),
-      squidId: (0, import_mysql_core4.unique)("squidId").on(table.squidId)
+      influencerZoopBankAccountsSeqId: (0, import_mysql_core5.primaryKey)({ columns: [table.seqId], name: "influencerZoopBankAccounts_seqId" }),
+      squidId: (0, import_mysql_core5.unique)("squidId").on(table.squidId)
     };
   }
 );
-var nfCnaes = (0, import_mysql_core4.mysqlTable)(
+var nfCnaes = (0, import_mysql_core5.mysqlTable)(
   "nf_cnaes",
   {
-    id: (0, import_mysql_core4.int)().autoincrement().notNull(),
-    uf: (0, import_mysql_core4.char)({ length: 2 }).notNull(),
-    codigo: (0, import_mysql_core4.varchar)({ length: 45 }).notNull(),
-    createdAt: (0, import_mysql_core4.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core4.datetime)("updated_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`).notNull()
+    id: (0, import_mysql_core5.int)().autoincrement().notNull(),
+    uf: (0, import_mysql_core5.char)({ length: 2 }).notNull(),
+    codigo: (0, import_mysql_core5.varchar)({ length: 45 }).notNull(),
+    createdAt: (0, import_mysql_core5.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core5.datetime)("updated_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
-      nfCnaesId: (0, import_mysql_core4.primaryKey)({ columns: [table.id], name: "nf_cnaes_id" }),
-      idUnique: (0, import_mysql_core4.unique)("id_UNIQUE").on(table.id)
+      nfCnaesId: (0, import_mysql_core5.primaryKey)({ columns: [table.id], name: "nf_cnaes_id" }),
+      idUnique: (0, import_mysql_core5.unique)("id_UNIQUE").on(table.id)
     };
   }
 );
-var nfImport = (0, import_mysql_core4.mysqlTable)(
+var nfImport = (0, import_mysql_core5.mysqlTable)(
   "nf_import",
   {
-    id: (0, import_mysql_core4.int)().autoincrement().notNull(),
-    objectId: (0, import_mysql_core4.varchar)({ length: 24 }).notNull(),
-    numeroNf: (0, import_mysql_core4.varchar)("numero_nf", { length: 45 }).notNull(),
-    dataEmissao: (0, import_mysql_core4.datetime)("data_emissao", { mode: "date" }).notNull(),
-    ufGerador: (0, import_mysql_core4.char)("uf_gerador", { length: 2 }).notNull(),
-    codigoMunicipio: (0, import_mysql_core4.varchar)("codigo_municipio", { length: 45 }),
-    razaoSocial: (0, import_mysql_core4.varchar)("razao_social", { length: 450 }).notNull(),
-    identificacaoPrestador: (0, import_mysql_core4.varchar)("identificacao_prestador", { length: 14 }).notNull(),
-    inscricaoEstadual: (0, import_mysql_core4.varchar)("inscricao_estadual", { length: 14 }),
-    inscricaoMunicipal: (0, import_mysql_core4.varchar)("inscricao_municipal", { length: 45 }),
-    discriminacaoServico: (0, import_mysql_core4.longtext)("discriminacao_servico"),
-    valorAliquota: (0, import_mysql_core4.float)("valor_aliquota"),
-    valorServico: (0, import_mysql_core4.float)("valor_servico"),
-    valorIss: (0, import_mysql_core4.float)("valor_iss"),
-    issRetido: (0, import_mysql_core4.float)("iss_retido"),
-    listaServico: (0, import_mysql_core4.varchar)("lista_servico", { length: 45 }),
-    municipioServico: (0, import_mysql_core4.varchar)("municipio_servico", { length: 10 }),
-    chave: (0, import_mysql_core4.varchar)({ length: 90 }).notNull(),
-    nfStorageTmp: (0, import_mysql_core4.varchar)("nf_storage_tmp", { length: 150 }).notNull(),
-    codigoVerificacao: (0, import_mysql_core4.varchar)("codigo_verificacao", { length: 45 }).notNull(),
-    createdAt: (0, import_mysql_core4.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core4.datetime)("updated_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    deletedAt: (0, import_mysql_core4.datetime)("deleted_at", { mode: "date" })
+    id: (0, import_mysql_core5.int)().autoincrement().notNull(),
+    objectId: (0, import_mysql_core5.varchar)({ length: 24 }).notNull(),
+    numeroNf: (0, import_mysql_core5.varchar)("numero_nf", { length: 45 }).notNull(),
+    dataEmissao: (0, import_mysql_core5.datetime)("data_emissao", { mode: "date" }).notNull(),
+    ufGerador: (0, import_mysql_core5.char)("uf_gerador", { length: 2 }).notNull(),
+    codigoMunicipio: (0, import_mysql_core5.varchar)("codigo_municipio", { length: 45 }),
+    razaoSocial: (0, import_mysql_core5.varchar)("razao_social", { length: 450 }).notNull(),
+    identificacaoPrestador: (0, import_mysql_core5.varchar)("identificacao_prestador", { length: 14 }).notNull(),
+    inscricaoEstadual: (0, import_mysql_core5.varchar)("inscricao_estadual", { length: 14 }),
+    inscricaoMunicipal: (0, import_mysql_core5.varchar)("inscricao_municipal", { length: 45 }),
+    discriminacaoServico: (0, import_mysql_core5.longtext)("discriminacao_servico"),
+    valorAliquota: (0, import_mysql_core5.float)("valor_aliquota"),
+    valorServico: (0, import_mysql_core5.float)("valor_servico"),
+    valorIss: (0, import_mysql_core5.float)("valor_iss"),
+    issRetido: (0, import_mysql_core5.float)("iss_retido"),
+    listaServico: (0, import_mysql_core5.varchar)("lista_servico", { length: 45 }),
+    municipioServico: (0, import_mysql_core5.varchar)("municipio_servico", { length: 10 }),
+    chave: (0, import_mysql_core5.varchar)({ length: 90 }).notNull(),
+    nfStorageTmp: (0, import_mysql_core5.varchar)("nf_storage_tmp", { length: 150 }).notNull(),
+    codigoVerificacao: (0, import_mysql_core5.varchar)("codigo_verificacao", { length: 45 }).notNull(),
+    createdAt: (0, import_mysql_core5.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core5.datetime)("updated_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    deletedAt: (0, import_mysql_core5.datetime)("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
-      nfImportId: (0, import_mysql_core4.primaryKey)({ columns: [table.id], name: "nf_import_id" }),
-      idUnique: (0, import_mysql_core4.unique)("id_UNIQUE").on(table.id),
-      chaveUnique: (0, import_mysql_core4.unique)("chave_UNIQUE").on(table.chave)
+      nfImportId: (0, import_mysql_core5.primaryKey)({ columns: [table.id], name: "nf_import_id" }),
+      idUnique: (0, import_mysql_core5.unique)("id_UNIQUE").on(table.id),
+      chaveUnique: (0, import_mysql_core5.unique)("chave_UNIQUE").on(table.chave)
     };
   }
 );
-var nfs = (0, import_mysql_core4.mysqlTable)(
+var nfs = (0, import_mysql_core5.mysqlTable)(
   "nfs",
   {
-    seqId: (0, import_mysql_core4.bigint)({ mode: "number" }).autoincrement().notNull(),
-    nfId: (0, import_mysql_core4.varchar)({ length: 60 }).notNull(),
-    transactionId: (0, import_mysql_core4.varchar)({ length: 60 }).notNull().references(() => transactions.transactionId),
-    squidId: (0, import_mysql_core4.varchar)({ length: 60 }).notNull(),
-    serialnumber: (0, import_mysql_core4.varchar)({ length: 45 }),
-    value: (0, import_mysql_core4.double)(),
-    emissionDate: (0, import_mysql_core4.date)({ mode: "date" }),
-    urlStorage: (0, import_mysql_core4.text)().notNull(),
-    xmlUrlStorage: (0, import_mysql_core4.text)(),
-    backofficeApproved: (0, import_mysql_core4.tinyint)().default(0).notNull(),
-    parsedValue: (0, import_mysql_core4.double)(),
-    parsedEmissionDate: (0, import_mysql_core4.date)({ mode: "date" }),
-    parsedSerialNumber: (0, import_mysql_core4.varchar)({ length: 45 }),
-    parsedCnae: (0, import_mysql_core4.varchar)({ length: 45 }),
-    issValue: (0, import_mysql_core4.float)(),
-    imported: (0, import_mysql_core4.varchar)({ length: 90 }),
-    createdAt: (0, import_mysql_core4.datetime)({ mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" })
+    seqId: (0, import_mysql_core5.bigint)({ mode: "number" }).autoincrement().notNull(),
+    nfId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull(),
+    transactionId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull().references(() => transactions.transactionId),
+    squidId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull(),
+    serialnumber: (0, import_mysql_core5.varchar)({ length: 45 }),
+    value: (0, import_mysql_core5.double)(),
+    emissionDate: (0, import_mysql_core5.date)({ mode: "date" }),
+    urlStorage: (0, import_mysql_core5.text)().notNull(),
+    xmlUrlStorage: (0, import_mysql_core5.text)(),
+    backofficeApproved: (0, import_mysql_core5.tinyint)().default(0).notNull(),
+    parsedValue: (0, import_mysql_core5.double)(),
+    parsedEmissionDate: (0, import_mysql_core5.date)({ mode: "date" }),
+    parsedSerialNumber: (0, import_mysql_core5.varchar)({ length: 45 }),
+    parsedCnae: (0, import_mysql_core5.varchar)({ length: 45 }),
+    issValue: (0, import_mysql_core5.float)(),
+    imported: (0, import_mysql_core5.varchar)({ length: 90 }),
+    createdAt: (0, import_mysql_core5.datetime)({ mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    deletedAt: (0, import_mysql_core5.datetime)({ mode: "date" })
   },
   (table) => {
     return {
-      transactionId: (0, import_mysql_core4.index)("transactionId").on(table.transactionId),
-      nfsSeqId: (0, import_mysql_core4.primaryKey)({ columns: [table.seqId], name: "nfs_seqId" })
+      transactionId: (0, import_mysql_core5.index)("transactionId").on(table.transactionId),
+      nfsSeqId: (0, import_mysql_core5.primaryKey)({ columns: [table.seqId], name: "nfs_seqId" })
     };
   }
 );
-var transactionBankAccounts = (0, import_mysql_core4.mysqlTable)(
+var transactionBankAccounts = (0, import_mysql_core5.mysqlTable)(
   "transactionBankAccounts",
   {
-    seqId: (0, import_mysql_core4.bigint)({ mode: "number" }).autoincrement().notNull(),
-    transactionId: (0, import_mysql_core4.varchar)({ length: 60 }).notNull().references(() => transactions.transactionId),
-    bankCode: (0, import_mysql_core4.varchar)({ length: 20 }).notNull(),
-    bankName: (0, import_mysql_core4.varchar)({ length: 100 }).notNull(),
-    bankAccountHolderName: (0, import_mysql_core4.varchar)({ length: 150 }).notNull(),
-    bankAccountHolderDocument: (0, import_mysql_core4.varchar)({ length: 100 }).notNull(),
-    bankAccountHolderTradingName: (0, import_mysql_core4.varchar)({ length: 150 }),
-    bankAccountRoutingNumber: (0, import_mysql_core4.varchar)({ length: 20 }).notNull(),
-    bankAccountNumber: (0, import_mysql_core4.bigint)({ mode: "number" }).notNull(),
-    bankAccountVerificationNumber: (0, import_mysql_core4.varchar)({ length: 3 }),
-    bankAccountType: (0, import_mysql_core4.varchar)({ length: 20 }).default("checking").notNull(),
-    bankAccountHolderType: (0, import_mysql_core4.varchar)({ length: 2 }).default("PF").notNull(),
-    paymentGatewayToken: (0, import_mysql_core4.varchar)({ length: 60 }),
-    createdAt: (0, import_mysql_core4.datetime)({ mode: "date" }).notNull(),
-    updatedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    paymentGatewayWithdrawTransactionId: (0, import_mysql_core4.varchar)({ length: 60 }),
-    paymentGatewayWithdrawAuthorizationCode: (0, import_mysql_core4.varchar)({ length: 100 })
+    seqId: (0, import_mysql_core5.bigint)({ mode: "number" }).autoincrement().notNull(),
+    transactionId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull().references(() => transactions.transactionId),
+    bankCode: (0, import_mysql_core5.varchar)({ length: 20 }).notNull(),
+    bankName: (0, import_mysql_core5.varchar)({ length: 100 }).notNull(),
+    bankAccountHolderName: (0, import_mysql_core5.varchar)({ length: 150 }).notNull(),
+    bankAccountHolderDocument: (0, import_mysql_core5.varchar)({ length: 100 }).notNull(),
+    bankAccountHolderTradingName: (0, import_mysql_core5.varchar)({ length: 150 }),
+    bankAccountRoutingNumber: (0, import_mysql_core5.varchar)({ length: 20 }).notNull(),
+    bankAccountNumber: (0, import_mysql_core5.bigint)({ mode: "number" }).notNull(),
+    bankAccountVerificationNumber: (0, import_mysql_core5.varchar)({ length: 3 }),
+    bankAccountType: (0, import_mysql_core5.varchar)({ length: 20 }).default("checking").notNull(),
+    bankAccountHolderType: (0, import_mysql_core5.varchar)({ length: 2 }).default("PF").notNull(),
+    paymentGatewayToken: (0, import_mysql_core5.varchar)({ length: 60 }),
+    createdAt: (0, import_mysql_core5.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    paymentGatewayWithdrawTransactionId: (0, import_mysql_core5.varchar)({ length: 60 }),
+    paymentGatewayWithdrawAuthorizationCode: (0, import_mysql_core5.varchar)({ length: 100 })
   },
   (table) => {
     return {
-      transactionBankAccountsSeqId: (0, import_mysql_core4.primaryKey)({ columns: [table.seqId], name: "transactionBankAccounts_seqId" }),
-      transactionIdUnique: (0, import_mysql_core4.unique)("transactionId_UNIQUE").on(table.transactionId)
+      transactionBankAccountsSeqId: (0, import_mysql_core5.primaryKey)({ columns: [table.seqId], name: "transactionBankAccounts_seqId" }),
+      transactionIdUnique: (0, import_mysql_core5.unique)("transactionId_UNIQUE").on(table.transactionId)
     };
   }
 );
-var transactionBeneficiaries = (0, import_mysql_core4.mysqlTable)(
+var transactionBeneficiaries = (0, import_mysql_core5.mysqlTable)(
   "transactionBeneficiaries",
   {
-    seqId: (0, import_mysql_core4.bigint)({ mode: "number" }).autoincrement().notNull(),
-    transactionId: (0, import_mysql_core4.varchar)({ length: 60 }).notNull().references(() => transactions.transactionId, { onDelete: "cascade", onUpdate: "cascade" }).references(() => transactions.transactionId),
-    beneficiaryTradingName: (0, import_mysql_core4.varchar)({ length: 150 }),
-    beneficiaryFirstName: (0, import_mysql_core4.varchar)({ length: 100 }),
-    beneficiaryLastName: (0, import_mysql_core4.varchar)({ length: 100 }),
-    beneficiaryEmail: (0, import_mysql_core4.varchar)({ length: 100 }).notNull(),
-    beneficiaryDocumentNumber: (0, import_mysql_core4.varchar)({ length: 20 }).notNull(),
-    beneficiaryBirthDate: (0, import_mysql_core4.date)({ mode: "date" }),
-    paymentGatewayId: (0, import_mysql_core4.varchar)({ length: 60 }),
-    createdAt: (0, import_mysql_core4.datetime)({ mode: "date" }).notNull(),
-    updatedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    recordEmployment: (0, import_mysql_core4.varchar)({ length: 50 }),
-    companyFileId: (0, import_mysql_core4.int)()
+    seqId: (0, import_mysql_core5.bigint)({ mode: "number" }).autoincrement().notNull(),
+    transactionId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull().references(() => transactions.transactionId, { onDelete: "cascade", onUpdate: "cascade" }).references(() => transactions.transactionId),
+    beneficiaryTradingName: (0, import_mysql_core5.varchar)({ length: 150 }),
+    beneficiaryFirstName: (0, import_mysql_core5.varchar)({ length: 100 }),
+    beneficiaryLastName: (0, import_mysql_core5.varchar)({ length: 100 }),
+    beneficiaryEmail: (0, import_mysql_core5.varchar)({ length: 100 }).notNull(),
+    beneficiaryDocumentNumber: (0, import_mysql_core5.varchar)({ length: 20 }).notNull(),
+    beneficiaryBirthDate: (0, import_mysql_core5.date)({ mode: "date" }),
+    paymentGatewayId: (0, import_mysql_core5.varchar)({ length: 60 }),
+    createdAt: (0, import_mysql_core5.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    recordEmployment: (0, import_mysql_core5.varchar)({ length: 50 }),
+    companyFileId: (0, import_mysql_core5.int)()
   },
   (table) => {
     return {
-      transactionBeneficiariesSeqId: (0, import_mysql_core4.primaryKey)({ columns: [table.seqId], name: "transactionBeneficiaries_seqId" }),
-      transactionIdUnique: (0, import_mysql_core4.unique)("transactionId_UNIQUE").on(table.transactionId)
+      transactionBeneficiariesSeqId: (0, import_mysql_core5.primaryKey)({ columns: [table.seqId], name: "transactionBeneficiaries_seqId" }),
+      transactionIdUnique: (0, import_mysql_core5.unique)("transactionId_UNIQUE").on(table.transactionId)
     };
   }
 );
-var transactions = (0, import_mysql_core4.mysqlTable)(
+var transactions = (0, import_mysql_core5.mysqlTable)(
   "transactions",
   {
-    transactionId: (0, import_mysql_core4.varchar)({ length: 60 }).notNull(),
-    squidId: (0, import_mysql_core4.varchar)({ length: 60 }),
-    transactionStatus: (0, import_mysql_core4.varchar)({ length: 50 }).default("pending").notNull(),
-    paymentType: (0, import_mysql_core4.varchar)({ length: 5 }),
-    netValue: (0, import_mysql_core4.float)().notNull(),
-    grossValue: (0, import_mysql_core4.float)().notNull(),
-    inssAliquot: (0, import_mysql_core4.float)(),
-    inssValue: (0, import_mysql_core4.float)(),
-    irAliquot: (0, import_mysql_core4.float)(),
-    irDeduct: (0, import_mysql_core4.float)(),
-    irValue: (0, import_mysql_core4.float)(),
-    nfId: (0, import_mysql_core4.varchar)({ length: 60 }),
-    issAliquot: (0, import_mysql_core4.float)(),
-    issValue: (0, import_mysql_core4.float)(),
-    agent: (0, import_mysql_core4.tinyint)().default(0),
-    credit: (0, import_mysql_core4.float)(),
-    transactionStatusDetail: (0, import_mysql_core4.varchar)({ length: 450 }),
-    amount: (0, import_mysql_core4.float)().notNull(),
-    anticipationValue: (0, import_mysql_core4.float)(),
-    anticipationAliquot: (0, import_mysql_core4.float)(),
-    anticipationContractAccepted: (0, import_mysql_core4.varchar)({ length: 450 }),
-    anticipationReceiptUrl: (0, import_mysql_core4.varchar)({ length: 450 }),
-    anticipationIgnore: (0, import_mysql_core4.tinyint)().default(0).notNull(),
-    inOrOut: (0, import_mysql_core4.varchar)({ length: 3 }).default("out").notNull(),
-    currency: (0, import_mysql_core4.varchar)({ length: 3 }).default("BRL").notNull(),
-    transactionIdSource: (0, import_mysql_core4.varchar)({ length: 60 }),
-    transactionErrorDetail: (0, import_mysql_core4.varchar)({ length: 200 }),
-    paymentGatewayTransactionId: (0, import_mysql_core4.varchar)({ length: 255 }),
-    paymentGatewayReceiptUrl: (0, import_mysql_core4.varchar)({ length: 450 }),
-    paymentGatewayReceiptBankUrl: (0, import_mysql_core4.varchar)({ length: 450 }),
-    dueDate: (0, import_mysql_core4.date)({ mode: "date" }),
-    transactionDate: (0, import_mysql_core4.datetime)({ mode: "date" }).notNull(),
-    paidedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    withdrawingDate: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    createdAt: (0, import_mysql_core4.datetime)({ mode: "date" }).notNull(),
-    updatedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-    userCreated: (0, import_mysql_core4.varchar)({ length: 255 }),
-    userUpdated: (0, import_mysql_core4.varchar)({ length: 255 })
+    transactionId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull(),
+    squidId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull(),
+    transactionStatus: transactionStatusEnum.notNull().default("new"),
+    paymentType: paymentTypeEnum.notNull(),
+    netValue: (0, import_mysql_core5.float)().notNull(),
+    grossValue: (0, import_mysql_core5.float)().notNull(),
+    inssAliquot: (0, import_mysql_core5.float)(),
+    inssValue: (0, import_mysql_core5.float)(),
+    irAliquot: (0, import_mysql_core5.float)(),
+    irDeduct: (0, import_mysql_core5.float)(),
+    irValue: (0, import_mysql_core5.float)(),
+    nfId: (0, import_mysql_core5.varchar)({ length: 60 }),
+    issAliquot: (0, import_mysql_core5.float)(),
+    issValue: (0, import_mysql_core5.float)(),
+    agent: (0, import_mysql_core5.tinyint)().default(0),
+    credit: (0, import_mysql_core5.float)(),
+    transactionStatusDetail: (0, import_mysql_core5.varchar)({ length: 450 }),
+    amount: (0, import_mysql_core5.float)().notNull(),
+    anticipationValue: (0, import_mysql_core5.float)(),
+    anticipationAliquot: (0, import_mysql_core5.float)(),
+    anticipationContractAccepted: (0, import_mysql_core5.varchar)({ length: 450 }),
+    anticipationReceiptUrl: (0, import_mysql_core5.varchar)({ length: 450 }),
+    anticipationIgnore: (0, import_mysql_core5.tinyint)().default(0).notNull(),
+    inOrOut: (0, import_mysql_core5.varchar)({ length: 3 }).default("out").notNull(),
+    currency: (0, import_mysql_core5.varchar)({ length: 3 }).default("BRL").notNull(),
+    transactionIdSource: (0, import_mysql_core5.varchar)({ length: 60 }),
+    transactionErrorDetail: (0, import_mysql_core5.varchar)({ length: 200 }),
+    paymentGatewayTransactionId: (0, import_mysql_core5.varchar)({ length: 255 }),
+    paymentGatewayReceiptUrl: (0, import_mysql_core5.varchar)({ length: 450 }),
+    paymentGatewayReceiptBankUrl: (0, import_mysql_core5.varchar)({ length: 450 }),
+    dueDate: (0, import_mysql_core5.date)({ mode: "date" }).notNull(),
+    transactionDate: (0, import_mysql_core5.datetime)({ mode: "date" }).notNull(),
+    paidedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    withdrawingDate: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    createdAt: (0, import_mysql_core5.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+    createdById: (0, import_mysql_core5.varchar)({ length: 255 }),
+    updatedById: (0, import_mysql_core5.varchar)({ length: 255 }),
+    createdByEmail: (0, import_mysql_core5.varchar)({ length: 255 }),
+    updatedByEmail: (0, import_mysql_core5.varchar)({ length: 255 })
   },
   (table) => {
     return {
-      transactionStatusIdx: (0, import_mysql_core4.index)("transactions_transactionStatus_IDX").on(table.transactionStatus),
-      deletedAtIdx: (0, import_mysql_core4.index)("transactions_deletedAt_IDX").on(table.deletedAt),
-      transactionsTransactionId: (0, import_mysql_core4.primaryKey)({ columns: [table.transactionId], name: "transactions_transactionId" })
+      transactionStatusIdx: (0, import_mysql_core5.index)("transactions_transactionStatus_IDX").on(table.transactionStatus),
+      deletedAtIdx: (0, import_mysql_core5.index)("transactions_deletedAt_IDX").on(table.deletedAt),
+      transactionsTransactionId: (0, import_mysql_core5.primaryKey)({ columns: [table.transactionId], name: "transactions_transactionId" })
     };
   }
 );
-var transactionsHistory = (0, import_mysql_core4.mysqlTable)("transactionsHistory", {
-  transactionId: (0, import_mysql_core4.varchar)({ length: 60 }).notNull(),
-  squidId: (0, import_mysql_core4.varchar)({ length: 60 }),
-  transactionStatus: (0, import_mysql_core4.varchar)({ length: 50 }).default("pending").notNull(),
-  paymentType: (0, import_mysql_core4.varchar)({ length: 5 }),
-  netValue: (0, import_mysql_core4.float)().notNull(),
-  grossValue: (0, import_mysql_core4.float)().notNull(),
-  inssAliquot: (0, import_mysql_core4.float)(),
-  inssValue: (0, import_mysql_core4.float)(),
-  irAliquot: (0, import_mysql_core4.float)(),
-  inOrOut: (0, import_mysql_core4.varchar)({ length: 3 }).default("out").notNull(),
-  irDeduct: (0, import_mysql_core4.float)(),
-  irValue: (0, import_mysql_core4.float)(),
-  nfId: (0, import_mysql_core4.varchar)({ length: 60 }),
-  issAliquot: (0, import_mysql_core4.float)(),
-  issValue: (0, import_mysql_core4.float)(),
-  anticipationAliquot: (0, import_mysql_core4.float)(),
-  anticipationValue: (0, import_mysql_core4.float)(),
-  anticipationContractAccepted: (0, import_mysql_core4.varchar)({ length: 450 }),
-  paymentGatewayTransactionId: (0, import_mysql_core4.longtext)(),
-  currency: (0, import_mysql_core4.varchar)({ length: 3 }).default("BRL").notNull(),
-  amount: (0, import_mysql_core4.float)().notNull(),
-  transactionStatusDetail: (0, import_mysql_core4.varchar)({ length: 450 }),
-  transactionErrorDetail: (0, import_mysql_core4.varchar)({ length: 200 }),
-  transactionDate: (0, import_mysql_core4.datetime)({ mode: "date" }).notNull(),
-  dueDate: (0, import_mysql_core4.date)({ mode: "date" }),
-  createdAt: (0, import_mysql_core4.datetime)({ mode: "date" }).notNull(),
-  updatedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-  paidedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-  withdrawingDate: (0, import_mysql_core4.datetime)({ mode: "date" }),
-  deletedAt: (0, import_mysql_core4.datetime)({ mode: "date" }),
-  userCreated: (0, import_mysql_core4.varchar)({ length: 255 })
+var transactionsHistory = (0, import_mysql_core5.mysqlTable)("transactionsHistory", {
+  transactionId: (0, import_mysql_core5.varchar)({ length: 60 }).notNull(),
+  squidId: (0, import_mysql_core5.varchar)({ length: 60 }),
+  transactionStatus: (0, import_mysql_core5.varchar)({ length: 50 }).default("pending").notNull(),
+  paymentType: (0, import_mysql_core5.varchar)({ length: 5 }),
+  netValue: (0, import_mysql_core5.float)().notNull(),
+  grossValue: (0, import_mysql_core5.float)().notNull(),
+  inssAliquot: (0, import_mysql_core5.float)(),
+  inssValue: (0, import_mysql_core5.float)(),
+  irAliquot: (0, import_mysql_core5.float)(),
+  inOrOut: (0, import_mysql_core5.varchar)({ length: 3 }).default("out").notNull(),
+  irDeduct: (0, import_mysql_core5.float)(),
+  irValue: (0, import_mysql_core5.float)(),
+  nfId: (0, import_mysql_core5.varchar)({ length: 60 }),
+  issAliquot: (0, import_mysql_core5.float)(),
+  issValue: (0, import_mysql_core5.float)(),
+  anticipationAliquot: (0, import_mysql_core5.float)(),
+  anticipationValue: (0, import_mysql_core5.float)(),
+  anticipationContractAccepted: (0, import_mysql_core5.varchar)({ length: 450 }),
+  paymentGatewayTransactionId: (0, import_mysql_core5.longtext)(),
+  currency: (0, import_mysql_core5.varchar)({ length: 3 }).default("BRL").notNull(),
+  amount: (0, import_mysql_core5.float)().notNull(),
+  transactionStatusDetail: (0, import_mysql_core5.varchar)({ length: 450 }),
+  transactionErrorDetail: (0, import_mysql_core5.varchar)({ length: 200 }),
+  transactionDate: (0, import_mysql_core5.datetime)({ mode: "date" }).notNull(),
+  dueDate: (0, import_mysql_core5.date)({ mode: "date" }),
+  createdAt: (0, import_mysql_core5.datetime)({ mode: "date" }).notNull(),
+  updatedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+  paidedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+  withdrawingDate: (0, import_mysql_core5.datetime)({ mode: "date" }),
+  deletedAt: (0, import_mysql_core5.datetime)({ mode: "date" }),
+  createdById: (0, import_mysql_core5.varchar)({ length: 255 }),
+  createdByEmail: (0, import_mysql_core5.varchar)({ length: 255 })
 });
-var transactionsSchedule = (0, import_mysql_core4.mysqlTable)(
+var transactionsSchedule = (0, import_mysql_core5.mysqlTable)(
   "transactions_schedule",
   {
-    id: (0, import_mysql_core4.int)().autoincrement().notNull(),
-    scheduleDate: (0, import_mysql_core4.date)("schedule_date", { mode: "date" }).notNull(),
-    flowId: (0, import_mysql_core4.int)("flow_id").notNull(),
-    description: (0, import_mysql_core4.varchar)({ length: 45 }),
-    createdAt: (0, import_mysql_core4.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: (0, import_mysql_core4.datetime)("updated_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`)
+    id: (0, import_mysql_core5.int)().autoincrement().notNull(),
+    scheduleDate: (0, import_mysql_core5.date)("schedule_date", { mode: "date" }).notNull(),
+    flowId: (0, import_mysql_core5.int)("flow_id").notNull(),
+    description: (0, import_mysql_core5.varchar)({ length: 45 }),
+    createdAt: (0, import_mysql_core5.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: (0, import_mysql_core5.datetime)("updated_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {
-      transactionsScheduleId: (0, import_mysql_core4.primaryKey)({ columns: [table.id], name: "transactions_schedule_id" }),
-      idUnique: (0, import_mysql_core4.unique)("id_UNIQUE").on(table.id)
+      transactionsScheduleId: (0, import_mysql_core5.primaryKey)({ columns: [table.id], name: "transactions_schedule_id" }),
+      idUnique: (0, import_mysql_core5.unique)("id_UNIQUE").on(table.id)
     };
   }
 );
-var transfeeraRawDataCallback = (0, import_mysql_core4.mysqlTable)(
+var transfeeraRawDataCallback = (0, import_mysql_core5.mysqlTable)(
   "transfeeraRawDataCallback",
   {
-    id: (0, import_mysql_core4.int)({ unsigned: true }).autoincrement().notNull(),
-    header: (0, import_mysql_core4.mediumtext)().notNull(),
-    payload: (0, import_mysql_core4.json)(),
-    validationTest: (0, import_mysql_core4.json)(),
-    createdAt: (0, import_mysql_core4.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`).notNull()
+    id: (0, import_mysql_core5.int)({ unsigned: true }).autoincrement().notNull(),
+    header: (0, import_mysql_core5.mediumtext)().notNull(),
+    payload: (0, import_mysql_core5.json)(),
+    validationTest: (0, import_mysql_core5.json)(),
+    createdAt: (0, import_mysql_core5.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
-      transfeeraRawDataCallbackId: (0, import_mysql_core4.primaryKey)({ columns: [table.id], name: "transfeeraRawDataCallback_id" })
+      transfeeraRawDataCallbackId: (0, import_mysql_core5.primaryKey)({ columns: [table.id], name: "transfeeraRawDataCallback_id" })
     };
   }
 );
-var webhooksLogs = (0, import_mysql_core4.mysqlTable)(
+var webhooksLogs = (0, import_mysql_core5.mysqlTable)(
   "webhooks_logs",
   {
-    id: (0, import_mysql_core4.int)().autoincrement().notNull(),
-    header: (0, import_mysql_core4.longtext)(),
-    payload: (0, import_mysql_core4.longtext)(),
-    querystring: (0, import_mysql_core4.varchar)({ length: 255 }),
-    service: (0, import_mysql_core4.varchar)({ length: 45 }).notNull(),
-    authentication: (0, import_mysql_core4.longtext)(),
-    createdAt: (0, import_mysql_core4.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`)
+    id: (0, import_mysql_core5.int)().autoincrement().notNull(),
+    header: (0, import_mysql_core5.longtext)(),
+    payload: (0, import_mysql_core5.longtext)(),
+    querystring: (0, import_mysql_core5.varchar)({ length: 255 }),
+    service: (0, import_mysql_core5.varchar)({ length: 45 }).notNull(),
+    authentication: (0, import_mysql_core5.longtext)(),
+    createdAt: (0, import_mysql_core5.datetime)("created_at", { mode: "date" }).default(import_drizzle_orm4.sql`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {
-      webhooksLogsId: (0, import_mysql_core4.primaryKey)({ columns: [table.id], name: "webhooks_logs_id" }),
-      idUnique: (0, import_mysql_core4.unique)("id_UNIQUE").on(table.id)
+      webhooksLogsId: (0, import_mysql_core5.primaryKey)({ columns: [table.id], name: "webhooks_logs_id" }),
+      idUnique: (0, import_mysql_core5.unique)("id_UNIQUE").on(table.id)
     };
   }
 );
-var dueDateTransactions = (0, import_mysql_core4.mysqlView)("dueDate_transactions", {
-  dueDate: (0, import_mysql_core4.int)().default(0).notNull(),
-  minCreatedAt: (0, import_mysql_core4.int)("min_createdAt").default(0).notNull(),
-  maxCreatedAt: (0, import_mysql_core4.int)("max_createdAt").default(0).notNull(),
-  countTotal: (0, import_mysql_core4.int)("count_total").default(0).notNull(),
-  sumTotal: (0, import_mysql_core4.int)("sum_total").default(0).notNull(),
-  countPaid: (0, import_mysql_core4.int)("count_paid").default(0).notNull(),
-  somaPaid: (0, import_mysql_core4.int)("soma_paid").default(0).notNull(),
-  countNew: (0, import_mysql_core4.int)("count_new").default(0).notNull(),
-  somaNew: (0, import_mysql_core4.int)("soma_new").default(0).notNull(),
-  countPending: (0, import_mysql_core4.int)("count_pending").default(0).notNull(),
-  somaPending: (0, import_mysql_core4.int)("soma_pending").default(0).notNull(),
-  countProcessing: (0, import_mysql_core4.int)("count_processing").default(0).notNull(),
-  somaProcessing: (0, import_mysql_core4.int)("soma_processing").default(0).notNull(),
-  countReadyToPay: (0, import_mysql_core4.int)("count_readyToPay").default(0).notNull(),
-  somaReadyToPay: (0, import_mysql_core4.int)("soma_readyToPay").default(0).notNull(),
-  countWithdrawing: (0, import_mysql_core4.int)("count_withdrawing").default(0).notNull(),
-  somaWithdrawing: (0, import_mysql_core4.int)("soma_withdrawing").default(0).notNull()
+var dueDateTransactions = (0, import_mysql_core5.mysqlView)("dueDate_transactions", {
+  dueDate: (0, import_mysql_core5.int)().default(0).notNull(),
+  minCreatedAt: (0, import_mysql_core5.int)("min_createdAt").default(0).notNull(),
+  maxCreatedAt: (0, import_mysql_core5.int)("max_createdAt").default(0).notNull(),
+  countTotal: (0, import_mysql_core5.int)("count_total").default(0).notNull(),
+  sumTotal: (0, import_mysql_core5.int)("sum_total").default(0).notNull(),
+  countPaid: (0, import_mysql_core5.int)("count_paid").default(0).notNull(),
+  somaPaid: (0, import_mysql_core5.int)("soma_paid").default(0).notNull(),
+  countNew: (0, import_mysql_core5.int)("count_new").default(0).notNull(),
+  somaNew: (0, import_mysql_core5.int)("soma_new").default(0).notNull(),
+  countPending: (0, import_mysql_core5.int)("count_pending").default(0).notNull(),
+  somaPending: (0, import_mysql_core5.int)("soma_pending").default(0).notNull(),
+  countProcessing: (0, import_mysql_core5.int)("count_processing").default(0).notNull(),
+  somaProcessing: (0, import_mysql_core5.int)("soma_processing").default(0).notNull(),
+  countReadyToPay: (0, import_mysql_core5.int)("count_readyToPay").default(0).notNull(),
+  somaReadyToPay: (0, import_mysql_core5.int)("soma_readyToPay").default(0).notNull(),
+  countWithdrawing: (0, import_mysql_core5.int)("count_withdrawing").default(0).notNull(),
+  somaWithdrawing: (0, import_mysql_core5.int)("soma_withdrawing").default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm4.sql`select 1 AS \`dueDate\`,1 AS \`min_createdAt\`,1 AS \`max_createdAt\`,1 AS \`count_total\`,1 AS \`sum_total\`,1 AS \`count_paid\`,1 AS \`soma_paid\`,1 AS \`count_new\`,1 AS \`soma_new\`,1 AS \`count_pending\`,1 AS \`soma_pending\`,1 AS \`count_processing\`,1 AS \`soma_processing\`,1 AS \`count_readyToPay\`,1 AS \`soma_readyToPay\`,1 AS \`count_withdrawing\`,1 AS \`soma_withdrawing\``);
-var transactionConsolidated = (0, import_mysql_core4.mysqlView)("transaction_consolidated", {
-  transactionId: (0, import_mysql_core4.int)().default(0).notNull(),
-  recruitmentId: (0, import_mysql_core4.int)().default(0).notNull(),
-  campaignId: (0, import_mysql_core4.int)().default(0).notNull(),
-  campaignName: (0, import_mysql_core4.int)().default(0).notNull(),
-  squidId: (0, import_mysql_core4.int)().default(0).notNull(),
-  instagramUsername: (0, import_mysql_core4.int)().default(0).notNull(),
-  instagramProfileId: (0, import_mysql_core4.int)().default(0).notNull(),
-  youtubeChannel: (0, import_mysql_core4.int)().default(0).notNull(),
-  youtubeChannelId: (0, import_mysql_core4.int)().default(0).notNull(),
-  pinterestUsername: (0, import_mysql_core4.int)().default(0).notNull(),
-  pinterestProfileId: (0, import_mysql_core4.int)().default(0).notNull(),
-  createdAt: (0, import_mysql_core4.int)().default(0).notNull(),
-  updatedAt: (0, import_mysql_core4.int)().default(0).notNull(),
-  deletedAt: (0, import_mysql_core4.int)().default(0).notNull(),
-  paymentStatus: (0, import_mysql_core4.int)().default(0).notNull(),
-  amount: (0, import_mysql_core4.int)().default(0).notNull(),
-  dueDate: (0, import_mysql_core4.int)().default(0).notNull(),
-  transactionStatus: (0, import_mysql_core4.int)().default(0).notNull()
+var transactionConsolidated = (0, import_mysql_core5.mysqlView)("transaction_consolidated", {
+  transactionId: (0, import_mysql_core5.int)().default(0).notNull(),
+  recruitmentId: (0, import_mysql_core5.int)().default(0).notNull(),
+  campaignId: (0, import_mysql_core5.int)().default(0).notNull(),
+  campaignName: (0, import_mysql_core5.int)().default(0).notNull(),
+  squidId: (0, import_mysql_core5.int)().default(0).notNull(),
+  instagramUsername: (0, import_mysql_core5.int)().default(0).notNull(),
+  instagramProfileId: (0, import_mysql_core5.int)().default(0).notNull(),
+  youtubeChannel: (0, import_mysql_core5.int)().default(0).notNull(),
+  youtubeChannelId: (0, import_mysql_core5.int)().default(0).notNull(),
+  pinterestUsername: (0, import_mysql_core5.int)().default(0).notNull(),
+  pinterestProfileId: (0, import_mysql_core5.int)().default(0).notNull(),
+  createdAt: (0, import_mysql_core5.int)().default(0).notNull(),
+  updatedAt: (0, import_mysql_core5.int)().default(0).notNull(),
+  deletedAt: (0, import_mysql_core5.int)().default(0).notNull(),
+  paymentStatus: (0, import_mysql_core5.int)().default(0).notNull(),
+  amount: (0, import_mysql_core5.int)().default(0).notNull(),
+  dueDate: (0, import_mysql_core5.int)().default(0).notNull(),
+  transactionStatus: (0, import_mysql_core5.int)().default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm4.sql`select 1 AS \`transactionId\`,1 AS \`recruitmentId\`,1 AS \`campaignId\`,1 AS \`campaignName\`,1 AS \`squidId\`,1 AS \`instagramUsername\`,1 AS \`instagramProfileId\`,1 AS \`youtubeChannel\`,1 AS \`youtubeChannelId\`,1 AS \`pinterestUsername\`,1 AS \`pinterestProfileId\`,1 AS \`createdAt\`,1 AS \`updatedAt\`,1 AS \`deletedAt\`,1 AS \`paymentStatus\`,1 AS \`amount\`,1 AS \`dueDate\`,1 AS \`transactionStatus\``);
-var vwTransfeeraWebhookReturn = (0, import_mysql_core4.mysqlView)("VW_TRANSFEERA_WEBHOOK_RETURN", {
-  webhookId: (0, import_mysql_core4.int)().default(0).notNull(),
-  idTransfer: (0, import_mysql_core4.int)().default(0).notNull(),
-  transactionId: (0, import_mysql_core4.int)().default(0).notNull(),
-  status: (0, import_mysql_core4.int)().default(0).notNull(),
-  description: (0, import_mysql_core4.int)().default(0).notNull(),
-  savedAt: (0, import_mysql_core4.int)().default(0).notNull(),
-  tipo: (0, import_mysql_core4.int)().default(0).notNull(),
-  payload: (0, import_mysql_core4.int)().default(0).notNull(),
-  signature: (0, import_mysql_core4.int)().default(0).notNull()
+var vwTransfeeraWebhookReturn = (0, import_mysql_core5.mysqlView)("VW_TRANSFEERA_WEBHOOK_RETURN", {
+  webhookId: (0, import_mysql_core5.int)().default(0).notNull(),
+  idTransfer: (0, import_mysql_core5.int)().default(0).notNull(),
+  transactionId: (0, import_mysql_core5.int)().default(0).notNull(),
+  status: (0, import_mysql_core5.int)().default(0).notNull(),
+  description: (0, import_mysql_core5.int)().default(0).notNull(),
+  savedAt: (0, import_mysql_core5.int)().default(0).notNull(),
+  tipo: (0, import_mysql_core5.int)().default(0).notNull(),
+  payload: (0, import_mysql_core5.int)().default(0).notNull(),
+  signature: (0, import_mysql_core5.int)().default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm4.sql`select 1 AS \`webhookId\`,1 AS \`idTransfer\`,1 AS \`transactionId\`,1 AS \`status\`,1 AS \`description\`,1 AS \`savedAt\`,1 AS \`tipo\`,1 AS \`payload\`,1 AS \`signature\``);
-var campaignsTransactions = (0, import_mysql_core4.mysqlView)("campaigns_transactions", {
-  campaignId: (0, import_mysql_core4.int)().default(0).notNull(),
-  campaignName: (0, import_mysql_core4.int)().default(0).notNull(),
-  minCreatedAt: (0, import_mysql_core4.int)("min_createdAt").default(0).notNull(),
-  maxCreatedAt: (0, import_mysql_core4.int)("max_createdAt").default(0).notNull(),
-  minDueDate: (0, import_mysql_core4.int)("min_dueDate").default(0).notNull(),
-  maxDueDate: (0, import_mysql_core4.int)("max_dueDate").default(0).notNull(),
-  countTotal: (0, import_mysql_core4.int)("count_total").default(0).notNull(),
-  sumTotal: (0, import_mysql_core4.int)("sum_total").default(0).notNull(),
-  countPaid: (0, import_mysql_core4.int)("count_paid").default(0).notNull(),
-  somaPaid: (0, import_mysql_core4.int)("soma_paid").default(0).notNull(),
-  countNew: (0, import_mysql_core4.int)("count_new").default(0).notNull(),
-  somaNew: (0, import_mysql_core4.int)("soma_new").default(0).notNull(),
-  countPending: (0, import_mysql_core4.int)("count_pending").default(0).notNull(),
-  somaPending: (0, import_mysql_core4.int)("soma_pending").default(0).notNull(),
-  countProcessing: (0, import_mysql_core4.int)("count_processing").default(0).notNull(),
-  somaProcessing: (0, import_mysql_core4.int)("soma_processing").default(0).notNull(),
-  countReadyToPay: (0, import_mysql_core4.int)("count_readyToPay").default(0).notNull(),
-  somaReadyToPay: (0, import_mysql_core4.int)("soma_readyToPay").default(0).notNull(),
-  countWithdrawing: (0, import_mysql_core4.int)("count_withdrawing").default(0).notNull(),
-  somaWithdrawing: (0, import_mysql_core4.int)("soma_withdrawing").default(0).notNull()
+var campaignsTransactions = (0, import_mysql_core5.mysqlView)("campaigns_transactions", {
+  campaignId: (0, import_mysql_core5.int)().default(0).notNull(),
+  campaignName: (0, import_mysql_core5.int)().default(0).notNull(),
+  minCreatedAt: (0, import_mysql_core5.int)("min_createdAt").default(0).notNull(),
+  maxCreatedAt: (0, import_mysql_core5.int)("max_createdAt").default(0).notNull(),
+  minDueDate: (0, import_mysql_core5.int)("min_dueDate").default(0).notNull(),
+  maxDueDate: (0, import_mysql_core5.int)("max_dueDate").default(0).notNull(),
+  countTotal: (0, import_mysql_core5.int)("count_total").default(0).notNull(),
+  sumTotal: (0, import_mysql_core5.int)("sum_total").default(0).notNull(),
+  countPaid: (0, import_mysql_core5.int)("count_paid").default(0).notNull(),
+  somaPaid: (0, import_mysql_core5.int)("soma_paid").default(0).notNull(),
+  countNew: (0, import_mysql_core5.int)("count_new").default(0).notNull(),
+  somaNew: (0, import_mysql_core5.int)("soma_new").default(0).notNull(),
+  countPending: (0, import_mysql_core5.int)("count_pending").default(0).notNull(),
+  somaPending: (0, import_mysql_core5.int)("soma_pending").default(0).notNull(),
+  countProcessing: (0, import_mysql_core5.int)("count_processing").default(0).notNull(),
+  somaProcessing: (0, import_mysql_core5.int)("soma_processing").default(0).notNull(),
+  countReadyToPay: (0, import_mysql_core5.int)("count_readyToPay").default(0).notNull(),
+  somaReadyToPay: (0, import_mysql_core5.int)("soma_readyToPay").default(0).notNull(),
+  countWithdrawing: (0, import_mysql_core5.int)("count_withdrawing").default(0).notNull(),
+  somaWithdrawing: (0, import_mysql_core5.int)("soma_withdrawing").default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm4.sql`select 1 AS \`campaignId\`,1 AS \`campaignName\`,1 AS \`min_createdAt\`,1 AS \`max_createdAt\`,1 AS \`min_dueDate\`,1 AS \`max_dueDate\`,1 AS \`count_total\`,1 AS \`sum_total\`,1 AS \`count_paid\`,1 AS \`soma_paid\`,1 AS \`count_new\`,1 AS \`soma_new\`,1 AS \`count_pending\`,1 AS \`soma_pending\`,1 AS \`count_processing\`,1 AS \`soma_processing\`,1 AS \`count_readyToPay\`,1 AS \`soma_readyToPay\`,1 AS \`count_withdrawing\`,1 AS \`soma_withdrawing\``);
-var anoMesDueDateTransactions = (0, import_mysql_core4.mysqlView)("ano_mes_dueDate_transactions", {
-  anoMes: (0, import_mysql_core4.int)("ano_mes").default(0).notNull(),
-  minCreatedAt: (0, import_mysql_core4.int)("min_createdAt").default(0).notNull(),
-  maxCreatedAt: (0, import_mysql_core4.int)("max_createdAt").default(0).notNull(),
-  minDueDate: (0, import_mysql_core4.int)("min_dueDate").default(0).notNull(),
-  maxDueDate: (0, import_mysql_core4.int)("max_dueDate").default(0).notNull(),
-  countTotal: (0, import_mysql_core4.int)("count_total").default(0).notNull(),
-  sumTotal: (0, import_mysql_core4.int)("sum_total").default(0).notNull(),
-  countPaid: (0, import_mysql_core4.int)("count_paid").default(0).notNull(),
-  somaPaid: (0, import_mysql_core4.int)("soma_paid").default(0).notNull(),
-  countNew: (0, import_mysql_core4.int)("count_new").default(0).notNull(),
-  somaNew: (0, import_mysql_core4.int)("soma_new").default(0).notNull(),
-  countPending: (0, import_mysql_core4.int)("count_pending").default(0).notNull(),
-  somaPending: (0, import_mysql_core4.int)("soma_pending").default(0).notNull(),
-  countProcessing: (0, import_mysql_core4.int)("count_processing").default(0).notNull(),
-  somaProcessing: (0, import_mysql_core4.int)("soma_processing").default(0).notNull(),
-  countReadyToPay: (0, import_mysql_core4.int)("count_readyToPay").default(0).notNull(),
-  somaReadyToPay: (0, import_mysql_core4.int)("soma_readyToPay").default(0).notNull(),
-  countWithdrawing: (0, import_mysql_core4.int)("count_withdrawing").default(0).notNull(),
-  somaWithdrawing: (0, import_mysql_core4.int)("soma_withdrawing").default(0).notNull()
+var anoMesDueDateTransactions = (0, import_mysql_core5.mysqlView)("ano_mes_dueDate_transactions", {
+  anoMes: (0, import_mysql_core5.int)("ano_mes").default(0).notNull(),
+  minCreatedAt: (0, import_mysql_core5.int)("min_createdAt").default(0).notNull(),
+  maxCreatedAt: (0, import_mysql_core5.int)("max_createdAt").default(0).notNull(),
+  minDueDate: (0, import_mysql_core5.int)("min_dueDate").default(0).notNull(),
+  maxDueDate: (0, import_mysql_core5.int)("max_dueDate").default(0).notNull(),
+  countTotal: (0, import_mysql_core5.int)("count_total").default(0).notNull(),
+  sumTotal: (0, import_mysql_core5.int)("sum_total").default(0).notNull(),
+  countPaid: (0, import_mysql_core5.int)("count_paid").default(0).notNull(),
+  somaPaid: (0, import_mysql_core5.int)("soma_paid").default(0).notNull(),
+  countNew: (0, import_mysql_core5.int)("count_new").default(0).notNull(),
+  somaNew: (0, import_mysql_core5.int)("soma_new").default(0).notNull(),
+  countPending: (0, import_mysql_core5.int)("count_pending").default(0).notNull(),
+  somaPending: (0, import_mysql_core5.int)("soma_pending").default(0).notNull(),
+  countProcessing: (0, import_mysql_core5.int)("count_processing").default(0).notNull(),
+  somaProcessing: (0, import_mysql_core5.int)("soma_processing").default(0).notNull(),
+  countReadyToPay: (0, import_mysql_core5.int)("count_readyToPay").default(0).notNull(),
+  somaReadyToPay: (0, import_mysql_core5.int)("soma_readyToPay").default(0).notNull(),
+  countWithdrawing: (0, import_mysql_core5.int)("count_withdrawing").default(0).notNull(),
+  somaWithdrawing: (0, import_mysql_core5.int)("soma_withdrawing").default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm4.sql`select 1 AS \`ano_mes\`,1 AS \`min_createdAt\`,1 AS \`max_createdAt\`,1 AS \`min_dueDate\`,1 AS \`max_dueDate\`,1 AS \`count_total\`,1 AS \`sum_total\`,1 AS \`count_paid\`,1 AS \`soma_paid\`,1 AS \`count_new\`,1 AS \`soma_new\`,1 AS \`count_pending\`,1 AS \`soma_pending\`,1 AS \`count_processing\`,1 AS \`soma_processing\`,1 AS \`count_readyToPay\`,1 AS \`soma_readyToPay\`,1 AS \`count_withdrawing\`,1 AS \`soma_withdrawing\``);
-var vwTransactionsWithoutInfluencerPayment = (0, import_mysql_core4.mysqlView)("VW_TRANSACTIONS_WITHOUT_INFLUENCER_PAYMENT", {
-  transactionId: (0, import_mysql_core4.int)().default(0).notNull(),
-  dueDate: (0, import_mysql_core4.int)().default(0).notNull(),
-  createdAt: (0, import_mysql_core4.int)().default(0).notNull(),
-  deletedAt: (0, import_mysql_core4.int)().default(0).notNull(),
-  squidId: (0, import_mysql_core4.int)().default(0).notNull(),
-  transactionStatus: (0, import_mysql_core4.int)().default(0).notNull(),
-  netValue: (0, import_mysql_core4.int)().default(0).notNull(),
-  grossValue: (0, import_mysql_core4.int)().default(0).notNull(),
-  paymentType: (0, import_mysql_core4.int)().default(0).notNull(),
-  transactionIdInfluencerPayments: (0, import_mysql_core4.int)("transactionId.influencerPayments").default(0).notNull(),
-  seqid: (0, import_mysql_core4.int)().default(0).notNull(),
-  responsiblePayment: (0, import_mysql_core4.int)().default(0).notNull()
+var vwTransactionsWithoutInfluencerPayment = (0, import_mysql_core5.mysqlView)("VW_TRANSACTIONS_WITHOUT_INFLUENCER_PAYMENT", {
+  transactionId: (0, import_mysql_core5.int)().default(0).notNull(),
+  dueDate: (0, import_mysql_core5.int)().default(0).notNull(),
+  createdAt: (0, import_mysql_core5.int)().default(0).notNull(),
+  deletedAt: (0, import_mysql_core5.int)().default(0).notNull(),
+  squidId: (0, import_mysql_core5.int)().default(0).notNull(),
+  transactionStatus: (0, import_mysql_core5.int)().default(0).notNull(),
+  netValue: (0, import_mysql_core5.int)().default(0).notNull(),
+  grossValue: (0, import_mysql_core5.int)().default(0).notNull(),
+  paymentType: (0, import_mysql_core5.int)().default(0).notNull(),
+  transactionIdInfluencerPayments: (0, import_mysql_core5.int)("transactionId.influencerPayments").default(0).notNull(),
+  seqid: (0, import_mysql_core5.int)().default(0).notNull(),
+  responsiblePayment: (0, import_mysql_core5.int)().default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm4.sql`select 1 AS \`transactionId\`,1 AS \`dueDate\`,1 AS \`createdAt\`,1 AS \`deletedAt\`,1 AS \`squidId\`,1 AS \`transactionStatus\`,1 AS \`netValue\`,1 AS \`grossValue\`,1 AS \`paymentType\`,1 AS \`transactionId.influencerPayments\`,1 AS \`seqid\`,1 AS \`responsiblePayment\``);
-var influencersTotalTransactions = (0, import_mysql_core4.mysqlView)("influencers_total_transactions", {
-  squidId: (0, import_mysql_core4.int)().default(0).notNull(),
-  instagramUsername: (0, import_mysql_core4.int)().default(0).notNull(),
-  instagramProfileId: (0, import_mysql_core4.int)().default(0).notNull(),
-  youtubeChannel: (0, import_mysql_core4.int)().default(0).notNull(),
-  youtubeChannelId: (0, import_mysql_core4.int)().default(0).notNull(),
-  pinterestUsername: (0, import_mysql_core4.int)().default(0).notNull(),
-  pinterestProfileId: (0, import_mysql_core4.int)().default(0).notNull(),
-  minCreatedAt: (0, import_mysql_core4.int)("min_createdAt").default(0).notNull(),
-  maxCreatedAt: (0, import_mysql_core4.int)("max_createdAt").default(0).notNull(),
-  minDueDate: (0, import_mysql_core4.int)("min_dueDate").default(0).notNull(),
-  maxDueDate: (0, import_mysql_core4.int)("max_dueDate").default(0).notNull(),
-  countTotal: (0, import_mysql_core4.int)("count_total").default(0).notNull(),
-  sumTotal: (0, import_mysql_core4.int)("sum_total").default(0).notNull(),
-  countPaid: (0, import_mysql_core4.int)("count_paid").default(0).notNull(),
-  somaPaid: (0, import_mysql_core4.int)("soma_paid").default(0).notNull(),
-  countNew: (0, import_mysql_core4.int)("count_new").default(0).notNull(),
-  somaNew: (0, import_mysql_core4.int)("soma_new").default(0).notNull(),
-  countPending: (0, import_mysql_core4.int)("count_pending").default(0).notNull(),
-  somaPending: (0, import_mysql_core4.int)("soma_pending").default(0).notNull(),
-  countProcessing: (0, import_mysql_core4.int)("count_processing").default(0).notNull(),
-  somaProcessing: (0, import_mysql_core4.int)("soma_processing").default(0).notNull(),
-  countReadyToPay: (0, import_mysql_core4.int)("count_readyToPay").default(0).notNull(),
-  somaReadyToPay: (0, import_mysql_core4.int)("soma_readyToPay").default(0).notNull(),
-  countWithdrawing: (0, import_mysql_core4.int)("count_withdrawing").default(0).notNull(),
-  somaWithdrawing: (0, import_mysql_core4.int)("soma_withdrawing").default(0).notNull()
+var influencersTotalTransactions = (0, import_mysql_core5.mysqlView)("influencers_total_transactions", {
+  squidId: (0, import_mysql_core5.int)().default(0).notNull(),
+  instagramUsername: (0, import_mysql_core5.int)().default(0).notNull(),
+  instagramProfileId: (0, import_mysql_core5.int)().default(0).notNull(),
+  youtubeChannel: (0, import_mysql_core5.int)().default(0).notNull(),
+  youtubeChannelId: (0, import_mysql_core5.int)().default(0).notNull(),
+  pinterestUsername: (0, import_mysql_core5.int)().default(0).notNull(),
+  pinterestProfileId: (0, import_mysql_core5.int)().default(0).notNull(),
+  minCreatedAt: (0, import_mysql_core5.int)("min_createdAt").default(0).notNull(),
+  maxCreatedAt: (0, import_mysql_core5.int)("max_createdAt").default(0).notNull(),
+  minDueDate: (0, import_mysql_core5.int)("min_dueDate").default(0).notNull(),
+  maxDueDate: (0, import_mysql_core5.int)("max_dueDate").default(0).notNull(),
+  countTotal: (0, import_mysql_core5.int)("count_total").default(0).notNull(),
+  sumTotal: (0, import_mysql_core5.int)("sum_total").default(0).notNull(),
+  countPaid: (0, import_mysql_core5.int)("count_paid").default(0).notNull(),
+  somaPaid: (0, import_mysql_core5.int)("soma_paid").default(0).notNull(),
+  countNew: (0, import_mysql_core5.int)("count_new").default(0).notNull(),
+  somaNew: (0, import_mysql_core5.int)("soma_new").default(0).notNull(),
+  countPending: (0, import_mysql_core5.int)("count_pending").default(0).notNull(),
+  somaPending: (0, import_mysql_core5.int)("soma_pending").default(0).notNull(),
+  countProcessing: (0, import_mysql_core5.int)("count_processing").default(0).notNull(),
+  somaProcessing: (0, import_mysql_core5.int)("soma_processing").default(0).notNull(),
+  countReadyToPay: (0, import_mysql_core5.int)("count_readyToPay").default(0).notNull(),
+  somaReadyToPay: (0, import_mysql_core5.int)("soma_readyToPay").default(0).notNull(),
+  countWithdrawing: (0, import_mysql_core5.int)("count_withdrawing").default(0).notNull(),
+  somaWithdrawing: (0, import_mysql_core5.int)("soma_withdrawing").default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm4.sql`select 1 AS \`squidId\`,1 AS \`instagramUsername\`,1 AS \`instagramProfileId\`,1 AS \`youtubeChannel\`,1 AS \`youtubeChannelId\`,1 AS \`pinterestUsername\`,1 AS \`pinterestProfileId\`,1 AS \`min_createdAt\`,1 AS \`max_createdAt\`,1 AS \`min_dueDate\`,1 AS \`max_dueDate\`,1 AS \`count_total\`,1 AS \`sum_total\`,1 AS \`count_paid\`,1 AS \`soma_paid\`,1 AS \`count_new\`,1 AS \`soma_new\`,1 AS \`count_pending\`,1 AS \`soma_pending\`,1 AS \`count_processing\`,1 AS \`soma_processing\`,1 AS \`count_readyToPay\`,1 AS \`soma_readyToPay\`,1 AS \`count_withdrawing\`,1 AS \`soma_withdrawing\``);
-var pagamentosForaDoPrazo = (0, import_mysql_core4.mysqlView)("pagamentos_fora_do_prazo", {
-  seqId: (0, import_mysql_core4.int)().default(0).notNull(),
-  transactionId: (0, import_mysql_core4.int)().default(0).notNull(),
-  recruitmentId: (0, import_mysql_core4.int)().default(0).notNull(),
-  campaignId: (0, import_mysql_core4.int)().default(0).notNull(),
-  campaignName: (0, import_mysql_core4.int)().default(0).notNull(),
-  "date(ipCampaignEndDate)": (0, import_mysql_core4.int)("date(IP.campaignEndDate)").default(0).notNull(),
-  squidId: (0, import_mysql_core4.int)().default(0).notNull(),
-  instagramUsername: (0, import_mysql_core4.int)().default(0).notNull(),
-  youtubeChannel: (0, import_mysql_core4.int)().default(0).notNull(),
-  amount: (0, import_mysql_core4.int)().default(0).notNull(),
-  "date(ipCreatedAt)": (0, import_mysql_core4.int)("date(IP.createdAt)").default(0).notNull(),
-  dueDate: (0, import_mysql_core4.int)().default(0).notNull(),
-  transactionStatus: (0, import_mysql_core4.int)().default(0).notNull(),
-  paymentType: (0, import_mysql_core4.int)().default(0).notNull(),
-  "date(trPaidedAt)": (0, import_mysql_core4.int)("date(TR.paidedAt)").default(0).notNull(),
-  nameExp16: (0, import_mysql_core4.int)("Name_exp_16").default(0).notNull()
+var pagamentosForaDoPrazo = (0, import_mysql_core5.mysqlView)("pagamentos_fora_do_prazo", {
+  seqId: (0, import_mysql_core5.int)().default(0).notNull(),
+  transactionId: (0, import_mysql_core5.int)().default(0).notNull(),
+  recruitmentId: (0, import_mysql_core5.int)().default(0).notNull(),
+  campaignId: (0, import_mysql_core5.int)().default(0).notNull(),
+  campaignName: (0, import_mysql_core5.int)().default(0).notNull(),
+  "date(ipCampaignEndDate)": (0, import_mysql_core5.int)("date(IP.campaignEndDate)").default(0).notNull(),
+  squidId: (0, import_mysql_core5.int)().default(0).notNull(),
+  instagramUsername: (0, import_mysql_core5.int)().default(0).notNull(),
+  youtubeChannel: (0, import_mysql_core5.int)().default(0).notNull(),
+  amount: (0, import_mysql_core5.int)().default(0).notNull(),
+  "date(ipCreatedAt)": (0, import_mysql_core5.int)("date(IP.createdAt)").default(0).notNull(),
+  dueDate: (0, import_mysql_core5.int)().default(0).notNull(),
+  transactionStatus: (0, import_mysql_core5.int)().default(0).notNull(),
+  paymentType: (0, import_mysql_core5.int)().default(0).notNull(),
+  "date(trPaidedAt)": (0, import_mysql_core5.int)("date(TR.paidedAt)").default(0).notNull(),
+  nameExp16: (0, import_mysql_core5.int)("Name_exp_16").default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm4.sql`select 1 AS \`seqId\`,1 AS \`transactionId\`,1 AS \`recruitmentId\`,1 AS \`campaignId\`,1 AS \`campaignName\`,1 AS \`date(IP.campaignEndDate)\`,1 AS \`squidId\`,1 AS \`instagramUsername\`,1 AS \`youtubeChannel\`,1 AS \`amount\`,1 AS \`date(IP.createdAt)\`,1 AS \`dueDate\`,1 AS \`transactionStatus\`,1 AS \`paymentType\`,1 AS \`date(TR.paidedAt)\`,1 AS \`Name_exp_16\``);
-var vmTransactionsReadyToPayInCurrentMonth = (0, import_mysql_core4.mysqlView)("VM_TRANSACTIONS_READY_TO_PAY_IN_CURRENT_MONTH", {
-  squidId: (0, import_mysql_core4.int)().default(0).notNull(),
-  verificationStatus: (0, import_mysql_core4.int)().default(0).notNull(),
-  verificationId: (0, import_mysql_core4.int)().default(0).notNull(),
-  transactionId: (0, import_mysql_core4.int)().default(0).notNull(),
-  dueDate: (0, import_mysql_core4.int)().default(0).notNull(),
-  createdAt: (0, import_mysql_core4.int)().default(0).notNull(),
-  netValue: (0, import_mysql_core4.int)().default(0).notNull(),
-  transactionStatus: (0, import_mysql_core4.int)().default(0).notNull(),
-  paidedAt: (0, import_mysql_core4.int)().default(0).notNull(),
-  withdrawingDate: (0, import_mysql_core4.int)().default(0).notNull(),
-  verificatedAt: (0, import_mysql_core4.int)().default(0).notNull(),
-  updatedAt: (0, import_mysql_core4.int)().default(0).notNull(),
-  bankAccountType: (0, import_mysql_core4.int)().default(0).notNull(),
-  profileId: (0, import_mysql_core4.int)().default(0).notNull(),
-  holderName: (0, import_mysql_core4.int)().default(0).notNull(),
-  holderDocument: (0, import_mysql_core4.int)().default(0).notNull(),
-  bankCode: (0, import_mysql_core4.int)().default(0).notNull(),
-  bankAccountAgency: (0, import_mysql_core4.int)().default(0).notNull(),
-  bankAccountNumber: (0, import_mysql_core4.int)().default(0).notNull(),
-  bankAccountDigit: (0, import_mysql_core4.int)().default(0).notNull()
+var vmTransactionsReadyToPayInCurrentMonth = (0, import_mysql_core5.mysqlView)("VM_TRANSACTIONS_READY_TO_PAY_IN_CURRENT_MONTH", {
+  squidId: (0, import_mysql_core5.int)().default(0).notNull(),
+  verificationStatus: (0, import_mysql_core5.int)().default(0).notNull(),
+  verificationId: (0, import_mysql_core5.int)().default(0).notNull(),
+  transactionId: (0, import_mysql_core5.int)().default(0).notNull(),
+  dueDate: (0, import_mysql_core5.int)().default(0).notNull(),
+  createdAt: (0, import_mysql_core5.int)().default(0).notNull(),
+  netValue: (0, import_mysql_core5.int)().default(0).notNull(),
+  transactionStatus: (0, import_mysql_core5.int)().default(0).notNull(),
+  paidedAt: (0, import_mysql_core5.int)().default(0).notNull(),
+  withdrawingDate: (0, import_mysql_core5.int)().default(0).notNull(),
+  verificatedAt: (0, import_mysql_core5.int)().default(0).notNull(),
+  updatedAt: (0, import_mysql_core5.int)().default(0).notNull(),
+  bankAccountType: (0, import_mysql_core5.int)().default(0).notNull(),
+  profileId: (0, import_mysql_core5.int)().default(0).notNull(),
+  holderName: (0, import_mysql_core5.int)().default(0).notNull(),
+  holderDocument: (0, import_mysql_core5.int)().default(0).notNull(),
+  bankCode: (0, import_mysql_core5.int)().default(0).notNull(),
+  bankAccountAgency: (0, import_mysql_core5.int)().default(0).notNull(),
+  bankAccountNumber: (0, import_mysql_core5.int)().default(0).notNull(),
+  bankAccountDigit: (0, import_mysql_core5.int)().default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm4.sql`select 1 AS \`squidId\`,1 AS \`verificationStatus\`,1 AS \`verificationId\`,1 AS \`transactionId\`,1 AS \`dueDate\`,1 AS \`createdAt\`,1 AS \`netValue\`,1 AS \`transactionStatus\`,1 AS \`paidedAt\`,1 AS \`withdrawingDate\`,1 AS \`verificatedAt\`,1 AS \`updatedAt\`,1 AS \`bankAccountType\`,1 AS \`profileId\`,1 AS \`holderName\`,1 AS \`holderDocument\`,1 AS \`bankCode\`,1 AS \`bankAccountAgency\`,1 AS \`bankAccountNumber\`,1 AS \`bankAccountDigit\``);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
