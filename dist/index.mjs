@@ -1515,7 +1515,34 @@ __export(schema_exports2, {
   youtubeProfiles: () => youtubeProfiles
 });
 import { sql as sql2 } from "drizzle-orm";
-import { bigint as bigint2, char as char2, date as date2, datetime as datetime2, decimal, double, float as float2, index as index2, int as int2, mysqlEnum as mysqlEnum2, mysqlTable as mysqlTable2, mysqlView, primaryKey as primaryKey2, text as text2, timestamp, tinyint as tinyint2, unique as unique2, varchar as varchar2 } from "drizzle-orm/mysql-core";
+import { bigint as bigint2, char as char2, date as date2, datetime as datetime2, decimal, double, float as float2, index as index2, int as int2, mysqlEnum as mysqlEnum3, mysqlTable as mysqlTable2, mysqlView, primaryKey as primaryKey2, text as text2, timestamp, tinyint as tinyint2, unique as unique2, varchar as varchar2 } from "drizzle-orm/mysql-core";
+
+// src/databases/payment/enums.ts
+import { mysqlEnum as mysqlEnum2 } from "drizzle-orm/mysql-core";
+var transactionStatusEnum = mysqlEnum2(
+  "transaction_status",
+  [
+    "analyze",
+    "blocked",
+    "canceled",
+    "failed",
+    "new",
+    "paid",
+    "paidByFinance",
+    "pending",
+    "readyToPay",
+    "retry",
+    "review",
+    "unblocked",
+    "withdrawing"
+  ]
+);
+var paymentTypeEnum = mysqlEnum2(
+  "payment_type",
+  ["nf", "rpa"]
+);
+
+// src/databases/influencers/schema.ts
 var blockedtags = mysqlTable2(
   "blockedtags",
   {
@@ -1689,7 +1716,7 @@ var influencerMetrics = mysqlTable2(
     id: varchar2({ length: 100 }).notNull(),
     socialNetwork: varchar2({ length: 100 }).notNull(),
     observation: varchar2({ length: 200 }),
-    type: mysqlEnum2(["facebook", "tiktok", "twitter", "youtube"]),
+    type: mysqlEnum3(["facebook", "tiktok", "twitter", "youtube"]),
     createdAt: datetime2({ mode: "date" }),
     updatedAt: datetime2({ mode: "date" })
   },
@@ -1988,7 +2015,7 @@ var profileAdditionalInfoBanks = mysqlTable2(
     fantasyName: varchar2({ length: 100 }),
     companyOpeningDate: date2({ mode: "date" }),
     typeOfBusiness: varchar2({ length: 150 }),
-    paymentType: varchar2({ length: 5 }),
+    paymentType: paymentTypeEnum.notNull(),
     companyUf: varchar2({ length: 2 }),
     companyCity: varchar2({ length: 100 }),
     companyLegalNature: varchar2({ length: 100 }),
@@ -2961,33 +2988,6 @@ __export(schema_exports4, {
 });
 import { sql as sql4 } from "drizzle-orm";
 import { bigint as bigint3, char as char3, date as date3, datetime as datetime4, double as double2, float as float3, index as index4, int as int4, json, longtext as longtext2, mediumtext, mysqlTable as mysqlTable4, mysqlView as mysqlView2, primaryKey as primaryKey4, text as text3, tinyint as tinyint4, unique as unique4, varchar as varchar4 } from "drizzle-orm/mysql-core";
-
-// src/databases/payment/enums.ts
-import { mysqlEnum as mysqlEnum3 } from "drizzle-orm/mysql-core";
-var transactionStatusEnum = mysqlEnum3(
-  "transaction_status",
-  [
-    "analyze",
-    "blocked",
-    "canceled",
-    "failed",
-    "new",
-    "paid",
-    "paidByFinance",
-    "pending",
-    "readyToPay",
-    "retry",
-    "review",
-    "unblocked",
-    "withdrawing"
-  ]
-);
-var paymentTypeEnum = mysqlEnum3(
-  "payment_type",
-  ["nf", "rpa"]
-);
-
-// src/databases/payment/schema.ts
 var charges = mysqlTable4(
   "charges",
   {

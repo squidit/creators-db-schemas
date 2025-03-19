@@ -21619,18 +21619,18 @@ declare const profileAdditionalInfoBanks: drizzle_orm_mysql_core.MySqlTableWithC
             generated: undefined;
         }, {}, {}>;
         paymentType: drizzle_orm_mysql_core.MySqlColumn<{
-            name: "paymentType";
+            name: "payment_type";
             tableName: "profileAdditionalInfoBanks";
             dataType: "string";
-            columnType: "MySqlVarChar";
-            data: string;
-            driverParam: string | number;
-            notNull: false;
+            columnType: "MySqlEnumColumn";
+            data: "rpa" | "nf";
+            driverParam: string;
+            notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
-            enumValues: [string, ...string[]];
+            enumValues: ["nf", "rpa"];
             baseColumn: never;
             identity: undefined;
             generated: undefined;
