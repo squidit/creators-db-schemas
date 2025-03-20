@@ -37,7 +37,8 @@ export const transactionsBeforeInsertTrigger = () => (sql`
         ${transactionsHistory.anticipationAliquot.name},
         ${transactionsHistory.anticipationValue.name},
         ${transactionsHistory.anticipationContractAccepted.name},
-        ${transactionsHistory.userCreated.name}
+        ${transactionsHistory.createdById.name},
+        ${transactionsHistory.createdByEmail.name}
     ) VALUES (
         NEW.transactionId,
         NEW.transactionDate,
@@ -69,7 +70,8 @@ export const transactionsBeforeInsertTrigger = () => (sql`
         NEW.anticipationAliquot,
         NEW.anticipationValue,
         NEW.anticipationContractAccepted,
-        NEW.userUpdated
+        NEW.createdById,
+        NEW.createdByEmail
     )
 `)
 
@@ -108,7 +110,8 @@ export const transactionsBeforeUpdateTrigger = () => (sql`
         ${transactionsHistory.anticipationAliquot.name},
         ${transactionsHistory.anticipationValue.name},
         ${transactionsHistory.anticipationContractAccepted.name},
-        ${transactionsHistory.userCreated.name}
+        ${transactionsHistory.createdById.name},
+        ${transactionsHistory.createdByEmail.name}
     ) VALUES (
         NEW.transactionId,
         NEW.transactionDate,
@@ -140,6 +143,7 @@ export const transactionsBeforeUpdateTrigger = () => (sql`
         NEW.anticipationAliquot,
         NEW.anticipationValue,
         NEW.anticipationContractAccepted,
-        NEW.userUpdated
+        NEW.updatedById,
+        NEW.updatedByEmail
     )
 `)

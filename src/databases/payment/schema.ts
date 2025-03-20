@@ -1,6 +1,7 @@
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import { sql } from "drizzle-orm";
 import { bigint, char, date, datetime, double, float, index, int, json, longtext, mediumtext, mysqlTable, mysqlView, primaryKey, text, tinyint, unique, varchar } from "drizzle-orm/mysql-core";
+import { paymentTypeEnum, transactionStatusEnum } from './enums';
 
 export const charges = mysqlTable("charges", {
   seqId: bigint({ mode: "number" }).autoincrement().notNull(),
@@ -316,9 +317,9 @@ export type NewTransactionBeneficiary = InferInsertModel<typeof transactionBenef
 
 export const transactions = mysqlTable("transactions", {
   transactionId: varchar({ length: 60 }).notNull(),
-  squidId: varchar({ length: 60 }),
-  transactionStatus: varchar({ length: 50 }).default('pending').notNull(),
-  paymentType: varchar({ length: 5 }),
+  squidId: varchar({ length: 60 }).notNull(),
+  transactionStatus: transactionStatusEnum.notNull().default('new'),
+  paymentType: paymentTypeEnum.notNull(),
   netValue: float().notNull(),
   grossValue: float().notNull(),
   inssAliquot: float(),
@@ -345,15 +346,17 @@ export const transactions = mysqlTable("transactions", {
   paymentGatewayTransactionId: varchar({ length: 255 }),
   paymentGatewayReceiptUrl: varchar({ length: 450 }),
   paymentGatewayReceiptBankUrl: varchar({ length: 450 }),
-  dueDate: date({ mode: 'date' }),
+  dueDate: date({ mode: 'date' }).notNull(),
   transactionDate: datetime({ mode: 'date' }).notNull(),
   paidedAt: datetime({ mode: 'date' }),
   withdrawingDate: datetime({ mode: 'date' }),
   createdAt: datetime({ mode: 'date' }).notNull(),
   updatedAt: datetime({ mode: 'date' }),
   deletedAt: datetime({ mode: 'date' }),
-  userCreated: varchar({ length: 255 }),
-  userUpdated: varchar({ length: 255 })
+  createdById: varchar({ length: 255 }),
+  updatedById: varchar({ length: 255 }),
+  createdByEmail: varchar({ length: 255 }),
+  updatedByEmail: varchar({ length: 255 })
 },
   (table) => {
     return {
@@ -397,7 +400,8 @@ export const transactionsHistory = mysqlTable("transactionsHistory", {
   paidedAt: datetime({ mode: 'date' }),
   withdrawingDate: datetime({ mode: 'date' }),
   deletedAt: datetime({ mode: 'date' }),
-  userCreated: varchar({ length: 255 })
+  createdById: varchar({ length: 255 }),
+  createdByEmail: varchar({ length: 255 })
 });
 
 export const transactionsSchedule = mysqlTable("transactions_schedule", {

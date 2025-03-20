@@ -1515,7 +1515,34 @@ __export(schema_exports2, {
   youtubeProfiles: () => youtubeProfiles
 });
 import { sql as sql2 } from "drizzle-orm";
-import { bigint as bigint2, char as char2, date as date2, datetime as datetime2, decimal, double, float as float2, index as index2, int as int2, mysqlEnum as mysqlEnum2, mysqlTable as mysqlTable2, mysqlView, primaryKey as primaryKey2, text as text2, timestamp, tinyint as tinyint2, unique as unique2, varchar as varchar2 } from "drizzle-orm/mysql-core";
+import { bigint as bigint2, char as char2, date as date2, datetime as datetime2, decimal, double, float as float2, index as index2, int as int2, mysqlEnum as mysqlEnum3, mysqlTable as mysqlTable2, mysqlView, primaryKey as primaryKey2, text as text2, timestamp, tinyint as tinyint2, unique as unique2, varchar as varchar2 } from "drizzle-orm/mysql-core";
+
+// src/databases/payment/enums.ts
+import { mysqlEnum as mysqlEnum2 } from "drizzle-orm/mysql-core";
+var transactionStatusEnum = mysqlEnum2(
+  "transaction_status",
+  [
+    "analyze",
+    "blocked",
+    "canceled",
+    "failed",
+    "new",
+    "paid",
+    "paidByFinance",
+    "pending",
+    "readyToPay",
+    "retry",
+    "review",
+    "unblocked",
+    "withdrawing"
+  ]
+);
+var paymentTypeEnum = mysqlEnum2(
+  "payment_type",
+  ["nf", "rpa"]
+);
+
+// src/databases/influencers/schema.ts
 var blockedtags = mysqlTable2(
   "blockedtags",
   {
@@ -1616,7 +1643,7 @@ var facebookTokensMetadata = mysqlTable2(
       facebookTokensMetadataProfileId: primaryKey2({ columns: [table.instagramBusinessAccountId], name: "facebookTokensMetadata_instagramBusinessAccountId" }),
       idxInstagramBusinessAccount: index2("idx_instagram_business_account").on(table.instagramBusinessAccountId),
       idxCreatedAt: index2("idx_created_at").on(table.createdAt),
-      idxcheckResult: index2("idx_instagram_business_account").on(table.checkResult)
+      idxcheckResult: index2("idx_check_result").on(table.checkResult)
     };
   }
 );
@@ -1689,7 +1716,7 @@ var influencerMetrics = mysqlTable2(
     id: varchar2({ length: 100 }).notNull(),
     socialNetwork: varchar2({ length: 100 }).notNull(),
     observation: varchar2({ length: 200 }),
-    type: mysqlEnum2(["facebook", "tiktok", "twitter", "youtube"]),
+    type: mysqlEnum3(["facebook", "tiktok", "twitter", "youtube"]),
     createdAt: datetime2({ mode: "date" }),
     updatedAt: datetime2({ mode: "date" })
   },
@@ -1988,7 +2015,7 @@ var profileAdditionalInfoBanks = mysqlTable2(
     fantasyName: varchar2({ length: 100 }),
     companyOpeningDate: date2({ mode: "date" }),
     typeOfBusiness: varchar2({ length: 150 }),
-    paymentType: varchar2({ length: 5 }),
+    paymentType: paymentTypeEnum.notNull(),
     companyUf: varchar2({ length: 2 }),
     companyCity: varchar2({ length: 100 }),
     companyLegalNature: varchar2({ length: 100 }),
@@ -3269,9 +3296,9 @@ var transactions = mysqlTable4(
   "transactions",
   {
     transactionId: varchar4({ length: 60 }).notNull(),
-    squidId: varchar4({ length: 60 }),
-    transactionStatus: varchar4({ length: 50 }).default("pending").notNull(),
-    paymentType: varchar4({ length: 5 }),
+    squidId: varchar4({ length: 60 }).notNull(),
+    transactionStatus: transactionStatusEnum.notNull().default("new"),
+    paymentType: paymentTypeEnum.notNull(),
     netValue: float3().notNull(),
     grossValue: float3().notNull(),
     inssAliquot: float3(),
@@ -3298,15 +3325,17 @@ var transactions = mysqlTable4(
     paymentGatewayTransactionId: varchar4({ length: 255 }),
     paymentGatewayReceiptUrl: varchar4({ length: 450 }),
     paymentGatewayReceiptBankUrl: varchar4({ length: 450 }),
-    dueDate: date3({ mode: "date" }),
+    dueDate: date3({ mode: "date" }).notNull(),
     transactionDate: datetime4({ mode: "date" }).notNull(),
     paidedAt: datetime4({ mode: "date" }),
     withdrawingDate: datetime4({ mode: "date" }),
     createdAt: datetime4({ mode: "date" }).notNull(),
     updatedAt: datetime4({ mode: "date" }),
     deletedAt: datetime4({ mode: "date" }),
-    userCreated: varchar4({ length: 255 }),
-    userUpdated: varchar4({ length: 255 })
+    createdById: varchar4({ length: 255 }),
+    updatedById: varchar4({ length: 255 }),
+    createdByEmail: varchar4({ length: 255 }),
+    updatedByEmail: varchar4({ length: 255 })
   },
   (table) => {
     return {
@@ -3347,7 +3376,8 @@ var transactionsHistory = mysqlTable4("transactionsHistory", {
   paidedAt: datetime4({ mode: "date" }),
   withdrawingDate: datetime4({ mode: "date" }),
   deletedAt: datetime4({ mode: "date" }),
-  userCreated: varchar4({ length: 255 })
+  createdById: varchar4({ length: 255 }),
+  createdByEmail: varchar4({ length: 255 })
 });
 var transactionsSchedule = mysqlTable4(
   "transactions_schedule",
