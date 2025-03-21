@@ -1538,1349 +1538,1322 @@ __export(schema_exports2, {
   youtubeProfiles: () => youtubeProfiles
 });
 var import_drizzle_orm2 = require("drizzle-orm");
-var import_mysql_core3 = require("drizzle-orm/mysql-core");
-
-// src/databases/payment/enums.ts
 var import_mysql_core2 = require("drizzle-orm/mysql-core");
-var transactionStatusEnum = (0, import_mysql_core2.mysqlEnum)(
-  "transaction_status",
-  [
-    "analyze",
-    "blocked",
-    "canceled",
-    "failed",
-    "new",
-    "paid",
-    "paidByFinance",
-    "pending",
-    "readyToPay",
-    "retry",
-    "review",
-    "unblocked",
-    "withdrawing"
-  ]
-);
-var paymentTypeEnum = (0, import_mysql_core2.mysqlEnum)(
-  "payment_type",
-  ["nf", "rpa"]
-);
-
-// src/databases/influencers/schema.ts
-var blockedtags = (0, import_mysql_core3.mysqlTable)(
+var blockedtags = (0, import_mysql_core2.mysqlTable)(
   "blockedtags",
   {
-    id: (0, import_mysql_core3.int)().autoincrement().notNull(),
-    tag: (0, import_mysql_core3.varchar)({ length: 20 })
+    id: (0, import_mysql_core2.int)().autoincrement().notNull(),
+    tag: (0, import_mysql_core2.varchar)({ length: 20 })
   },
   (table) => {
     return {
-      blockedtagsId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "blockedtags_id" }),
-      tag: (0, import_mysql_core3.unique)("tag").on(table.tag)
+      blockedtagsId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "blockedtags_id" }),
+      tag: (0, import_mysql_core2.unique)("tag").on(table.tag)
     };
   }
 );
-var blockedusers = (0, import_mysql_core3.mysqlTable)(
+var blockedusers = (0, import_mysql_core2.mysqlTable)(
   "blockedusers",
   {
-    profileId: (0, import_mysql_core3.varchar)({ length: 36 }).notNull().references(() => profiles.id),
-    whitelabel: (0, import_mysql_core3.varchar)({ length: 24 }).default("-").notNull(),
-    organization: (0, import_mysql_core3.varchar)({ length: 24 }).default("-").notNull(),
-    reason: (0, import_mysql_core3.varchar)({ length: 255 }).notNull(),
-    responsibleId: (0, import_mysql_core3.varchar)({ length: 255 }).notNull(),
-    responsibleFullName: (0, import_mysql_core3.varchar)({ length: 255 }).notNull(),
-    unregistered: (0, import_mysql_core3.tinyint)().default(0).notNull(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    logstashProcessedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    deletedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    campaignId: (0, import_mysql_core3.varchar)({ length: 255 }),
-    campaignName: (0, import_mysql_core3.varchar)({ length: 255 })
+    profileId: (0, import_mysql_core2.varchar)({ length: 36 }).notNull().references(() => profiles.id),
+    whitelabel: (0, import_mysql_core2.varchar)({ length: 24 }).default("-").notNull(),
+    organization: (0, import_mysql_core2.varchar)({ length: 24 }).default("-").notNull(),
+    reason: (0, import_mysql_core2.varchar)({ length: 255 }).notNull(),
+    responsibleId: (0, import_mysql_core2.varchar)({ length: 255 }).notNull(),
+    responsibleFullName: (0, import_mysql_core2.varchar)({ length: 255 }).notNull(),
+    unregistered: (0, import_mysql_core2.tinyint)().default(0).notNull(),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    logstashProcessedAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    deletedAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    campaignId: (0, import_mysql_core2.varchar)({ length: 255 }),
+    campaignName: (0, import_mysql_core2.varchar)({ length: 255 })
   },
   (table) => {
     return {
-      blockedusersProfileIdWhitelabel: (0, import_mysql_core3.primaryKey)({ columns: [table.profileId, table.whitelabel], name: "blockedusers_profileId_whitelabel" })
+      blockedusersProfileIdWhitelabel: (0, import_mysql_core2.primaryKey)({ columns: [table.profileId, table.whitelabel], name: "blockedusers_profileId_whitelabel" })
     };
   }
 );
-var deletedProfiles = (0, import_mysql_core3.mysqlTable)(
+var deletedProfiles = (0, import_mysql_core2.mysqlTable)(
   "deletedProfiles",
   {
-    id: (0, import_mysql_core3.int)().autoincrement().notNull(),
-    profileId: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    community: (0, import_mysql_core3.varchar)({ length: 255 }),
-    motivation: (0, import_mysql_core3.varchar)({ length: 255 }).notNull(),
-    deletionDate: (0, import_mysql_core3.date)({ mode: "date" }).notNull(),
-    email: (0, import_mysql_core3.varchar)({ length: 255 }),
-    document: (0, import_mysql_core3.varchar)({ length: 45 }),
-    recordEmployment: (0, import_mysql_core3.varchar)({ length: 50 }),
-    createdAt: (0, import_mysql_core3.date)({ mode: "date" }),
-    updatedAt: (0, import_mysql_core3.date)({ mode: "date" })
+    id: (0, import_mysql_core2.int)().autoincrement().notNull(),
+    profileId: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    community: (0, import_mysql_core2.varchar)({ length: 255 }),
+    motivation: (0, import_mysql_core2.varchar)({ length: 255 }).notNull(),
+    deletionDate: (0, import_mysql_core2.date)({ mode: "date" }).notNull(),
+    email: (0, import_mysql_core2.varchar)({ length: 255 }),
+    document: (0, import_mysql_core2.varchar)({ length: 45 }),
+    recordEmployment: (0, import_mysql_core2.varchar)({ length: 50 }),
+    createdAt: (0, import_mysql_core2.date)({ mode: "date" }),
+    updatedAt: (0, import_mysql_core2.date)({ mode: "date" })
   },
   (table) => {
     return {
-      deletedProfilesId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "deletedProfiles_id" })
+      deletedProfilesId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "deletedProfiles_id" })
     };
   }
 );
-var facebookTokens = (0, import_mysql_core3.mysqlTable)(
+var facebookTokens = (0, import_mysql_core2.mysqlTable)(
   "facebookTokens",
   {
-    profileId: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
-    valid: (0, import_mysql_core3.tinyint)(),
-    expiresAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    status: (0, import_mysql_core3.varchar)({ length: 1e3 }),
-    permanentToken: (0, import_mysql_core3.varchar)({ length: 512 }),
-    accessToken: (0, import_mysql_core3.varchar)({ length: 512 }),
-    sevenDaysNotified: (0, import_mysql_core3.tinyint)(),
-    expiredTokenNotified: (0, import_mysql_core3.tinyint)(),
-    instagramBusinessId: (0, import_mysql_core3.varchar)({ length: 30 }),
-    facebookPageId: (0, import_mysql_core3.varchar)({ length: 30 }),
-    facebookUserId: (0, import_mysql_core3.varchar)({ length: 30 })
+    profileId: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+    valid: (0, import_mysql_core2.tinyint)(),
+    expiresAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    status: (0, import_mysql_core2.varchar)({ length: 1e3 }),
+    permanentToken: (0, import_mysql_core2.varchar)({ length: 512 }),
+    accessToken: (0, import_mysql_core2.varchar)({ length: 512 }),
+    sevenDaysNotified: (0, import_mysql_core2.tinyint)(),
+    expiredTokenNotified: (0, import_mysql_core2.tinyint)(),
+    instagramBusinessId: (0, import_mysql_core2.varchar)({ length: 30 }),
+    facebookPageId: (0, import_mysql_core2.varchar)({ length: 30 }),
+    facebookUserId: (0, import_mysql_core2.varchar)({ length: 30 })
   },
   (table) => {
     return {
       // validIdx: index().on(table.valid),
-      notificationIdx: (0, import_mysql_core3.index)("notification_index").on(table.valid, table.expiredTokenNotified, table.sevenDaysNotified, table.expiresAt),
-      instagramBusinessIdIdx: (0, import_mysql_core3.index)("facebookTokens_instagramBusinessId_IDX").on(table.instagramBusinessId),
-      facebookTokensProfileId: (0, import_mysql_core3.primaryKey)({ columns: [table.profileId], name: "facebookTokens_profileId" })
+      notificationIdx: (0, import_mysql_core2.index)("notification_index").on(table.valid, table.expiredTokenNotified, table.sevenDaysNotified, table.expiresAt),
+      instagramBusinessIdIdx: (0, import_mysql_core2.index)("facebookTokens_instagramBusinessId_IDX").on(table.instagramBusinessId),
+      facebookTokensProfileId: (0, import_mysql_core2.primaryKey)({ columns: [table.profileId], name: "facebookTokens_profileId" })
     };
   }
 );
-var facebookTokensMetadata = (0, import_mysql_core3.mysqlTable)(
+var facebookTokensMetadata = (0, import_mysql_core2.mysqlTable)(
   "facebookTokensMetadata",
   {
-    instagramBusinessAccountId: (0, import_mysql_core3.varchar)({ length: 50 }).notNull().references(() => facebookTokens.profileId, { onDelete: "cascade", onUpdate: "cascade" }),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`),
-    checkResult: (0, import_mysql_core3.varchar)({ length: 20 }),
-    validationCode: (0, import_mysql_core3.varchar)({ length: 100 }),
-    facebookDataFetchDetails: (0, import_mysql_core3.text)(),
-    facebookValidateDetails: (0, import_mysql_core3.text)(),
-    tokenType: (0, import_mysql_core3.varchar)({ length: 50 }),
-    userAccessToken: (0, import_mysql_core3.varchar)({ length: 255 })
+    instagramBusinessAccountId: (0, import_mysql_core2.varchar)({ length: 50 }).notNull().references(() => facebookTokens.profileId, { onDelete: "cascade", onUpdate: "cascade" }),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`),
+    checkResult: (0, import_mysql_core2.varchar)({ length: 20 }),
+    validationCode: (0, import_mysql_core2.varchar)({ length: 100 }),
+    facebookDataFetchDetails: (0, import_mysql_core2.text)(),
+    facebookValidateDetails: (0, import_mysql_core2.text)(),
+    tokenType: (0, import_mysql_core2.varchar)({ length: 50 }),
+    userAccessToken: (0, import_mysql_core2.varchar)({ length: 255 })
   },
   (table) => {
     return {
-      facebookTokensMetadataProfileId: (0, import_mysql_core3.primaryKey)({ columns: [table.instagramBusinessAccountId], name: "facebookTokensMetadata_instagramBusinessAccountId" }),
-      idxInstagramBusinessAccount: (0, import_mysql_core3.index)("idx_instagram_business_account").on(table.instagramBusinessAccountId),
-      idxCreatedAt: (0, import_mysql_core3.index)("idx_created_at").on(table.createdAt),
-      idxcheckResult: (0, import_mysql_core3.index)("idx_check_result").on(table.checkResult)
+      facebookTokensMetadataProfileId: (0, import_mysql_core2.primaryKey)({ columns: [table.instagramBusinessAccountId], name: "facebookTokensMetadata_instagramBusinessAccountId" }),
+      idxInstagramBusinessAccount: (0, import_mysql_core2.index)("idx_instagram_business_account").on(table.instagramBusinessAccountId),
+      idxCreatedAt: (0, import_mysql_core2.index)("idx_created_at").on(table.createdAt),
+      idxcheckResult: (0, import_mysql_core2.index)("idx_check_result").on(table.checkResult)
     };
   }
 );
-var facebookTokensHistory = (0, import_mysql_core3.mysqlTable)(
+var facebookTokensHistory = (0, import_mysql_core2.mysqlTable)(
   "facebookTokensHistory",
   {
-    instagramBusinessAccountId: (0, import_mysql_core3.varchar)({ length: 50 }).notNull().references(() => facebookTokens.profileId, { onDelete: "cascade", onUpdate: "cascade" }),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`),
-    oldStatus: (0, import_mysql_core3.varchar)({ length: 20 }),
-    newStatus: (0, import_mysql_core3.varchar)({ length: 20 }),
-    updateReason: (0, import_mysql_core3.varchar)({ length: 250 })
+    instagramBusinessAccountId: (0, import_mysql_core2.varchar)({ length: 50 }).notNull().references(() => facebookTokens.profileId, { onDelete: "cascade", onUpdate: "cascade" }),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`),
+    oldStatus: (0, import_mysql_core2.varchar)({ length: 20 }),
+    newStatus: (0, import_mysql_core2.varchar)({ length: 20 }),
+    updateReason: (0, import_mysql_core2.varchar)({ length: 250 })
   },
   (table) => {
     return {
-      facebookTokensHistoryProfileId: (0, import_mysql_core3.primaryKey)({ columns: [table.instagramBusinessAccountId], name: "facebookTokensHistory_instagramBusinessAccountId" }),
-      idxInstagramBusinessAccount: (0, import_mysql_core3.index)("idx_instagram_business_account").on(table.instagramBusinessAccountId),
-      idxCreatedAt: (0, import_mysql_core3.index)("idx_created_at").on(table.createdAt),
-      idxUpdateReason: (0, import_mysql_core3.index)("idx_update_reason").on(table.updateReason)
+      facebookTokensHistoryProfileId: (0, import_mysql_core2.primaryKey)({ columns: [table.instagramBusinessAccountId], name: "facebookTokensHistory_instagramBusinessAccountId" }),
+      idxInstagramBusinessAccount: (0, import_mysql_core2.index)("idx_instagram_business_account").on(table.instagramBusinessAccountId),
+      idxCreatedAt: (0, import_mysql_core2.index)("idx_created_at").on(table.createdAt),
+      idxUpdateReason: (0, import_mysql_core2.index)("idx_update_reason").on(table.updateReason)
     };
   }
 );
-var genders = (0, import_mysql_core3.mysqlTable)(
+var genders = (0, import_mysql_core2.mysqlTable)(
   "genders",
   {
-    id: (0, import_mysql_core3.int)().autoincrement().notNull(),
-    description: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    descriptionEn: (0, import_mysql_core3.varchar)("description_en", { length: 50 }).notNull(),
-    descriptionEs: (0, import_mysql_core3.varchar)("description_es", { length: 255 })
+    id: (0, import_mysql_core2.int)().autoincrement().notNull(),
+    description: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    descriptionEn: (0, import_mysql_core2.varchar)("description_en", { length: 50 }).notNull(),
+    descriptionEs: (0, import_mysql_core2.varchar)("description_es", { length: 255 })
   },
   (table) => {
     return {
-      gendersId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "genders_id" })
+      gendersId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "genders_id" })
     };
   }
 );
-var googleTokens = (0, import_mysql_core3.mysqlTable)(
+var googleTokens = (0, import_mysql_core2.mysqlTable)(
   "googleTokens",
   {
-    profileId: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
-    valid: (0, import_mysql_core3.tinyint)(),
-    expiresAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    status: (0, import_mysql_core3.varchar)({ length: 1e3 }),
-    provider: (0, import_mysql_core3.varchar)({ length: 50 }),
-    accessToken: (0, import_mysql_core3.varchar)({ length: 512 }),
-    refreshToken: (0, import_mysql_core3.varchar)({ length: 128 }),
-    expiresIn: (0, import_mysql_core3.bigint)({ mode: "number" }),
-    connection: (0, import_mysql_core3.varchar)({ length: 50 }),
-    isSocial: (0, import_mysql_core3.tinyint)(),
-    gcloudProject: (0, import_mysql_core3.varchar)({ length: 45 }).default("squid-apis")
+    profileId: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+    valid: (0, import_mysql_core2.tinyint)(),
+    expiresAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    status: (0, import_mysql_core2.varchar)({ length: 1e3 }),
+    provider: (0, import_mysql_core2.varchar)({ length: 50 }),
+    accessToken: (0, import_mysql_core2.varchar)({ length: 512 }),
+    refreshToken: (0, import_mysql_core2.varchar)({ length: 128 }),
+    expiresIn: (0, import_mysql_core2.bigint)({ mode: "number" }),
+    connection: (0, import_mysql_core2.varchar)({ length: 50 }),
+    isSocial: (0, import_mysql_core2.tinyint)(),
+    gcloudProject: (0, import_mysql_core2.varchar)({ length: 45 }).default("squid-apis")
   },
   (table) => {
     return {
       // validIdx: index().on(table.valid),
-      googleTokensProfileId: (0, import_mysql_core3.primaryKey)({ columns: [table.profileId], name: "googleTokens_profileId" })
+      googleTokensProfileId: (0, import_mysql_core2.primaryKey)({ columns: [table.profileId], name: "googleTokens_profileId" })
     };
   }
 );
-var idInstagramUpdate = (0, import_mysql_core3.mysqlTable)("idInstagramUpdate", {
-  id: (0, import_mysql_core3.varchar)({ length: 100 })
+var idInstagramUpdate = (0, import_mysql_core2.mysqlTable)("idInstagramUpdate", {
+  id: (0, import_mysql_core2.varchar)({ length: 100 })
 });
-var influencerMetrics = (0, import_mysql_core3.mysqlTable)(
+var influencerMetrics = (0, import_mysql_core2.mysqlTable)(
   "influencer_metrics",
   {
-    name: (0, import_mysql_core3.varchar)({ length: 200 }).notNull(),
-    value: (0, import_mysql_core3.float)(),
-    date: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
-    id: (0, import_mysql_core3.varchar)({ length: 100 }).notNull(),
-    socialNetwork: (0, import_mysql_core3.varchar)({ length: 100 }).notNull(),
-    observation: (0, import_mysql_core3.varchar)({ length: 200 }),
-    type: (0, import_mysql_core3.mysqlEnum)(["facebook", "tiktok", "twitter", "youtube"]),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" })
+    name: (0, import_mysql_core2.varchar)({ length: 200 }).notNull(),
+    value: (0, import_mysql_core2.float)(),
+    date: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+    id: (0, import_mysql_core2.varchar)({ length: 100 }).notNull(),
+    socialNetwork: (0, import_mysql_core2.varchar)({ length: 100 }).notNull(),
+    observation: (0, import_mysql_core2.varchar)({ length: 200 }),
+    type: (0, import_mysql_core2.mysqlEnum)(["facebook", "tiktok", "twitter", "youtube"]),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" })
   },
   (table) => {
     return {
-      dateIdx: (0, import_mysql_core3.index)("influencer_metrics_date_IDX").on(table.date),
-      influencerMetricsIdSocialNetworkName: (0, import_mysql_core3.primaryKey)({ columns: [table.id, table.socialNetwork, table.name], name: "influencer_metrics_id_socialNetwork_name" })
+      dateIdx: (0, import_mysql_core2.index)("influencer_metrics_date_IDX").on(table.date),
+      influencerMetricsIdSocialNetworkName: (0, import_mysql_core2.primaryKey)({ columns: [table.id, table.socialNetwork, table.name], name: "influencer_metrics_id_socialNetwork_name" })
     };
   }
 );
-var instagramProfiles = (0, import_mysql_core3.mysqlTable)(
+var instagramProfiles = (0, import_mysql_core2.mysqlTable)(
   "instagramProfiles",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    username: (0, import_mysql_core3.varchar)({ length: 255 }),
-    exists: (0, import_mysql_core3.tinyint)().default(1).notNull(),
-    searchable: (0, import_mysql_core3.tinyint)().default(1).notNull(),
-    macro: (0, import_mysql_core3.tinyint)().default(0),
-    notSearchReason: (0, import_mysql_core3.varchar)({ length: 255 }),
-    brandUser: (0, import_mysql_core3.tinyint)().default(0).notNull(),
-    picture: (0, import_mysql_core3.text)(),
-    fullName: (0, import_mysql_core3.varchar)({ length: 255 }),
-    email: (0, import_mysql_core3.varchar)({ length: 255 }),
-    bio: (0, import_mysql_core3.text)(),
-    website: (0, import_mysql_core3.varchar)({ length: 255 }),
-    language: (0, import_mysql_core3.varchar)({ length: 10 }),
-    isBusiness: (0, import_mysql_core3.tinyint)().default(0).notNull(),
-    isWorkAccount: (0, import_mysql_core3.tinyint)(),
-    hasSkip: (0, import_mysql_core3.tinyint)(),
-    facebookUserId: (0, import_mysql_core3.varchar)({ length: 30 }),
-    facebookPageId: (0, import_mysql_core3.varchar)({ length: 30 }),
-    instagramBusinessId: (0, import_mysql_core3.varchar)({ length: 30 }),
-    scrapperEngagementRate: (0, import_mysql_core3.float)().notNull(),
-    engagementRate: (0, import_mysql_core3.float)(),
-    totalMedias: (0, import_mysql_core3.int)().default(0).notNull(),
-    medias: (0, import_mysql_core3.int)().default(0).notNull(),
-    followers: (0, import_mysql_core3.int)().default(0).notNull(),
-    follows: (0, import_mysql_core3.int)().default(0).notNull(),
-    likes: (0, import_mysql_core3.int)().default(0).notNull(),
-    comments: (0, import_mysql_core3.int)().default(0).notNull(),
-    tier: (0, import_mysql_core3.varchar)({ length: 45 }).default("undefined").notNull(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    logstashProcessedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    score: (0, import_mysql_core3.float)(),
-    score1: (0, import_mysql_core3.float)(),
-    score2: (0, import_mysql_core3.float)(),
-    score3: (0, import_mysql_core3.float)(),
-    score4: (0, import_mysql_core3.float)(),
-    score5: (0, import_mysql_core3.float)(),
-    storiesEngagementRate: (0, import_mysql_core3.float)(),
-    postEffectiveReach: (0, import_mysql_core3.float)(),
-    storiesEffectiveReach: (0, import_mysql_core3.float)(),
-    profileViews: (0, import_mysql_core3.int)(),
-    hasMediaKit: (0, import_mysql_core3.tinyint)().default(0),
-    categorizedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    averageComments: (0, import_mysql_core3.float)().notNull(),
-    averageCommentsImage: (0, import_mysql_core3.float)().notNull(),
-    averageCommentsVideo: (0, import_mysql_core3.float)().notNull(),
-    averageCommentsCarousel: (0, import_mysql_core3.float)().notNull(),
-    averageLikes: (0, import_mysql_core3.float)().notNull(),
-    averageLikesImage: (0, import_mysql_core3.float)().notNull(),
-    averageLikesVideo: (0, import_mysql_core3.float)().notNull(),
-    averageLikesCarousel: (0, import_mysql_core3.float)().notNull(),
-    commentLikesRate: (0, import_mysql_core3.float)().notNull(),
-    commentsRate: (0, import_mysql_core3.float)().notNull(),
-    totalStoriesImpressions: (0, import_mysql_core3.float)(),
-    totalStoriesReach: (0, import_mysql_core3.float)(),
-    totalStoriesReplies: (0, import_mysql_core3.float)(),
-    totalStoriesTapBacks: (0, import_mysql_core3.float)(),
-    totalStoriesTapFowardExits: (0, import_mysql_core3.float)().notNull(),
-    totalPostsReach: (0, import_mysql_core3.float)(),
-    totalPostsSaves: (0, import_mysql_core3.float)(),
-    totalPostsImpressions: (0, import_mysql_core3.float)(),
-    averageSaved: (0, import_mysql_core3.float)().notNull(),
-    averageSavedImage: (0, import_mysql_core3.float)().notNull(),
-    averageSavedVideo: (0, import_mysql_core3.float)().notNull(),
-    averageSavedCarousel: (0, import_mysql_core3.float)().notNull(),
-    averageTapBacks: (0, import_mysql_core3.float)().notNull(),
-    averageTapBacksImage: (0, import_mysql_core3.float)().notNull(),
-    averageTapBacksVideo: (0, import_mysql_core3.float)().notNull(),
-    averageReplies: (0, import_mysql_core3.float)().notNull(),
-    averageRepliesImage: (0, import_mysql_core3.float)().notNull(),
-    averageRepliesVideo: (0, import_mysql_core3.float)().notNull(),
-    averageTapFowardExits: (0, import_mysql_core3.float)().notNull(),
-    averageTapFowardExitsImage: (0, import_mysql_core3.float)().notNull(),
-    averageTapFowardExitsVideo: (0, import_mysql_core3.float)().notNull(),
-    completeVideoStoriesRate: (0, import_mysql_core3.float)().notNull(),
-    numberPostsActivityScore: (0, import_mysql_core3.float)(),
-    numberStoriesScore: (0, import_mysql_core3.float)(),
-    daysPostsScore: (0, import_mysql_core3.float)(),
-    daysStoriesScore: (0, import_mysql_core3.float)(),
-    advertisingPostsEngagementRate: (0, import_mysql_core3.float)(),
-    noAdvertisingPostsEngagementRate: (0, import_mysql_core3.float)(),
-    advertisingStoriesEngagementRate: (0, import_mysql_core3.float)(),
-    noAdvertisingStoriesEngagementRate: (0, import_mysql_core3.float)(),
-    advertisingContentPercentage: (0, import_mysql_core3.float)(),
-    advertisingPostsPercentage: (0, import_mysql_core3.float)(),
-    advertisingStoriesPercentage: (0, import_mysql_core3.float)(),
-    postImageEngagementRate: (0, import_mysql_core3.float)(),
-    postCarouselEngagementRate: (0, import_mysql_core3.float)(),
-    postVideoEngagementRate: (0, import_mysql_core3.float)(),
-    storiesVideoEngagementRate: (0, import_mysql_core3.float)(),
-    storiesImageEngagementRate: (0, import_mysql_core3.float)(),
-    storiesCompleteEngagementRate: (0, import_mysql_core3.float)(),
-    averagePostsReach: (0, import_mysql_core3.float)().notNull(),
-    averagePostsImpressions: (0, import_mysql_core3.float)().notNull(),
-    averagePostsFrequency: (0, import_mysql_core3.float)().notNull(),
-    averageStoriesReach: (0, import_mysql_core3.float)().notNull(),
-    averageStoriesImpressions: (0, import_mysql_core3.float)().notNull(),
-    averageStoriesFrequency: (0, import_mysql_core3.float)().notNull(),
-    adPostPermanceEngagementRate: (0, import_mysql_core3.float)(),
-    adStoriesPermanceEngagementRate: (0, import_mysql_core3.float)(),
-    identifyAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    estimateMetric: (0, import_mysql_core3.tinyint)().default(0),
-    totalReels: (0, import_mysql_core3.float)(),
-    totalReachReels: (0, import_mysql_core3.float)(),
-    reelsEffectiveReach: (0, import_mysql_core3.float)(),
-    totalPlaysReels: (0, import_mysql_core3.float)(),
-    averagePlaysReels: (0, import_mysql_core3.float)(),
-    totalEngagementReels: (0, import_mysql_core3.float)(),
-    reelsEngagementRate: (0, import_mysql_core3.float)(),
-    averageLikesReels: (0, import_mysql_core3.float)(),
-    averageCommentsReels: (0, import_mysql_core3.float)(),
-    averageSavesReels: (0, import_mysql_core3.float)(),
-    hasMediaBoost: (0, import_mysql_core3.tinyint)().default(0).notNull(),
-    statusUidMigration: (0, import_mysql_core3.varchar)({ length: 255 }).default("Not processed"),
-    oldIgId: (0, import_mysql_core3.varchar)({ length: 50 }),
-    postCpm: (0, import_mysql_core3.float)(),
-    storySequenceCpm: (0, import_mysql_core3.float)(),
-    reelCpm: (0, import_mysql_core3.float)(),
-    cache: (0, import_mysql_core3.float)(),
-    postValue: (0, import_mysql_core3.float)(),
-    storySequenceValue: (0, import_mysql_core3.float)(),
-    reelValue: (0, import_mysql_core3.float)(),
-    medianPostsReach: (0, import_mysql_core3.float)(),
-    medianPostsSaves: (0, import_mysql_core3.float)(),
-    medianPostsImpressions: (0, import_mysql_core3.float)(),
-    medianStoriesImpressions: (0, import_mysql_core3.float)(),
-    medianStoriesReach: (0, import_mysql_core3.float)(),
-    medianStoriesReplies: (0, import_mysql_core3.float)(),
-    medianStoriesTapBacks: (0, import_mysql_core3.float)(),
-    medianStoriesTapFowardExits: (0, import_mysql_core3.float)(),
-    medianReachReels: (0, import_mysql_core3.float)(),
-    medianPlaysReels: (0, import_mysql_core3.float)(),
-    medianEngagementReels: (0, import_mysql_core3.float)(),
-    outdatedMetrics: (0, import_mysql_core3.tinyint)().default(0),
-    medianComments: (0, import_mysql_core3.float)(),
-    medianLikes: (0, import_mysql_core3.float)(),
-    insertOrigin: (0, import_mysql_core3.varchar)({ length: 50 }),
-    fullProfileProcess: (0, import_mysql_core3.tinyint)().default(0),
-    totalReelsLikes: (0, import_mysql_core3.float)(),
-    totalReelsComments: (0, import_mysql_core3.float)(),
-    totalReelsSaves: (0, import_mysql_core3.float)(),
-    userProfileViews: (0, import_mysql_core3.float)(),
-    userPostsEngagementRateByImpressions: (0, import_mysql_core3.float)(),
-    userReelsEngagementRateByImpressions: (0, import_mysql_core3.float)(),
-    userStoriesEngagementRateByImpressions: (0, import_mysql_core3.float)(),
-    userPostsEngagementRateByFollowers: (0, import_mysql_core3.float)(),
-    userReelsEngagementRateByFollowers: (0, import_mysql_core3.float)(),
-    userStoriesEngagementRateByFollowers: (0, import_mysql_core3.float)(),
-    userStoriesEffectiveReach: (0, import_mysql_core3.float)(),
-    userPostsEffectiveReach: (0, import_mysql_core3.float)(),
-    userReelsEffectiveReach: (0, import_mysql_core3.float)(),
-    userTotalPosts: (0, import_mysql_core3.float)(),
-    userTotalReels: (0, import_mysql_core3.float)(),
-    userTotalStories: (0, import_mysql_core3.float)(),
-    userAvgPostsReach: (0, import_mysql_core3.float)(),
-    userAvgReelsReach: (0, import_mysql_core3.float)(),
-    userAvgStoriesReach: (0, import_mysql_core3.float)(),
-    userAvgPostsImpressions: (0, import_mysql_core3.float)(),
-    userAvgStoriesImpressions: (0, import_mysql_core3.float)(),
-    userAvgReelsPlays: (0, import_mysql_core3.float)(),
-    userAvgPostsEngagement: (0, import_mysql_core3.float)(),
-    userAvgReelsEngagement: (0, import_mysql_core3.float)(),
-    userAvgStoriesEngagement: (0, import_mysql_core3.float)(),
-    userAvgPostsLikes: (0, import_mysql_core3.float)(),
-    userAvgReelsLikes: (0, import_mysql_core3.float)(),
-    userAvgStoriesLikes: (0, import_mysql_core3.float)(),
-    userAvgPostsComments: (0, import_mysql_core3.float)(),
-    userAvgReelsComments: (0, import_mysql_core3.float)(),
-    userAvgStoriesReplies: (0, import_mysql_core3.float)(),
-    userAvgPostsShares: (0, import_mysql_core3.float)(),
-    userAvgReelsShares: (0, import_mysql_core3.float)(),
-    userAvgStoriesShares: (0, import_mysql_core3.float)(),
-    userAvgPostsSaves: (0, import_mysql_core3.float)(),
-    userAvgReelsSaves: (0, import_mysql_core3.float)(),
-    userPostsCpm: (0, import_mysql_core3.float)(),
-    userStoriesCpm: (0, import_mysql_core3.float)(),
-    userReelsCpm: (0, import_mysql_core3.float)(),
-    storiesCpm: (0, import_mysql_core3.float)(),
-    storiesValue: (0, import_mysql_core3.float)(),
-    profileDescription: (0, import_mysql_core3.varchar)({ length: 255 }),
-    hasCreatorsInsights: (0, import_mysql_core3.tinyint)(),
-    isSharedCreatorsInsights: (0, import_mysql_core3.tinyint)().default(0)
+    id: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    username: (0, import_mysql_core2.varchar)({ length: 255 }),
+    exists: (0, import_mysql_core2.tinyint)().default(1).notNull(),
+    searchable: (0, import_mysql_core2.tinyint)().default(1).notNull(),
+    macro: (0, import_mysql_core2.tinyint)().default(0),
+    notSearchReason: (0, import_mysql_core2.varchar)({ length: 255 }),
+    brandUser: (0, import_mysql_core2.tinyint)().default(0).notNull(),
+    picture: (0, import_mysql_core2.text)(),
+    fullName: (0, import_mysql_core2.varchar)({ length: 255 }),
+    email: (0, import_mysql_core2.varchar)({ length: 255 }),
+    bio: (0, import_mysql_core2.text)(),
+    website: (0, import_mysql_core2.varchar)({ length: 255 }),
+    language: (0, import_mysql_core2.varchar)({ length: 10 }),
+    isBusiness: (0, import_mysql_core2.tinyint)().default(0).notNull(),
+    isWorkAccount: (0, import_mysql_core2.tinyint)(),
+    hasSkip: (0, import_mysql_core2.tinyint)(),
+    facebookUserId: (0, import_mysql_core2.varchar)({ length: 30 }),
+    facebookPageId: (0, import_mysql_core2.varchar)({ length: 30 }),
+    instagramBusinessId: (0, import_mysql_core2.varchar)({ length: 30 }),
+    scrapperEngagementRate: (0, import_mysql_core2.float)().notNull(),
+    engagementRate: (0, import_mysql_core2.float)(),
+    totalMedias: (0, import_mysql_core2.int)().default(0).notNull(),
+    medias: (0, import_mysql_core2.int)().default(0).notNull(),
+    followers: (0, import_mysql_core2.int)().default(0).notNull(),
+    follows: (0, import_mysql_core2.int)().default(0).notNull(),
+    likes: (0, import_mysql_core2.int)().default(0).notNull(),
+    comments: (0, import_mysql_core2.int)().default(0).notNull(),
+    tier: (0, import_mysql_core2.varchar)({ length: 45 }).default("undefined").notNull(),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    logstashProcessedAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    score: (0, import_mysql_core2.float)(),
+    score1: (0, import_mysql_core2.float)(),
+    score2: (0, import_mysql_core2.float)(),
+    score3: (0, import_mysql_core2.float)(),
+    score4: (0, import_mysql_core2.float)(),
+    score5: (0, import_mysql_core2.float)(),
+    storiesEngagementRate: (0, import_mysql_core2.float)(),
+    postEffectiveReach: (0, import_mysql_core2.float)(),
+    storiesEffectiveReach: (0, import_mysql_core2.float)(),
+    profileViews: (0, import_mysql_core2.int)(),
+    hasMediaKit: (0, import_mysql_core2.tinyint)().default(0),
+    categorizedAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    averageComments: (0, import_mysql_core2.float)().notNull(),
+    averageCommentsImage: (0, import_mysql_core2.float)().notNull(),
+    averageCommentsVideo: (0, import_mysql_core2.float)().notNull(),
+    averageCommentsCarousel: (0, import_mysql_core2.float)().notNull(),
+    averageLikes: (0, import_mysql_core2.float)().notNull(),
+    averageLikesImage: (0, import_mysql_core2.float)().notNull(),
+    averageLikesVideo: (0, import_mysql_core2.float)().notNull(),
+    averageLikesCarousel: (0, import_mysql_core2.float)().notNull(),
+    commentLikesRate: (0, import_mysql_core2.float)().notNull(),
+    commentsRate: (0, import_mysql_core2.float)().notNull(),
+    totalStoriesImpressions: (0, import_mysql_core2.float)(),
+    totalStoriesReach: (0, import_mysql_core2.float)(),
+    totalStoriesReplies: (0, import_mysql_core2.float)(),
+    totalStoriesTapBacks: (0, import_mysql_core2.float)(),
+    totalStoriesTapFowardExits: (0, import_mysql_core2.float)().notNull(),
+    totalPostsReach: (0, import_mysql_core2.float)(),
+    totalPostsSaves: (0, import_mysql_core2.float)(),
+    totalPostsImpressions: (0, import_mysql_core2.float)(),
+    averageSaved: (0, import_mysql_core2.float)().notNull(),
+    averageSavedImage: (0, import_mysql_core2.float)().notNull(),
+    averageSavedVideo: (0, import_mysql_core2.float)().notNull(),
+    averageSavedCarousel: (0, import_mysql_core2.float)().notNull(),
+    averageTapBacks: (0, import_mysql_core2.float)().notNull(),
+    averageTapBacksImage: (0, import_mysql_core2.float)().notNull(),
+    averageTapBacksVideo: (0, import_mysql_core2.float)().notNull(),
+    averageReplies: (0, import_mysql_core2.float)().notNull(),
+    averageRepliesImage: (0, import_mysql_core2.float)().notNull(),
+    averageRepliesVideo: (0, import_mysql_core2.float)().notNull(),
+    averageTapFowardExits: (0, import_mysql_core2.float)().notNull(),
+    averageTapFowardExitsImage: (0, import_mysql_core2.float)().notNull(),
+    averageTapFowardExitsVideo: (0, import_mysql_core2.float)().notNull(),
+    completeVideoStoriesRate: (0, import_mysql_core2.float)().notNull(),
+    numberPostsActivityScore: (0, import_mysql_core2.float)(),
+    numberStoriesScore: (0, import_mysql_core2.float)(),
+    daysPostsScore: (0, import_mysql_core2.float)(),
+    daysStoriesScore: (0, import_mysql_core2.float)(),
+    advertisingPostsEngagementRate: (0, import_mysql_core2.float)(),
+    noAdvertisingPostsEngagementRate: (0, import_mysql_core2.float)(),
+    advertisingStoriesEngagementRate: (0, import_mysql_core2.float)(),
+    noAdvertisingStoriesEngagementRate: (0, import_mysql_core2.float)(),
+    advertisingContentPercentage: (0, import_mysql_core2.float)(),
+    advertisingPostsPercentage: (0, import_mysql_core2.float)(),
+    advertisingStoriesPercentage: (0, import_mysql_core2.float)(),
+    postImageEngagementRate: (0, import_mysql_core2.float)(),
+    postCarouselEngagementRate: (0, import_mysql_core2.float)(),
+    postVideoEngagementRate: (0, import_mysql_core2.float)(),
+    storiesVideoEngagementRate: (0, import_mysql_core2.float)(),
+    storiesImageEngagementRate: (0, import_mysql_core2.float)(),
+    storiesCompleteEngagementRate: (0, import_mysql_core2.float)(),
+    averagePostsReach: (0, import_mysql_core2.float)().notNull(),
+    averagePostsImpressions: (0, import_mysql_core2.float)().notNull(),
+    averagePostsFrequency: (0, import_mysql_core2.float)().notNull(),
+    averageStoriesReach: (0, import_mysql_core2.float)().notNull(),
+    averageStoriesImpressions: (0, import_mysql_core2.float)().notNull(),
+    averageStoriesFrequency: (0, import_mysql_core2.float)().notNull(),
+    adPostPermanceEngagementRate: (0, import_mysql_core2.float)(),
+    adStoriesPermanceEngagementRate: (0, import_mysql_core2.float)(),
+    identifyAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    estimateMetric: (0, import_mysql_core2.tinyint)().default(0),
+    totalReels: (0, import_mysql_core2.float)(),
+    totalReachReels: (0, import_mysql_core2.float)(),
+    reelsEffectiveReach: (0, import_mysql_core2.float)(),
+    totalPlaysReels: (0, import_mysql_core2.float)(),
+    averagePlaysReels: (0, import_mysql_core2.float)(),
+    totalEngagementReels: (0, import_mysql_core2.float)(),
+    reelsEngagementRate: (0, import_mysql_core2.float)(),
+    averageLikesReels: (0, import_mysql_core2.float)(),
+    averageCommentsReels: (0, import_mysql_core2.float)(),
+    averageSavesReels: (0, import_mysql_core2.float)(),
+    hasMediaBoost: (0, import_mysql_core2.tinyint)().default(0).notNull(),
+    statusUidMigration: (0, import_mysql_core2.varchar)({ length: 255 }).default("Not processed"),
+    oldIgId: (0, import_mysql_core2.varchar)({ length: 50 }),
+    postCpm: (0, import_mysql_core2.float)(),
+    storySequenceCpm: (0, import_mysql_core2.float)(),
+    reelCpm: (0, import_mysql_core2.float)(),
+    cache: (0, import_mysql_core2.float)(),
+    postValue: (0, import_mysql_core2.float)(),
+    storySequenceValue: (0, import_mysql_core2.float)(),
+    reelValue: (0, import_mysql_core2.float)(),
+    medianPostsReach: (0, import_mysql_core2.float)(),
+    medianPostsSaves: (0, import_mysql_core2.float)(),
+    medianPostsImpressions: (0, import_mysql_core2.float)(),
+    medianStoriesImpressions: (0, import_mysql_core2.float)(),
+    medianStoriesReach: (0, import_mysql_core2.float)(),
+    medianStoriesReplies: (0, import_mysql_core2.float)(),
+    medianStoriesTapBacks: (0, import_mysql_core2.float)(),
+    medianStoriesTapFowardExits: (0, import_mysql_core2.float)(),
+    medianReachReels: (0, import_mysql_core2.float)(),
+    medianPlaysReels: (0, import_mysql_core2.float)(),
+    medianEngagementReels: (0, import_mysql_core2.float)(),
+    outdatedMetrics: (0, import_mysql_core2.tinyint)().default(0),
+    medianComments: (0, import_mysql_core2.float)(),
+    medianLikes: (0, import_mysql_core2.float)(),
+    insertOrigin: (0, import_mysql_core2.varchar)({ length: 50 }),
+    fullProfileProcess: (0, import_mysql_core2.tinyint)().default(0),
+    totalReelsLikes: (0, import_mysql_core2.float)(),
+    totalReelsComments: (0, import_mysql_core2.float)(),
+    totalReelsSaves: (0, import_mysql_core2.float)(),
+    userProfileViews: (0, import_mysql_core2.float)(),
+    userPostsEngagementRateByImpressions: (0, import_mysql_core2.float)(),
+    userReelsEngagementRateByImpressions: (0, import_mysql_core2.float)(),
+    userStoriesEngagementRateByImpressions: (0, import_mysql_core2.float)(),
+    userPostsEngagementRateByFollowers: (0, import_mysql_core2.float)(),
+    userReelsEngagementRateByFollowers: (0, import_mysql_core2.float)(),
+    userStoriesEngagementRateByFollowers: (0, import_mysql_core2.float)(),
+    userStoriesEffectiveReach: (0, import_mysql_core2.float)(),
+    userPostsEffectiveReach: (0, import_mysql_core2.float)(),
+    userReelsEffectiveReach: (0, import_mysql_core2.float)(),
+    userTotalPosts: (0, import_mysql_core2.float)(),
+    userTotalReels: (0, import_mysql_core2.float)(),
+    userTotalStories: (0, import_mysql_core2.float)(),
+    userAvgPostsReach: (0, import_mysql_core2.float)(),
+    userAvgReelsReach: (0, import_mysql_core2.float)(),
+    userAvgStoriesReach: (0, import_mysql_core2.float)(),
+    userAvgPostsImpressions: (0, import_mysql_core2.float)(),
+    userAvgStoriesImpressions: (0, import_mysql_core2.float)(),
+    userAvgReelsPlays: (0, import_mysql_core2.float)(),
+    userAvgPostsEngagement: (0, import_mysql_core2.float)(),
+    userAvgReelsEngagement: (0, import_mysql_core2.float)(),
+    userAvgStoriesEngagement: (0, import_mysql_core2.float)(),
+    userAvgPostsLikes: (0, import_mysql_core2.float)(),
+    userAvgReelsLikes: (0, import_mysql_core2.float)(),
+    userAvgStoriesLikes: (0, import_mysql_core2.float)(),
+    userAvgPostsComments: (0, import_mysql_core2.float)(),
+    userAvgReelsComments: (0, import_mysql_core2.float)(),
+    userAvgStoriesReplies: (0, import_mysql_core2.float)(),
+    userAvgPostsShares: (0, import_mysql_core2.float)(),
+    userAvgReelsShares: (0, import_mysql_core2.float)(),
+    userAvgStoriesShares: (0, import_mysql_core2.float)(),
+    userAvgPostsSaves: (0, import_mysql_core2.float)(),
+    userAvgReelsSaves: (0, import_mysql_core2.float)(),
+    userPostsCpm: (0, import_mysql_core2.float)(),
+    userStoriesCpm: (0, import_mysql_core2.float)(),
+    userReelsCpm: (0, import_mysql_core2.float)(),
+    storiesCpm: (0, import_mysql_core2.float)(),
+    storiesValue: (0, import_mysql_core2.float)(),
+    profileDescription: (0, import_mysql_core2.varchar)({ length: 255 }),
+    hasCreatorsInsights: (0, import_mysql_core2.tinyint)(),
+    isSharedCreatorsInsights: (0, import_mysql_core2.tinyint)().default(0)
   },
   (table) => {
     return {
-      usernameIdx: (0, import_mysql_core3.index)("username_index").on(table.username),
-      idxInstagramProfilesFacebookUserId: (0, import_mysql_core3.index)("idx_instagramProfiles_facebookUserId").on(table.facebookUserId),
-      oldIgIdIdx: (0, import_mysql_core3.index)("instagramProfiles_oldIgId_IDX").on(table.oldIgId),
-      instagramProfilesId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "instagramProfiles_id" })
+      usernameIdx: (0, import_mysql_core2.index)("username_index").on(table.username),
+      idxInstagramProfilesFacebookUserId: (0, import_mysql_core2.index)("idx_instagramProfiles_facebookUserId").on(table.facebookUserId),
+      oldIgIdIdx: (0, import_mysql_core2.index)("instagramProfiles_oldIgId_IDX").on(table.oldIgId),
+      instagramProfilesId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "instagramProfiles_id" })
     };
   }
 );
-var locations = (0, import_mysql_core3.mysqlTable)(
+var locations = (0, import_mysql_core2.mysqlTable)(
   "locations",
   {
-    id: (0, import_mysql_core3.bigint)({ mode: "number" }).notNull(),
-    name: (0, import_mysql_core3.varchar)({ length: 255 }).notNull(),
-    latitude: (0, import_mysql_core3.decimal)({ precision: 9, scale: 6 }).notNull(),
-    longitude: (0, import_mysql_core3.decimal)({ precision: 9, scale: 6 }).notNull(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull()
+    id: (0, import_mysql_core2.bigint)({ mode: "number" }).notNull(),
+    name: (0, import_mysql_core2.varchar)({ length: 255 }).notNull(),
+    latitude: (0, import_mysql_core2.decimal)({ precision: 9, scale: 6 }).notNull(),
+    longitude: (0, import_mysql_core2.decimal)({ precision: 9, scale: 6 }).notNull(),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).notNull()
   },
   (table) => {
     return {
-      locationsId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "locations_id" })
+      locationsId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "locations_id" })
     };
   }
 );
-var notSearchableUsers = (0, import_mysql_core3.mysqlTable)(
+var notSearchableUsers = (0, import_mysql_core2.mysqlTable)(
   "notSearchableUsers",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 45 }).notNull(),
-    username: (0, import_mysql_core3.varchar)({ length: 45 }),
-    reasons: (0, import_mysql_core3.varchar)({ length: 45 }).notNull(),
-    socialNetwork: (0, import_mysql_core3.varchar)({ length: 45 }).notNull(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    tags: (0, import_mysql_core3.varchar)({ length: 255 }),
-    followers: (0, import_mysql_core3.int)(),
-    engagement: (0, import_mysql_core3.float)()
+    id: (0, import_mysql_core2.varchar)({ length: 45 }).notNull(),
+    username: (0, import_mysql_core2.varchar)({ length: 45 }),
+    reasons: (0, import_mysql_core2.varchar)({ length: 45 }).notNull(),
+    socialNetwork: (0, import_mysql_core2.varchar)({ length: 45 }).notNull(),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    tags: (0, import_mysql_core2.varchar)({ length: 255 }),
+    followers: (0, import_mysql_core2.int)(),
+    engagement: (0, import_mysql_core2.float)()
   },
   (table) => {
     return {
-      notSearchableUsersId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "notSearchableUsers_id" })
+      notSearchableUsersId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "notSearchableUsers_id" })
     };
   }
 );
-var pinterestProfiles = (0, import_mysql_core3.mysqlTable)(
+var pinterestProfiles = (0, import_mysql_core2.mysqlTable)(
   "pinterestProfiles",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    squidId: (0, import_mysql_core3.varchar)({ length: 36 }),
-    username: (0, import_mysql_core3.varchar)({ length: 255 }).default("Processando").notNull(),
-    exists: (0, import_mysql_core3.tinyint)().default(1).notNull(),
-    isPartner: (0, import_mysql_core3.tinyint)().default(1).notNull(),
-    picture: (0, import_mysql_core3.varchar)({ length: 255 }).default("Processando").notNull(),
-    fullName: (0, import_mysql_core3.varchar)({ length: 255 }),
-    about: (0, import_mysql_core3.text)(),
-    since: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    engagementRate: (0, import_mysql_core3.float)().notNull(),
-    reach: (0, import_mysql_core3.int)().default(0).notNull(),
-    totalPins: (0, import_mysql_core3.int)().default(0).notNull(),
-    followers: (0, import_mysql_core3.int)().default(0).notNull(),
-    identificationPins: (0, import_mysql_core3.int)().default(0).notNull(),
-    identificationImpressions: (0, import_mysql_core3.int)().default(0).notNull(),
-    identificationSaves: (0, import_mysql_core3.int)().default(0).notNull(),
-    identificationClicks: (0, import_mysql_core3.int)().default(0).notNull(),
-    identificationCloseups: (0, import_mysql_core3.int)().default(0).notNull(),
-    identificationComments: (0, import_mysql_core3.int)().default(0).notNull(),
-    selfToken: (0, import_mysql_core3.tinyint)().default(1).notNull(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull()
+    id: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    squidId: (0, import_mysql_core2.varchar)({ length: 36 }),
+    username: (0, import_mysql_core2.varchar)({ length: 255 }).default("Processando").notNull(),
+    exists: (0, import_mysql_core2.tinyint)().default(1).notNull(),
+    isPartner: (0, import_mysql_core2.tinyint)().default(1).notNull(),
+    picture: (0, import_mysql_core2.varchar)({ length: 255 }).default("Processando").notNull(),
+    fullName: (0, import_mysql_core2.varchar)({ length: 255 }),
+    about: (0, import_mysql_core2.text)(),
+    since: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    engagementRate: (0, import_mysql_core2.float)().notNull(),
+    reach: (0, import_mysql_core2.int)().default(0).notNull(),
+    totalPins: (0, import_mysql_core2.int)().default(0).notNull(),
+    followers: (0, import_mysql_core2.int)().default(0).notNull(),
+    identificationPins: (0, import_mysql_core2.int)().default(0).notNull(),
+    identificationImpressions: (0, import_mysql_core2.int)().default(0).notNull(),
+    identificationSaves: (0, import_mysql_core2.int)().default(0).notNull(),
+    identificationClicks: (0, import_mysql_core2.int)().default(0).notNull(),
+    identificationCloseups: (0, import_mysql_core2.int)().default(0).notNull(),
+    identificationComments: (0, import_mysql_core2.int)().default(0).notNull(),
+    selfToken: (0, import_mysql_core2.tinyint)().default(1).notNull(),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
-      pinterestProfilesId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "pinterestProfiles_id" }),
-      squidId: (0, import_mysql_core3.unique)("squidId").on(table.squidId)
+      pinterestProfilesId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "pinterestProfiles_id" }),
+      squidId: (0, import_mysql_core2.unique)("squidId").on(table.squidId)
     };
   }
 );
-var profileAdditionalInfoBanks = (0, import_mysql_core3.mysqlTable)(
+var profileAdditionalInfoBanks = (0, import_mysql_core2.mysqlTable)(
   "profileAdditionalInfoBanks",
   {
-    id: (0, import_mysql_core3.int)().autoincrement().notNull(),
-    profileId: (0, import_mysql_core3.varchar)({ length: 36 }).notNull(),
-    bankCode: (0, import_mysql_core3.varchar)({ length: 10 }),
-    bankName: (0, import_mysql_core3.varchar)({ length: 100 }).notNull(),
-    bankAccountNumber: (0, import_mysql_core3.varchar)({ length: 50 }),
-    bankAccountDigit: (0, import_mysql_core3.varchar)({ length: 5 }),
-    bankAccountAgency: (0, import_mysql_core3.varchar)({ length: 11 }),
-    bankAccountType: (0, import_mysql_core3.varchar)({ length: 20 }),
-    bankOperationCode: (0, import_mysql_core3.varchar)({ length: 10 }),
-    holderDocument: (0, import_mysql_core3.varchar)({ length: 15 }),
-    holderOpeningDate: (0, import_mysql_core3.date)({ mode: "date" }),
-    holderName: (0, import_mysql_core3.varchar)({ length: 150 }),
-    holderTradingName: (0, import_mysql_core3.varchar)({ length: 150 }),
-    isPersonAccount: (0, import_mysql_core3.tinyint)().notNull(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    nationalDocument: (0, import_mysql_core3.varchar)({ length: 50 }),
-    recordEmployment: (0, import_mysql_core3.varchar)({ length: 50 }),
-    companyName: (0, import_mysql_core3.varchar)({ length: 150 }),
-    fantasyName: (0, import_mysql_core3.varchar)({ length: 100 }),
-    companyOpeningDate: (0, import_mysql_core3.date)({ mode: "date" }),
-    typeOfBusiness: (0, import_mysql_core3.varchar)({ length: 150 }),
-    paymentType: paymentTypeEnum.notNull(),
-    companyUf: (0, import_mysql_core3.varchar)({ length: 2 }),
-    companyCity: (0, import_mysql_core3.varchar)({ length: 100 }),
-    companyLegalNature: (0, import_mysql_core3.varchar)({ length: 100 }),
-    companyDocument: (0, import_mysql_core3.varchar)({ length: 50 }),
-    bankAccountAgencyDigit: (0, import_mysql_core3.varchar)({ length: 15 }),
-    verificationStatus: (0, import_mysql_core3.float)(),
-    verificationId: (0, import_mysql_core3.char)({ length: 36 }),
-    verificatedAt: (0, import_mysql_core3.datetime)({ mode: "date" })
+    id: (0, import_mysql_core2.int)().autoincrement().notNull(),
+    profileId: (0, import_mysql_core2.varchar)({ length: 36 }).notNull(),
+    bankCode: (0, import_mysql_core2.varchar)({ length: 10 }),
+    bankName: (0, import_mysql_core2.varchar)({ length: 100 }).notNull(),
+    bankAccountNumber: (0, import_mysql_core2.varchar)({ length: 50 }),
+    bankAccountDigit: (0, import_mysql_core2.varchar)({ length: 5 }),
+    bankAccountAgency: (0, import_mysql_core2.varchar)({ length: 11 }),
+    bankAccountType: (0, import_mysql_core2.varchar)({ length: 20 }),
+    bankOperationCode: (0, import_mysql_core2.varchar)({ length: 10 }),
+    holderDocument: (0, import_mysql_core2.varchar)({ length: 15 }),
+    holderOpeningDate: (0, import_mysql_core2.date)({ mode: "date" }),
+    holderName: (0, import_mysql_core2.varchar)({ length: 150 }),
+    holderTradingName: (0, import_mysql_core2.varchar)({ length: 150 }),
+    isPersonAccount: (0, import_mysql_core2.tinyint)().notNull(),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    nationalDocument: (0, import_mysql_core2.varchar)({ length: 50 }),
+    recordEmployment: (0, import_mysql_core2.varchar)({ length: 50 }),
+    companyName: (0, import_mysql_core2.varchar)({ length: 150 }),
+    fantasyName: (0, import_mysql_core2.varchar)({ length: 100 }),
+    companyOpeningDate: (0, import_mysql_core2.date)({ mode: "date" }),
+    typeOfBusiness: (0, import_mysql_core2.varchar)({ length: 150 }),
+    paymentType: (0, import_mysql_core2.mysqlEnum)("paymentType", ["nf", "rpa"]).notNull(),
+    companyUf: (0, import_mysql_core2.varchar)({ length: 2 }),
+    companyCity: (0, import_mysql_core2.varchar)({ length: 100 }),
+    companyLegalNature: (0, import_mysql_core2.varchar)({ length: 100 }),
+    companyDocument: (0, import_mysql_core2.varchar)({ length: 50 }),
+    bankAccountAgencyDigit: (0, import_mysql_core2.varchar)({ length: 15 }),
+    verificationStatus: (0, import_mysql_core2.float)(),
+    verificationId: (0, import_mysql_core2.char)({ length: 36 }),
+    verificatedAt: (0, import_mysql_core2.datetime)({ mode: "date" })
   },
   (table) => {
     return {
-      profileAdditionalInfoBanksId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "profileAdditionalInfoBanks_id" }),
-      profileIdUnique: (0, import_mysql_core3.unique)("profileId_UNIQUE").on(table.profileId),
-      profileId: (0, import_mysql_core3.unique)("profileId").on(table.profileId, table.bankCode, table.bankAccountNumber)
+      profileAdditionalInfoBanksId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "profileAdditionalInfoBanks_id" }),
+      profileIdUnique: (0, import_mysql_core2.unique)("profileId_UNIQUE").on(table.profileId),
+      profileId: (0, import_mysql_core2.unique)("profileId").on(table.profileId, table.bankCode, table.bankAccountNumber)
     };
   }
 );
-var profileAdditionalInfos = (0, import_mysql_core3.mysqlTable)(
+var profileAdditionalInfos = (0, import_mysql_core2.mysqlTable)(
   "profileAdditionalInfos",
   {
-    profileId: (0, import_mysql_core3.varchar)({ length: 36 }).notNull().references(() => profiles.id),
-    loginUid: (0, import_mysql_core3.varchar)({ length: 45 }),
-    email: (0, import_mysql_core3.varchar)({ length: 255 }).notNull(),
-    document: (0, import_mysql_core3.varchar)({ length: 50 }),
-    name: (0, import_mysql_core3.varchar)({ length: 255 }).notNull(),
-    blog: (0, import_mysql_core3.varchar)({ length: 255 }),
-    birthday: (0, import_mysql_core3.date)({ mode: "date" }).notNull(),
-    gender: (0, import_mysql_core3.char)({ length: 1 }),
-    phone: (0, import_mysql_core3.varchar)({ length: 25 }),
-    zipcode: (0, import_mysql_core3.varchar)({ length: 15 }),
-    address: (0, import_mysql_core3.varchar)({ length: 255 }),
-    addressNumber: (0, import_mysql_core3.varchar)({ length: 150 }),
-    complement: (0, import_mysql_core3.varchar)({ length: 255 }),
-    city: (0, import_mysql_core3.varchar)({ length: 255 }),
-    neighborhood: (0, import_mysql_core3.varchar)({ length: 255 }),
-    uf: (0, import_mysql_core3.varchar)({ length: 255 }),
-    country: (0, import_mysql_core3.varchar)({ length: 255 }).default("BR"),
-    lat: (0, import_mysql_core3.double)(),
-    lng: (0, import_mysql_core3.double)(),
-    registeredFromSource: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromCampaign: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromMedium: (0, import_mysql_core3.varchar)({ length: 255 }),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
-    allowSms: (0, import_mysql_core3.tinyint)().default(0),
-    allowWhatsapp: (0, import_mysql_core3.tinyint)().default(1),
-    allowSuggestionEmail: (0, import_mysql_core3.tinyint)().default(1),
-    isPersonAccount: (0, import_mysql_core3.tinyint)().notNull(),
-    documentType: (0, import_mysql_core3.varchar)({ length: 13 }).notNull(),
-    hasSkip: (0, import_mysql_core3.tinyint)().default(0),
-    language: (0, import_mysql_core3.varchar)({ length: 10 }).default("pt-br").notNull(),
-    phoneValid: (0, import_mysql_core3.tinyint)().default(0),
-    phoneValidCode: (0, import_mysql_core3.varchar)({ length: 15 }),
-    phoneValidCodeCreatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    race: (0, import_mysql_core3.int)(),
-    registeredFromAdId: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromContent: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromAdName: (0, import_mysql_core3.varchar)({ length: 255 }),
-    portalRegistration: (0, import_mysql_core3.tinyint)().default(0),
-    agent: (0, import_mysql_core3.tinyint)().default(0),
-    showWarning: (0, import_mysql_core3.tinyint)().default(0),
-    scenario: (0, import_mysql_core3.varchar)({ length: 10 }),
-    updateAddress: (0, import_mysql_core3.tinyint)(),
-    nationality: (0, import_mysql_core3.varchar)({ length: 255 }),
-    allowBrandLovers: (0, import_mysql_core3.tinyint)().default(1),
-    allowAffiliates: (0, import_mysql_core3.tinyint)().default(1),
-    allowResearch: (0, import_mysql_core3.tinyint)().default(1),
-    allowEmail: (0, import_mysql_core3.tinyint)().default(1),
-    socialName: (0, import_mysql_core3.varchar)({ length: 50 }),
-    descriptionCreatorsInsights: (0, import_mysql_core3.varchar)({ length: 255 })
+    profileId: (0, import_mysql_core2.varchar)({ length: 36 }).notNull().references(() => profiles.id),
+    loginUid: (0, import_mysql_core2.varchar)({ length: 45 }),
+    email: (0, import_mysql_core2.varchar)({ length: 255 }).notNull(),
+    document: (0, import_mysql_core2.varchar)({ length: 50 }),
+    name: (0, import_mysql_core2.varchar)({ length: 255 }).notNull(),
+    blog: (0, import_mysql_core2.varchar)({ length: 255 }),
+    birthday: (0, import_mysql_core2.date)({ mode: "date" }).notNull(),
+    gender: (0, import_mysql_core2.char)({ length: 1 }),
+    phone: (0, import_mysql_core2.varchar)({ length: 25 }),
+    zipcode: (0, import_mysql_core2.varchar)({ length: 15 }),
+    address: (0, import_mysql_core2.varchar)({ length: 255 }),
+    addressNumber: (0, import_mysql_core2.varchar)({ length: 150 }),
+    complement: (0, import_mysql_core2.varchar)({ length: 255 }),
+    city: (0, import_mysql_core2.varchar)({ length: 255 }),
+    neighborhood: (0, import_mysql_core2.varchar)({ length: 255 }),
+    uf: (0, import_mysql_core2.varchar)({ length: 255 }),
+    country: (0, import_mysql_core2.varchar)({ length: 255 }).default("BR"),
+    lat: (0, import_mysql_core2.double)(),
+    lng: (0, import_mysql_core2.double)(),
+    registeredFromSource: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromCampaign: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromMedium: (0, import_mysql_core2.varchar)({ length: 255 }),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).notNull(),
+    allowSms: (0, import_mysql_core2.tinyint)().default(0),
+    allowWhatsapp: (0, import_mysql_core2.tinyint)().default(1),
+    allowSuggestionEmail: (0, import_mysql_core2.tinyint)().default(1),
+    isPersonAccount: (0, import_mysql_core2.tinyint)().notNull(),
+    documentType: (0, import_mysql_core2.varchar)({ length: 13 }).notNull(),
+    hasSkip: (0, import_mysql_core2.tinyint)().default(0),
+    language: (0, import_mysql_core2.varchar)({ length: 10 }).default("pt-br").notNull(),
+    phoneValid: (0, import_mysql_core2.tinyint)().default(0),
+    phoneValidCode: (0, import_mysql_core2.varchar)({ length: 15 }),
+    phoneValidCodeCreatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    race: (0, import_mysql_core2.int)(),
+    registeredFromAdId: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromContent: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromAdName: (0, import_mysql_core2.varchar)({ length: 255 }),
+    portalRegistration: (0, import_mysql_core2.tinyint)().default(0),
+    agent: (0, import_mysql_core2.tinyint)().default(0),
+    showWarning: (0, import_mysql_core2.tinyint)().default(0),
+    scenario: (0, import_mysql_core2.varchar)({ length: 10 }),
+    updateAddress: (0, import_mysql_core2.tinyint)(),
+    nationality: (0, import_mysql_core2.varchar)({ length: 255 }),
+    allowBrandLovers: (0, import_mysql_core2.tinyint)().default(1),
+    allowAffiliates: (0, import_mysql_core2.tinyint)().default(1),
+    allowResearch: (0, import_mysql_core2.tinyint)().default(1),
+    allowEmail: (0, import_mysql_core2.tinyint)().default(1),
+    socialName: (0, import_mysql_core2.varchar)({ length: 50 }),
+    descriptionCreatorsInsights: (0, import_mysql_core2.varchar)({ length: 255 })
   },
   (table) => {
     return {
-      profileAdditionalInfosProfileId: (0, import_mysql_core3.primaryKey)({ columns: [table.profileId], name: "profileAdditionalInfos_profileId" }),
-      emailUnique: (0, import_mysql_core3.unique)("EMAIL_UNIQUE").on(table.email),
-      auth0: (0, import_mysql_core3.unique)("AUTH0").on(table.loginUid)
+      profileAdditionalInfosProfileId: (0, import_mysql_core2.primaryKey)({ columns: [table.profileId], name: "profileAdditionalInfos_profileId" }),
+      emailUnique: (0, import_mysql_core2.unique)("EMAIL_UNIQUE").on(table.email),
+      auth0: (0, import_mysql_core2.unique)("AUTH0").on(table.loginUid)
     };
   }
 );
-var profileAdditionalInfosOld = (0, import_mysql_core3.mysqlTable)(
+var profileAdditionalInfosOld = (0, import_mysql_core2.mysqlTable)(
   "profileAdditionalInfos_old",
   {
-    profileId: (0, import_mysql_core3.varchar)({ length: 36 }).notNull().references(() => profiles.id),
-    document: (0, import_mysql_core3.varchar)({ length: 50 }),
-    name: (0, import_mysql_core3.varchar)({ length: 255 }).notNull(),
-    email: (0, import_mysql_core3.varchar)({ length: 255 }).notNull(),
-    blog: (0, import_mysql_core3.varchar)({ length: 255 }),
-    birthday: (0, import_mysql_core3.date)({ mode: "date" }).notNull(),
-    gender: (0, import_mysql_core3.char)({ length: 3 }).notNull(),
-    phone: (0, import_mysql_core3.varchar)({ length: 25 }).notNull(),
-    zipcode: (0, import_mysql_core3.varchar)({ length: 15 }).notNull(),
-    address: (0, import_mysql_core3.varchar)({ length: 255 }).notNull(),
-    addressNumber: (0, import_mysql_core3.varchar)({ length: 255 }),
-    complement: (0, import_mysql_core3.varchar)({ length: 255 }),
-    city: (0, import_mysql_core3.varchar)({ length: 255 }).notNull(),
-    neighborhood: (0, import_mysql_core3.varchar)({ length: 255 }),
-    uf: (0, import_mysql_core3.varchar)({ length: 255 }).default("").notNull(),
-    country: (0, import_mysql_core3.varchar)({ length: 255 }).default("BR"),
-    registeredFromSource: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromCampaign: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromMedium: (0, import_mysql_core3.varchar)({ length: 255 }),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
-    allowSms: (0, import_mysql_core3.tinyint)().default(0),
-    allowWhatsapp: (0, import_mysql_core3.tinyint)().default(1),
-    allowSuggestionEmail: (0, import_mysql_core3.tinyint)().default(1),
-    isPersonAccount: (0, import_mysql_core3.tinyint)().notNull(),
-    documentType: (0, import_mysql_core3.varchar)({ length: 13 }).default("CPF").notNull(),
-    hasSkip: (0, import_mysql_core3.tinyint)().default(0),
-    auth0: (0, import_mysql_core3.varchar)({ length: 45 }),
-    language: (0, import_mysql_core3.varchar)({ length: 5 }).default("pt-br").notNull(),
-    phoneValid: (0, import_mysql_core3.tinyint)().default(0),
-    phoneValidCode: (0, import_mysql_core3.varchar)({ length: 15 }),
-    phoneValidCodeCreatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    race: (0, import_mysql_core3.int)(),
-    registeredFromAdId: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromContent: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromAdName: (0, import_mysql_core3.varchar)({ length: 255 }),
-    portalRegistration: (0, import_mysql_core3.tinyint)().default(0),
-    agent: (0, import_mysql_core3.tinyint)().default(0)
+    profileId: (0, import_mysql_core2.varchar)({ length: 36 }).notNull().references(() => profiles.id),
+    document: (0, import_mysql_core2.varchar)({ length: 50 }),
+    name: (0, import_mysql_core2.varchar)({ length: 255 }).notNull(),
+    email: (0, import_mysql_core2.varchar)({ length: 255 }).notNull(),
+    blog: (0, import_mysql_core2.varchar)({ length: 255 }),
+    birthday: (0, import_mysql_core2.date)({ mode: "date" }).notNull(),
+    gender: (0, import_mysql_core2.char)({ length: 3 }).notNull(),
+    phone: (0, import_mysql_core2.varchar)({ length: 25 }).notNull(),
+    zipcode: (0, import_mysql_core2.varchar)({ length: 15 }).notNull(),
+    address: (0, import_mysql_core2.varchar)({ length: 255 }).notNull(),
+    addressNumber: (0, import_mysql_core2.varchar)({ length: 255 }),
+    complement: (0, import_mysql_core2.varchar)({ length: 255 }),
+    city: (0, import_mysql_core2.varchar)({ length: 255 }).notNull(),
+    neighborhood: (0, import_mysql_core2.varchar)({ length: 255 }),
+    uf: (0, import_mysql_core2.varchar)({ length: 255 }).default("").notNull(),
+    country: (0, import_mysql_core2.varchar)({ length: 255 }).default("BR"),
+    registeredFromSource: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromCampaign: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromMedium: (0, import_mysql_core2.varchar)({ length: 255 }),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).notNull(),
+    allowSms: (0, import_mysql_core2.tinyint)().default(0),
+    allowWhatsapp: (0, import_mysql_core2.tinyint)().default(1),
+    allowSuggestionEmail: (0, import_mysql_core2.tinyint)().default(1),
+    isPersonAccount: (0, import_mysql_core2.tinyint)().notNull(),
+    documentType: (0, import_mysql_core2.varchar)({ length: 13 }).default("CPF").notNull(),
+    hasSkip: (0, import_mysql_core2.tinyint)().default(0),
+    auth0: (0, import_mysql_core2.varchar)({ length: 45 }),
+    language: (0, import_mysql_core2.varchar)({ length: 5 }).default("pt-br").notNull(),
+    phoneValid: (0, import_mysql_core2.tinyint)().default(0),
+    phoneValidCode: (0, import_mysql_core2.varchar)({ length: 15 }),
+    phoneValidCodeCreatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    race: (0, import_mysql_core2.int)(),
+    registeredFromAdId: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromContent: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromAdName: (0, import_mysql_core2.varchar)({ length: 255 }),
+    portalRegistration: (0, import_mysql_core2.tinyint)().default(0),
+    agent: (0, import_mysql_core2.tinyint)().default(0)
   },
   (table) => {
     return {
-      profileAdditionalInfosOldProfileId: (0, import_mysql_core3.primaryKey)({ columns: [table.profileId], name: "profileAdditionalInfos_old_profileId" }),
-      emailUnique: (0, import_mysql_core3.unique)("EMAIL_UNIQUE").on(table.email)
+      profileAdditionalInfosOldProfileId: (0, import_mysql_core2.primaryKey)({ columns: [table.profileId], name: "profileAdditionalInfos_old_profileId" }),
+      emailUnique: (0, import_mysql_core2.unique)("EMAIL_UNIQUE").on(table.email)
     };
   }
 );
-var profileAdditionalInfosWhitelabels = (0, import_mysql_core3.mysqlTable)(
+var profileAdditionalInfosWhitelabels = (0, import_mysql_core2.mysqlTable)(
   "profileAdditionalInfos_whitelabels",
   {
-    profileId: (0, import_mysql_core3.varchar)({ length: 36 }).notNull(),
-    whitelabel: (0, import_mysql_core3.varchar)({ length: 24 }).default("-").notNull(),
-    organization: (0, import_mysql_core3.varchar)({ length: 24 }).default("-").notNull(),
-    auth0: (0, import_mysql_core3.varchar)({ length: 45 }),
-    communityId: (0, import_mysql_core3.varchar)("community_id", { length: 45 }),
-    email: (0, import_mysql_core3.varchar)({ length: 255 }).notNull(),
-    document: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    name: (0, import_mysql_core3.varchar)({ length: 255 }).notNull(),
-    blog: (0, import_mysql_core3.varchar)({ length: 255 }),
-    birthday: (0, import_mysql_core3.date)({ mode: "date" }).notNull(),
-    gender: (0, import_mysql_core3.char)({ length: 1 }),
-    phone: (0, import_mysql_core3.varchar)({ length: 25 }).notNull(),
-    zipcode: (0, import_mysql_core3.varchar)({ length: 15 }),
-    address: (0, import_mysql_core3.varchar)({ length: 255 }),
-    addressNumber: (0, import_mysql_core3.varchar)({ length: 150 }),
-    complement: (0, import_mysql_core3.varchar)({ length: 255 }),
-    city: (0, import_mysql_core3.varchar)({ length: 255 }),
-    neighborhood: (0, import_mysql_core3.varchar)({ length: 255 }),
-    uf: (0, import_mysql_core3.varchar)({ length: 255 }),
-    country: (0, import_mysql_core3.varchar)({ length: 255 }).default("BR"),
-    nationality: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromSource: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromCampaign: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromMedium: (0, import_mysql_core3.varchar)({ length: 255 }),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).notNull(),
-    allowSms: (0, import_mysql_core3.tinyint)().default(0),
-    allowWhatsapp: (0, import_mysql_core3.tinyint)().default(1),
-    allowSuggestionEmail: (0, import_mysql_core3.tinyint)().default(1),
-    isPersonAccount: (0, import_mysql_core3.tinyint)().notNull(),
-    documentType: (0, import_mysql_core3.varchar)({ length: 13 }).notNull(),
-    hasSkip: (0, import_mysql_core3.tinyint)().default(0),
-    language: (0, import_mysql_core3.varchar)({ length: 10 }).default("pt-br").notNull(),
-    phoneValid: (0, import_mysql_core3.tinyint)().default(0),
-    phoneValidCode: (0, import_mysql_core3.varchar)({ length: 15 }),
-    phoneValidCodeCreatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    race: (0, import_mysql_core3.int)(),
-    registeredFromAdId: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromContent: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromAdName: (0, import_mysql_core3.varchar)({ length: 255 }),
-    portalRegistration: (0, import_mysql_core3.tinyint)().default(0),
-    agent: (0, import_mysql_core3.tinyint)().default(0),
-    showWarning: (0, import_mysql_core3.tinyint)().default(0)
+    profileId: (0, import_mysql_core2.varchar)({ length: 36 }).notNull(),
+    whitelabel: (0, import_mysql_core2.varchar)({ length: 24 }).default("-").notNull(),
+    organization: (0, import_mysql_core2.varchar)({ length: 24 }).default("-").notNull(),
+    auth0: (0, import_mysql_core2.varchar)({ length: 45 }),
+    communityId: (0, import_mysql_core2.varchar)("community_id", { length: 45 }),
+    email: (0, import_mysql_core2.varchar)({ length: 255 }).notNull(),
+    document: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    name: (0, import_mysql_core2.varchar)({ length: 255 }).notNull(),
+    blog: (0, import_mysql_core2.varchar)({ length: 255 }),
+    birthday: (0, import_mysql_core2.date)({ mode: "date" }).notNull(),
+    gender: (0, import_mysql_core2.char)({ length: 1 }),
+    phone: (0, import_mysql_core2.varchar)({ length: 25 }).notNull(),
+    zipcode: (0, import_mysql_core2.varchar)({ length: 15 }),
+    address: (0, import_mysql_core2.varchar)({ length: 255 }),
+    addressNumber: (0, import_mysql_core2.varchar)({ length: 150 }),
+    complement: (0, import_mysql_core2.varchar)({ length: 255 }),
+    city: (0, import_mysql_core2.varchar)({ length: 255 }),
+    neighborhood: (0, import_mysql_core2.varchar)({ length: 255 }),
+    uf: (0, import_mysql_core2.varchar)({ length: 255 }),
+    country: (0, import_mysql_core2.varchar)({ length: 255 }).default("BR"),
+    nationality: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromSource: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromCampaign: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromMedium: (0, import_mysql_core2.varchar)({ length: 255 }),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).notNull(),
+    allowSms: (0, import_mysql_core2.tinyint)().default(0),
+    allowWhatsapp: (0, import_mysql_core2.tinyint)().default(1),
+    allowSuggestionEmail: (0, import_mysql_core2.tinyint)().default(1),
+    isPersonAccount: (0, import_mysql_core2.tinyint)().notNull(),
+    documentType: (0, import_mysql_core2.varchar)({ length: 13 }).notNull(),
+    hasSkip: (0, import_mysql_core2.tinyint)().default(0),
+    language: (0, import_mysql_core2.varchar)({ length: 10 }).default("pt-br").notNull(),
+    phoneValid: (0, import_mysql_core2.tinyint)().default(0),
+    phoneValidCode: (0, import_mysql_core2.varchar)({ length: 15 }),
+    phoneValidCodeCreatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    race: (0, import_mysql_core2.int)(),
+    registeredFromAdId: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromContent: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromAdName: (0, import_mysql_core2.varchar)({ length: 255 }),
+    portalRegistration: (0, import_mysql_core2.tinyint)().default(0),
+    agent: (0, import_mysql_core2.tinyint)().default(0),
+    showWarning: (0, import_mysql_core2.tinyint)().default(0)
   },
   (table) => {
     return {
-      profileAdditionalInfosWhitelabelsProfileIdWhitelabel: (0, import_mysql_core3.primaryKey)({ columns: [table.profileId, table.whitelabel], name: "profileAdditionalInfos_whitelabels_profileId_whitelabel" }),
-      emailUnique: (0, import_mysql_core3.unique)("EMAIL_UNIQUE").on(table.email, table.whitelabel),
-      auth0: (0, import_mysql_core3.unique)("AUTH0").on(table.auth0)
+      profileAdditionalInfosWhitelabelsProfileIdWhitelabel: (0, import_mysql_core2.primaryKey)({ columns: [table.profileId, table.whitelabel], name: "profileAdditionalInfos_whitelabels_profileId_whitelabel" }),
+      emailUnique: (0, import_mysql_core2.unique)("EMAIL_UNIQUE").on(table.email, table.whitelabel),
+      auth0: (0, import_mysql_core2.unique)("AUTH0").on(table.auth0)
     };
   }
 );
-var profileCategories = (0, import_mysql_core3.mysqlTable)(
+var profileCategories = (0, import_mysql_core2.mysqlTable)(
   "profileCategories",
   {
-    id: (0, import_mysql_core3.int)().autoincrement().notNull(),
-    parentId: (0, import_mysql_core3.int)(),
-    description: (0, import_mysql_core3.varchar)({ length: 50 }).default("").notNull(),
-    descriptionEn: (0, import_mysql_core3.varchar)("description_en", { length: 255 }).notNull(),
-    descriptionEs: (0, import_mysql_core3.varchar)("description_es", { length: 255 }),
-    emoji: (0, import_mysql_core3.text)(),
-    percentageBase: (0, import_mysql_core3.float)("percentage_base"),
-    cacheVariation: (0, import_mysql_core3.float)("cache_variation").default(1)
+    id: (0, import_mysql_core2.int)().autoincrement().notNull(),
+    parentId: (0, import_mysql_core2.int)(),
+    description: (0, import_mysql_core2.varchar)({ length: 50 }).default("").notNull(),
+    descriptionEn: (0, import_mysql_core2.varchar)("description_en", { length: 255 }).notNull(),
+    descriptionEs: (0, import_mysql_core2.varchar)("description_es", { length: 255 }),
+    emoji: (0, import_mysql_core2.text)(),
+    percentageBase: (0, import_mysql_core2.float)("percentage_base"),
+    cacheVariation: (0, import_mysql_core2.float)("cache_variation").default(1)
   },
   (table) => {
     return {
-      profileCategoriesId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "profileCategories_id" }),
-      description: (0, import_mysql_core3.unique)("description").on(table.description)
+      profileCategoriesId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "profileCategories_id" }),
+      description: (0, import_mysql_core2.unique)("description").on(table.description)
     };
   }
 );
-var profileWhitelabels = (0, import_mysql_core3.mysqlTable)(
+var profileWhitelabels = (0, import_mysql_core2.mysqlTable)(
   "profileWhitelabels",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 36 }).notNull(),
-    profileId: (0, import_mysql_core3.varchar)({ length: 36 }).notNull().references(() => profiles.id, { onUpdate: "cascade" }),
-    whitelabel: (0, import_mysql_core3.varchar)({ length: 24 }),
-    createdAt: (0, import_mysql_core3.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
-    registeredFromSource: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromCampaign: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromMedium: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromContent: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromAdId: (0, import_mysql_core3.varchar)({ length: 255 }),
-    registeredFromAdName: (0, import_mysql_core3.varchar)({ length: 255 })
+    id: (0, import_mysql_core2.varchar)({ length: 36 }).notNull(),
+    profileId: (0, import_mysql_core2.varchar)({ length: 36 }).notNull().references(() => profiles.id, { onUpdate: "cascade" }),
+    whitelabel: (0, import_mysql_core2.varchar)({ length: 24 }),
+    createdAt: (0, import_mysql_core2.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
+    registeredFromSource: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromCampaign: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromMedium: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromContent: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromAdId: (0, import_mysql_core2.varchar)({ length: 255 }),
+    registeredFromAdName: (0, import_mysql_core2.varchar)({ length: 255 })
   },
   (table) => {
     return {
-      index3: (0, import_mysql_core3.index)("profileWhitelabels_index_3").on(table.whitelabel),
-      profileWhitelabelsId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "profileWhitelabels_id" })
+      index3: (0, import_mysql_core2.index)("profileWhitelabels_index_3").on(table.whitelabel),
+      profileWhitelabelsId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "profileWhitelabels_id" })
     };
   }
 );
-var profiles = (0, import_mysql_core3.mysqlTable)(
+var profiles = (0, import_mysql_core2.mysqlTable)(
   "profiles",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 36 }).notNull(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    deletedNetworks: (0, import_mysql_core3.varchar)({ length: 100 }),
-    deletedAt: (0, import_mysql_core3.datetime)({ mode: "date" })
+    id: (0, import_mysql_core2.varchar)({ length: 36 }).notNull(),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    deletedNetworks: (0, import_mysql_core2.varchar)({ length: 100 }),
+    deletedAt: (0, import_mysql_core2.datetime)({ mode: "date" })
   },
   (table) => {
     return {
-      id: (0, import_mysql_core3.index)("id").on(table.id),
-      profilesId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "profiles_id" })
+      id: (0, import_mysql_core2.index)("id").on(table.id),
+      profilesId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "profiles_id" })
     };
   }
 );
-var progressiveRegistrationAnswers = (0, import_mysql_core3.mysqlTable)(
+var progressiveRegistrationAnswers = (0, import_mysql_core2.mysqlTable)(
   "progressive_registration_answers",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 36 }).notNull(),
-    question: (0, import_mysql_core3.varchar)({ length: 36 }).notNull().references(() => progressiveRegistrationQuestions.id, { onDelete: "cascade" }),
-    squidId: (0, import_mysql_core3.varchar)({ length: 50 }).notNull().references(() => profiles.id),
-    answer: (0, import_mysql_core3.varchar)({ length: 255 }),
-    answerOption: (0, import_mysql_core3.varchar)("answer_option", { length: 36 }).references(() => progressiveRegistrationQuestionOptions.id, { onDelete: "cascade" }),
-    createdAt: (0, import_mysql_core3.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
-    updatedAt: (0, import_mysql_core3.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
-    deletedAt: (0, import_mysql_core3.timestamp)("deleted_at", { mode: "date" })
+    id: (0, import_mysql_core2.varchar)({ length: 36 }).notNull(),
+    question: (0, import_mysql_core2.varchar)({ length: 36 }).notNull().references(() => progressiveRegistrationQuestions.id, { onDelete: "cascade" }),
+    squidId: (0, import_mysql_core2.varchar)({ length: 50 }).notNull().references(() => profiles.id),
+    answer: (0, import_mysql_core2.varchar)({ length: 255 }),
+    answerOption: (0, import_mysql_core2.varchar)("answer_option", { length: 36 }).references(() => progressiveRegistrationQuestionOptions.id, { onDelete: "cascade" }),
+    createdAt: (0, import_mysql_core2.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: (0, import_mysql_core2.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: (0, import_mysql_core2.timestamp)("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
-      fkProgressiveRegistrationIdx1: (0, import_mysql_core3.index)("fk_progressive_registration_idx1").on(table.question),
-      fkProgressiveRegistrationIdx2: (0, import_mysql_core3.index)("fk_progressive_registration_idx2").on(table.squidId),
-      answersIdx: (0, import_mysql_core3.index)("answers_idx").on(table.id),
-      progressiveRegistrationAnswersId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "progressive_registration_answers_id" }),
-      id: (0, import_mysql_core3.unique)("id").on(table.id)
+      fkProgressiveRegistrationIdx1: (0, import_mysql_core2.index)("fk_progressive_registration_idx1").on(table.question),
+      fkProgressiveRegistrationIdx2: (0, import_mysql_core2.index)("fk_progressive_registration_idx2").on(table.squidId),
+      answersIdx: (0, import_mysql_core2.index)("answers_idx").on(table.id),
+      progressiveRegistrationAnswersId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "progressive_registration_answers_id" }),
+      id: (0, import_mysql_core2.unique)("id").on(table.id)
     };
   }
 );
-var progressiveRegistrationGroups = (0, import_mysql_core3.mysqlTable)(
+var progressiveRegistrationGroups = (0, import_mysql_core2.mysqlTable)(
   "progressive_registration_groups",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 36 }).notNull(),
-    label: (0, import_mysql_core3.varchar)({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade", onUpdate: "cascade" }),
-    icon: (0, import_mysql_core3.varchar)({ length: 255 }).default("poll-people").notNull(),
-    order: (0, import_mysql_core3.int)().default(1).notNull(),
-    createdAt: (0, import_mysql_core3.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
-    updatedAt: (0, import_mysql_core3.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
-    deletedAt: (0, import_mysql_core3.timestamp)("deleted_at", { mode: "date" })
+    id: (0, import_mysql_core2.varchar)({ length: 36 }).notNull(),
+    label: (0, import_mysql_core2.varchar)({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade", onUpdate: "cascade" }),
+    icon: (0, import_mysql_core2.varchar)({ length: 255 }).default("poll-people").notNull(),
+    order: (0, import_mysql_core2.int)().default(1).notNull(),
+    createdAt: (0, import_mysql_core2.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: (0, import_mysql_core2.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: (0, import_mysql_core2.timestamp)("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
-      label: (0, import_mysql_core3.index)("LABEL").on(table.label),
-      groupIdx: (0, import_mysql_core3.index)("group_idx").on(table.id),
-      progressiveRegistrationGroupsId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "progressive_registration_groups_id" }),
-      id: (0, import_mysql_core3.unique)("id").on(table.id)
+      label: (0, import_mysql_core2.index)("LABEL").on(table.label),
+      groupIdx: (0, import_mysql_core2.index)("group_idx").on(table.id),
+      progressiveRegistrationGroupsId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "progressive_registration_groups_id" }),
+      id: (0, import_mysql_core2.unique)("id").on(table.id)
     };
   }
 );
-var progressiveRegistrationLabels = (0, import_mysql_core3.mysqlTable)(
+var progressiveRegistrationLabels = (0, import_mysql_core2.mysqlTable)(
   "progressive_registration_labels",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 36 }).notNull(),
-    pt: (0, import_mysql_core3.varchar)({ length: 255 }),
-    en: (0, import_mysql_core3.varchar)({ length: 255 }),
-    es: (0, import_mysql_core3.varchar)({ length: 255 }),
-    createdAt: (0, import_mysql_core3.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
-    updatedAt: (0, import_mysql_core3.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
-    deletedAt: (0, import_mysql_core3.timestamp)("deleted_at", { mode: "date" })
+    id: (0, import_mysql_core2.varchar)({ length: 36 }).notNull(),
+    pt: (0, import_mysql_core2.varchar)({ length: 255 }),
+    en: (0, import_mysql_core2.varchar)({ length: 255 }),
+    es: (0, import_mysql_core2.varchar)({ length: 255 }),
+    createdAt: (0, import_mysql_core2.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: (0, import_mysql_core2.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: (0, import_mysql_core2.timestamp)("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
-      labelIdx: (0, import_mysql_core3.index)("label_idx").on(table.id),
-      progressiveRegistrationLabelsId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "progressive_registration_labels_id" }),
-      id: (0, import_mysql_core3.unique)("id").on(table.id)
+      labelIdx: (0, import_mysql_core2.index)("label_idx").on(table.id),
+      progressiveRegistrationLabelsId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "progressive_registration_labels_id" }),
+      id: (0, import_mysql_core2.unique)("id").on(table.id)
     };
   }
 );
-var progressiveRegistrationQuestionOptions = (0, import_mysql_core3.mysqlTable)(
+var progressiveRegistrationQuestionOptions = (0, import_mysql_core2.mysqlTable)(
   "progressive_registration_question_options",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 36 }).notNull(),
-    question: (0, import_mysql_core3.varchar)({ length: 255 }).notNull().references(() => progressiveRegistrationQuestions.id, { onDelete: "cascade" }),
-    label: (0, import_mysql_core3.varchar)({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade" }),
-    createdAt: (0, import_mysql_core3.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
-    updatedAt: (0, import_mysql_core3.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
-    deletedAt: (0, import_mysql_core3.timestamp)("deleted_at", { mode: "date" })
+    id: (0, import_mysql_core2.varchar)({ length: 36 }).notNull(),
+    question: (0, import_mysql_core2.varchar)({ length: 255 }).notNull().references(() => progressiveRegistrationQuestions.id, { onDelete: "cascade" }),
+    label: (0, import_mysql_core2.varchar)({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade" }),
+    createdAt: (0, import_mysql_core2.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: (0, import_mysql_core2.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: (0, import_mysql_core2.timestamp)("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
-      fkProgressiveRegistrationQuestionOptionsProgressiveReIdx: (0, import_mysql_core3.index)("fk_progressive_registration_question_options_progressive_re_idx").on(table.question),
-      label: (0, import_mysql_core3.index)("label").on(table.label),
-      optionsIdx: (0, import_mysql_core3.index)("options_idx").on(table.id),
-      progressiveRegistrationQuestionOptionsId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "progressive_registration_question_options_id" }),
-      id: (0, import_mysql_core3.unique)("id").on(table.id)
+      fkProgressiveRegistrationQuestionOptionsProgressiveReIdx: (0, import_mysql_core2.index)("fk_progressive_registration_question_options_progressive_re_idx").on(table.question),
+      label: (0, import_mysql_core2.index)("label").on(table.label),
+      optionsIdx: (0, import_mysql_core2.index)("options_idx").on(table.id),
+      progressiveRegistrationQuestionOptionsId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "progressive_registration_question_options_id" }),
+      id: (0, import_mysql_core2.unique)("id").on(table.id)
     };
   }
 );
-var progressiveRegistrationQuestions = (0, import_mysql_core3.mysqlTable)(
+var progressiveRegistrationQuestions = (0, import_mysql_core2.mysqlTable)(
   "progressive_registration_questions",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 36 }).notNull(),
-    label: (0, import_mysql_core3.varchar)({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade" }),
-    type: (0, import_mysql_core3.varchar)({ length: 255 }).default("text").notNull(),
-    group: (0, import_mysql_core3.varchar)({ length: 255 }).notNull().references(() => progressiveRegistrationGroups.id, { onDelete: "cascade" }),
-    createdAt: (0, import_mysql_core3.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
-    updatedAt: (0, import_mysql_core3.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
-    deletedAt: (0, import_mysql_core3.timestamp)("deleted_at", { mode: "date" })
+    id: (0, import_mysql_core2.varchar)({ length: 36 }).notNull(),
+    label: (0, import_mysql_core2.varchar)({ length: 36 }).notNull().references(() => progressiveRegistrationLabels.id, { onDelete: "cascade" }),
+    type: (0, import_mysql_core2.varchar)({ length: 255 }).default("text").notNull(),
+    group: (0, import_mysql_core2.varchar)({ length: 255 }).notNull().references(() => progressiveRegistrationGroups.id, { onDelete: "cascade" }),
+    createdAt: (0, import_mysql_core2.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: (0, import_mysql_core2.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: (0, import_mysql_core2.timestamp)("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
-      fkProgressiveRegistrationQuestionsProgressiveRegistratIdx: (0, import_mysql_core3.index)("fk_progressive_registration_questions_progressive_registrat_idx").on(table.group),
-      label: (0, import_mysql_core3.index)("LABEL").on(table.label),
-      questionsIdx: (0, import_mysql_core3.index)("questions_idx").on(table.id),
-      progressiveRegistrationQuestionsId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "progressive_registration_questions_id" }),
-      id: (0, import_mysql_core3.unique)("id").on(table.id)
+      fkProgressiveRegistrationQuestionsProgressiveRegistratIdx: (0, import_mysql_core2.index)("fk_progressive_registration_questions_progressive_registrat_idx").on(table.group),
+      label: (0, import_mysql_core2.index)("LABEL").on(table.label),
+      questionsIdx: (0, import_mysql_core2.index)("questions_idx").on(table.id),
+      progressiveRegistrationQuestionsId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "progressive_registration_questions_id" }),
+      id: (0, import_mysql_core2.unique)("id").on(table.id)
     };
   }
 );
-var progressiveRegistrationWhitelabels = (0, import_mysql_core3.mysqlTable)(
+var progressiveRegistrationWhitelabels = (0, import_mysql_core2.mysqlTable)(
   "progressive_registration_whitelabels",
   {
-    whitelabel: (0, import_mysql_core3.varchar)({ length: 24 }).default("hub").notNull(),
-    question: (0, import_mysql_core3.varchar)({ length: 255 }).notNull().references(() => progressiveRegistrationQuestions.id, { onDelete: "cascade", onUpdate: "cascade" }),
-    group: (0, import_mysql_core3.varchar)({ length: 255 }).notNull().references(() => progressiveRegistrationGroups.id, { onDelete: "cascade" }),
-    active: (0, import_mysql_core3.tinyint)().default(0).notNull(),
-    order: (0, import_mysql_core3.int)().default(1).notNull(),
-    required: (0, import_mysql_core3.tinyint)().default(0).notNull(),
-    createdAt: (0, import_mysql_core3.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
-    updatedAt: (0, import_mysql_core3.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
-    deletedAt: (0, import_mysql_core3.timestamp)("deleted_at", { mode: "date" })
+    whitelabel: (0, import_mysql_core2.varchar)({ length: 24 }).default("hub").notNull(),
+    question: (0, import_mysql_core2.varchar)({ length: 255 }).notNull().references(() => progressiveRegistrationQuestions.id, { onDelete: "cascade", onUpdate: "cascade" }),
+    group: (0, import_mysql_core2.varchar)({ length: 255 }).notNull().references(() => progressiveRegistrationGroups.id, { onDelete: "cascade" }),
+    active: (0, import_mysql_core2.tinyint)().default(0).notNull(),
+    order: (0, import_mysql_core2.int)().default(1).notNull(),
+    required: (0, import_mysql_core2.tinyint)().default(0).notNull(),
+    createdAt: (0, import_mysql_core2.timestamp)("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: (0, import_mysql_core2.timestamp)("updated_at", { mode: "date" }).defaultNow().notNull(),
+    deletedAt: (0, import_mysql_core2.timestamp)("deleted_at", { mode: "date" })
   },
   (table) => {
     return {
-      fkProgressiveRegistrationWhitelabelsProgressiveRegistrIdx: (0, import_mysql_core3.index)("fk_progressive_registration_whitelabels_progressive_registr_idx").on(table.question),
-      progressiveRegistrationWhitelabelsWhitelabelQuestionGroup: (0, import_mysql_core3.primaryKey)({ columns: [table.whitelabel, table.question, table.group], name: "progressive_registration_whitelabels_whitelabel_question_group" })
+      fkProgressiveRegistrationWhitelabelsProgressiveRegistrIdx: (0, import_mysql_core2.index)("fk_progressive_registration_whitelabels_progressive_registr_idx").on(table.question),
+      progressiveRegistrationWhitelabelsWhitelabelQuestionGroup: (0, import_mysql_core2.primaryKey)({ columns: [table.whitelabel, table.question, table.group], name: "progressive_registration_whitelabels_whitelabel_question_group" })
     };
   }
 );
-var races = (0, import_mysql_core3.mysqlTable)(
+var races = (0, import_mysql_core2.mysqlTable)(
   "races",
   {
-    id: (0, import_mysql_core3.int)().autoincrement().notNull(),
-    description: (0, import_mysql_core3.varchar)({ length: 45 }).notNull(),
-    descriptionEn: (0, import_mysql_core3.varchar)("description_en", { length: 45 }).notNull(),
-    descriptionEs: (0, import_mysql_core3.varchar)("description_es", { length: 255 })
+    id: (0, import_mysql_core2.int)().autoincrement().notNull(),
+    description: (0, import_mysql_core2.varchar)({ length: 45 }).notNull(),
+    descriptionEn: (0, import_mysql_core2.varchar)("description_en", { length: 45 }).notNull(),
+    descriptionEs: (0, import_mysql_core2.varchar)("description_es", { length: 255 })
   },
   (table) => {
     return {
-      racesId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "races_id" })
+      racesId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "races_id" })
     };
   }
 );
-var scopesToken = (0, import_mysql_core3.mysqlTable)(
+var scopesToken = (0, import_mysql_core2.mysqlTable)(
   "scopesToken",
   {
-    scopeType: (0, import_mysql_core3.varchar)({ length: 64 }).notNull(),
-    profileId: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    socialNetwork: (0, import_mysql_core3.varchar)({ length: 45 }).notNull()
+    scopeType: (0, import_mysql_core2.varchar)({ length: 64 }).notNull(),
+    profileId: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    socialNetwork: (0, import_mysql_core2.varchar)({ length: 45 }).notNull()
   },
   (table) => {
     return {
-      scopesTokenScopeTypeProfileIdSocialNetwork: (0, import_mysql_core3.primaryKey)({ columns: [table.scopeType, table.profileId, table.socialNetwork], name: "scopesToken_scopeType_profileId_socialNetwork" })
+      scopesTokenScopeTypeProfileIdSocialNetwork: (0, import_mysql_core2.primaryKey)({ columns: [table.scopeType, table.profileId, table.socialNetwork], name: "scopesToken_scopeType_profileId_socialNetwork" })
     };
   }
 );
-var socialNetworkProfiles = (0, import_mysql_core3.mysqlTable)(
+var socialNetworkProfiles = (0, import_mysql_core2.mysqlTable)(
   "socialNetworkProfiles",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    squidId: (0, import_mysql_core3.varchar)({ length: 36 }).references(() => profiles.id, { onDelete: "cascade", onUpdate: "cascade" }),
-    socialNetwork: (0, import_mysql_core3.varchar)({ length: 45 }).notNull(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull()
+    id: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    squidId: (0, import_mysql_core2.varchar)({ length: 36 }).references(() => profiles.id, { onDelete: "cascade", onUpdate: "cascade" }),
+    socialNetwork: (0, import_mysql_core2.varchar)({ length: 45 }).notNull(),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
-      socialNetworkProfilesIdSocialNetwork: (0, import_mysql_core3.primaryKey)({ columns: [table.id, table.socialNetwork], name: "socialNetworkProfiles_id_socialNetwork" })
+      socialNetworkProfilesIdSocialNetwork: (0, import_mysql_core2.primaryKey)({ columns: [table.id, table.socialNetwork], name: "socialNetworkProfiles_id_socialNetwork" })
     };
   }
 );
-var socialNetworkProfilesCache = (0, import_mysql_core3.mysqlTable)(
+var socialNetworkProfilesCache = (0, import_mysql_core2.mysqlTable)(
   "socialNetworkProfilesCache",
   {
-    profileId: (0, import_mysql_core3.varchar)({ length: 255 }).notNull(),
-    contentType: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    contentValue: (0, import_mysql_core3.decimal)({ precision: 10, scale: 2 }),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull()
+    profileId: (0, import_mysql_core2.varchar)({ length: 255 }).notNull(),
+    contentType: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    contentValue: (0, import_mysql_core2.decimal)({ precision: 10, scale: 2 }),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
-      socialNetworkProfilesCacheProfileIdContentType: (0, import_mysql_core3.primaryKey)({ columns: [table.profileId, table.contentType], name: "socialNetworkProfilesCache_profileId_contentType" }),
-      socialNetworkProfilesCacheProfileIdIdx: (0, import_mysql_core3.unique)("socialNetworkProfilesCache_profileId_IDX").on(table.profileId, table.contentType)
+      socialNetworkProfilesCacheProfileIdContentType: (0, import_mysql_core2.primaryKey)({ columns: [table.profileId, table.contentType], name: "socialNetworkProfilesCache_profileId_contentType" }),
+      socialNetworkProfilesCacheProfileIdIdx: (0, import_mysql_core2.unique)("socialNetworkProfilesCache_profileId_IDX").on(table.profileId, table.contentType)
     };
   }
 );
-var socialNetworkProfilesCacheNew = (0, import_mysql_core3.mysqlTable)("socialNetworkProfilesCache_new", {
-  profileId: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-  contentType: (0, import_mysql_core3.varchar)("ContentType", { length: 100 }).notNull(),
-  contentValue: (0, import_mysql_core3.decimal)({ precision: 10, scale: 2 }),
-  createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
-  updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`)
+var socialNetworkProfilesCacheNew = (0, import_mysql_core2.mysqlTable)("socialNetworkProfilesCache_new", {
+  profileId: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+  contentType: (0, import_mysql_core2.varchar)("ContentType", { length: 100 }).notNull(),
+  contentValue: (0, import_mysql_core2.decimal)({ precision: 10, scale: 2 }),
+  createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`)
 });
-var socialNetworkProfilesCategories = (0, import_mysql_core3.mysqlTable)(
+var socialNetworkProfilesCategories = (0, import_mysql_core2.mysqlTable)(
   "socialNetworkProfilesCategories",
   {
-    id: (0, import_mysql_core3.int)().autoincrement().notNull(),
-    categoryId: (0, import_mysql_core3.int)().notNull().references(() => profileCategories.id, { onUpdate: "cascade" }),
-    profileId: (0, import_mysql_core3.varchar)({ length: 50 }).notNull().references(() => socialNetworkProfiles.id, { onUpdate: "cascade" }),
-    socialNetwork: (0, import_mysql_core3.varchar)({ length: 45 }).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`)
+    id: (0, import_mysql_core2.int)().autoincrement().notNull(),
+    categoryId: (0, import_mysql_core2.int)().notNull().references(() => profileCategories.id, { onUpdate: "cascade" }),
+    profileId: (0, import_mysql_core2.varchar)({ length: 50 }).notNull().references(() => socialNetworkProfiles.id, { onUpdate: "cascade" }),
+    socialNetwork: (0, import_mysql_core2.varchar)({ length: 45 }).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {
-      socialNetwork: (0, import_mysql_core3.index)("socialNetwork").on(table.socialNetwork),
-      socialNetworkProfilesCategoriesId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "socialNetworkProfilesCategories_id" })
+      socialNetwork: (0, import_mysql_core2.index)("socialNetwork").on(table.socialNetwork),
+      socialNetworkProfilesCategoriesId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "socialNetworkProfilesCategories_id" })
     };
   }
 );
-var socialNetworkProfilesCategoriesWhitelabels = (0, import_mysql_core3.mysqlTable)(
+var socialNetworkProfilesCategoriesWhitelabels = (0, import_mysql_core2.mysqlTable)(
   "socialNetworkProfilesCategories_whitelabels",
   {
-    id: (0, import_mysql_core3.int)().autoincrement().notNull(),
-    categoryId: (0, import_mysql_core3.int)(),
-    profileId: (0, import_mysql_core3.varchar)({ length: 36 }),
-    socialNetwork: (0, import_mysql_core3.varchar)({ length: 45 }),
-    whitelabel: (0, import_mysql_core3.varchar)({ length: 24 }),
-    organization: (0, import_mysql_core3.varchar)({ length: 24 }),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`)
+    id: (0, import_mysql_core2.int)().autoincrement().notNull(),
+    categoryId: (0, import_mysql_core2.int)(),
+    profileId: (0, import_mysql_core2.varchar)({ length: 36 }),
+    socialNetwork: (0, import_mysql_core2.varchar)({ length: 45 }),
+    whitelabel: (0, import_mysql_core2.varchar)({ length: 24 }),
+    organization: (0, import_mysql_core2.varchar)({ length: 24 }),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {
-      socialNetworkProfilesCategoriesWhitelabelsId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "socialNetworkProfilesCategories_whitelabels_id" }),
-      socialNetworkProfilesCategoriesUn: (0, import_mysql_core3.unique)("socialNetworkProfilesCategories_UN").on(table.categoryId, table.profileId, table.socialNetwork, table.whitelabel, table.organization)
+      socialNetworkProfilesCategoriesWhitelabelsId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "socialNetworkProfilesCategories_whitelabels_id" }),
+      socialNetworkProfilesCategoriesUn: (0, import_mysql_core2.unique)("socialNetworkProfilesCategories_UN").on(table.categoryId, table.profileId, table.socialNetwork, table.whitelabel, table.organization)
     };
   }
 );
-var socialNetworkProfilesWhitelabels = (0, import_mysql_core3.mysqlTable)(
+var socialNetworkProfilesWhitelabels = (0, import_mysql_core2.mysqlTable)(
   "socialNetworkProfiles_whitelabels",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    squidId: (0, import_mysql_core3.varchar)({ length: 36 }).references(() => profiles.id),
-    socialNetwork: (0, import_mysql_core3.varchar)({ length: 45 }).notNull(),
-    whitelabel: (0, import_mysql_core3.varchar)({ length: 24 }).default("-").notNull(),
-    organization: (0, import_mysql_core3.varchar)({ length: 24 }).default("-").notNull(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull()
+    id: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    squidId: (0, import_mysql_core2.varchar)({ length: 36 }).references(() => profiles.id),
+    socialNetwork: (0, import_mysql_core2.varchar)({ length: 45 }).notNull(),
+    whitelabel: (0, import_mysql_core2.varchar)({ length: 24 }).default("-").notNull(),
+    organization: (0, import_mysql_core2.varchar)({ length: 24 }).default("-").notNull(),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull()
   },
   (table) => {
     return {
-      socialNetworkProfilesWhitelabelsIdSocialNetworkWhitelabel: (0, import_mysql_core3.primaryKey)({ columns: [table.id, table.socialNetwork, table.whitelabel], name: "socialNetworkProfiles_whitelabels_id_socialNetwork_whitelabel" })
+      socialNetworkProfilesWhitelabelsIdSocialNetworkWhitelabel: (0, import_mysql_core2.primaryKey)({ columns: [table.id, table.socialNetwork, table.whitelabel], name: "socialNetworkProfiles_whitelabels_id_socialNetwork_whitelabel" })
     };
   }
 );
-var stopWords = (0, import_mysql_core3.mysqlTable)(
+var stopWords = (0, import_mysql_core2.mysqlTable)(
   "stopWords",
   {
-    id: (0, import_mysql_core3.int)().autoincrement().notNull(),
-    word: (0, import_mysql_core3.varchar)({ length: 255 }).notNull()
+    id: (0, import_mysql_core2.int)().autoincrement().notNull(),
+    word: (0, import_mysql_core2.varchar)({ length: 255 }).notNull()
   },
   (table) => {
     return {
-      stopWordsId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "stopWords_id" })
+      stopWordsId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "stopWords_id" })
     };
   }
 );
-var tiktokProfiles = (0, import_mysql_core3.mysqlTable)(
+var tiktokProfiles = (0, import_mysql_core2.mysqlTable)(
   "tiktokProfiles",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    openId: (0, import_mysql_core3.varchar)({ length: 50 }),
-    unionId: (0, import_mysql_core3.varchar)({ length: 50 }),
-    exists: (0, import_mysql_core3.tinyint)().default(1),
-    verified: (0, import_mysql_core3.tinyint)().default(1),
-    username: (0, import_mysql_core3.varchar)({ length: 255 }).default("Processando"),
-    nickname: (0, import_mysql_core3.varchar)({ length: 255 }).default("Processando"),
-    macro: (0, import_mysql_core3.tinyint)().default(0),
-    brandUser: (0, import_mysql_core3.tinyint)().default(0),
-    picture: (0, import_mysql_core3.text)(),
-    bio: (0, import_mysql_core3.text)(),
-    engagementRate: (0, import_mysql_core3.float)(),
-    followers: (0, import_mysql_core3.int)().default(0),
-    following: (0, import_mysql_core3.int)().default(0),
-    likes: (0, import_mysql_core3.float)(),
-    averageLikes: (0, import_mysql_core3.float)(),
-    comments: (0, import_mysql_core3.float)(),
-    averageComments: (0, import_mysql_core3.float)(),
-    shares: (0, import_mysql_core3.float)(),
-    averageShares: (0, import_mysql_core3.float)(),
-    views: (0, import_mysql_core3.float)(),
-    averageViews: (0, import_mysql_core3.float)(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    lastPictureUpdatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    tcmStatus: (0, import_mysql_core3.varchar)({ length: 15 }),
-    insertOrigin: (0, import_mysql_core3.varchar)({ length: 50 }),
-    processAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    hasCreatorsInsights: (0, import_mysql_core3.tinyint)().default(0),
-    isSharedCreatorsInsights: (0, import_mysql_core3.tinyint)().default(0)
+    id: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    openId: (0, import_mysql_core2.varchar)({ length: 50 }),
+    unionId: (0, import_mysql_core2.varchar)({ length: 50 }),
+    exists: (0, import_mysql_core2.tinyint)().default(1),
+    verified: (0, import_mysql_core2.tinyint)().default(1),
+    username: (0, import_mysql_core2.varchar)({ length: 255 }).default("Processando"),
+    nickname: (0, import_mysql_core2.varchar)({ length: 255 }).default("Processando"),
+    macro: (0, import_mysql_core2.tinyint)().default(0),
+    brandUser: (0, import_mysql_core2.tinyint)().default(0),
+    picture: (0, import_mysql_core2.text)(),
+    bio: (0, import_mysql_core2.text)(),
+    engagementRate: (0, import_mysql_core2.float)(),
+    followers: (0, import_mysql_core2.int)().default(0),
+    following: (0, import_mysql_core2.int)().default(0),
+    likes: (0, import_mysql_core2.float)(),
+    averageLikes: (0, import_mysql_core2.float)(),
+    comments: (0, import_mysql_core2.float)(),
+    averageComments: (0, import_mysql_core2.float)(),
+    shares: (0, import_mysql_core2.float)(),
+    averageShares: (0, import_mysql_core2.float)(),
+    views: (0, import_mysql_core2.float)(),
+    averageViews: (0, import_mysql_core2.float)(),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    lastPictureUpdatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    tcmStatus: (0, import_mysql_core2.varchar)({ length: 15 }),
+    insertOrigin: (0, import_mysql_core2.varchar)({ length: 50 }),
+    processAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    hasCreatorsInsights: (0, import_mysql_core2.tinyint)().default(0),
+    isSharedCreatorsInsights: (0, import_mysql_core2.tinyint)().default(0)
   },
   (table) => {
     return {
-      usernameIdx: (0, import_mysql_core3.index)("tiktokProfiles_username_IDX").on(table.username),
-      processAtIdx: (0, import_mysql_core3.index)("tiktokProfiles_processAt_IDX").on(table.processAt),
-      tiktokProfilesId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "tiktokProfiles_id" })
+      usernameIdx: (0, import_mysql_core2.index)("tiktokProfiles_username_IDX").on(table.username),
+      processAtIdx: (0, import_mysql_core2.index)("tiktokProfiles_processAt_IDX").on(table.processAt),
+      tiktokProfilesId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "tiktokProfiles_id" })
     };
   }
 );
-var tiktokTokens = (0, import_mysql_core3.mysqlTable)(
+var tiktokTokens = (0, import_mysql_core2.mysqlTable)(
   "tiktokTokens",
   {
-    profileId: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    valid: (0, import_mysql_core3.tinyint)().default(1),
-    status: (0, import_mysql_core3.varchar)({ length: 1e3 }),
-    accessToken: (0, import_mysql_core3.varchar)({ length: 512 }),
-    refreshToken: (0, import_mysql_core3.varchar)({ length: 128 }),
-    expiresAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`)
+    profileId: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    valid: (0, import_mysql_core2.tinyint)().default(1),
+    status: (0, import_mysql_core2.varchar)({ length: 1e3 }),
+    accessToken: (0, import_mysql_core2.varchar)({ length: 512 }),
+    refreshToken: (0, import_mysql_core2.varchar)({ length: 128 }),
+    expiresAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`)
   },
   (table) => {
     return {
-      validIdx: (0, import_mysql_core3.index)("tiktokTokens_valid_IDX").on(table.valid),
-      tiktokTokensProfileId: (0, import_mysql_core3.primaryKey)({ columns: [table.profileId], name: "tiktokTokens_profileId" })
+      validIdx: (0, import_mysql_core2.index)("tiktokTokens_valid_IDX").on(table.valid),
+      tiktokTokensProfileId: (0, import_mysql_core2.primaryKey)({ columns: [table.profileId], name: "tiktokTokens_profileId" })
     };
   }
 );
-var twitterProfiles = (0, import_mysql_core3.mysqlTable)(
+var twitterProfiles = (0, import_mysql_core2.mysqlTable)(
   "twitterProfiles",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    username: (0, import_mysql_core3.varchar)({ length: 255 }).default("Processando").notNull(),
-    fullName: (0, import_mysql_core3.varchar)({ length: 255 }).default("").notNull(),
-    picture: (0, import_mysql_core3.varchar)({ length: 255 }).default("Processando").notNull(),
-    followers: (0, import_mysql_core3.int)().default(0).notNull(),
-    follows: (0, import_mysql_core3.int)().default(0).notNull(),
-    bio: (0, import_mysql_core3.text)(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    brandUser: (0, import_mysql_core3.tinyint)().default(0).notNull(),
-    exists: (0, import_mysql_core3.tinyint)().default(1).notNull(),
-    macro: (0, import_mysql_core3.tinyint)().default(0),
-    engagementRate: (0, import_mysql_core3.float)(),
-    totalRetweets: (0, import_mysql_core3.float)(),
-    totalLikes: (0, import_mysql_core3.float)(),
-    totalRetweetsReceived: (0, import_mysql_core3.float)(),
-    averageLikes: (0, import_mysql_core3.float)(),
-    averageRetweets: (0, import_mysql_core3.float)(),
-    totalTweets: (0, import_mysql_core3.float)(),
-    averageRepliesByLikes: (0, import_mysql_core3.float)(),
-    averageRepliesByTweet: (0, import_mysql_core3.float)(),
-    repliesRate: (0, import_mysql_core3.float)(),
-    effectiveImpressionReach: (0, import_mysql_core3.float)(),
-    averageImpressions: (0, import_mysql_core3.float)(),
-    countReplies: (0, import_mysql_core3.int)(),
-    adTweetsCount: (0, import_mysql_core3.float)(),
-    engagementRateAd: (0, import_mysql_core3.float)(),
-    tweetPostAdPerformance: (0, import_mysql_core3.float)(),
-    insertOrigin: (0, import_mysql_core3.varchar)({ length: 50 }),
-    processAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    hasCreatorsInsights: (0, import_mysql_core3.tinyint)().default(0)
+    id: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    username: (0, import_mysql_core2.varchar)({ length: 255 }).default("Processando").notNull(),
+    fullName: (0, import_mysql_core2.varchar)({ length: 255 }).default("").notNull(),
+    picture: (0, import_mysql_core2.varchar)({ length: 255 }).default("Processando").notNull(),
+    followers: (0, import_mysql_core2.int)().default(0).notNull(),
+    follows: (0, import_mysql_core2.int)().default(0).notNull(),
+    bio: (0, import_mysql_core2.text)(),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    brandUser: (0, import_mysql_core2.tinyint)().default(0).notNull(),
+    exists: (0, import_mysql_core2.tinyint)().default(1).notNull(),
+    macro: (0, import_mysql_core2.tinyint)().default(0),
+    engagementRate: (0, import_mysql_core2.float)(),
+    totalRetweets: (0, import_mysql_core2.float)(),
+    totalLikes: (0, import_mysql_core2.float)(),
+    totalRetweetsReceived: (0, import_mysql_core2.float)(),
+    averageLikes: (0, import_mysql_core2.float)(),
+    averageRetweets: (0, import_mysql_core2.float)(),
+    totalTweets: (0, import_mysql_core2.float)(),
+    averageRepliesByLikes: (0, import_mysql_core2.float)(),
+    averageRepliesByTweet: (0, import_mysql_core2.float)(),
+    repliesRate: (0, import_mysql_core2.float)(),
+    effectiveImpressionReach: (0, import_mysql_core2.float)(),
+    averageImpressions: (0, import_mysql_core2.float)(),
+    countReplies: (0, import_mysql_core2.int)(),
+    adTweetsCount: (0, import_mysql_core2.float)(),
+    engagementRateAd: (0, import_mysql_core2.float)(),
+    tweetPostAdPerformance: (0, import_mysql_core2.float)(),
+    insertOrigin: (0, import_mysql_core2.varchar)({ length: 50 }),
+    processAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    hasCreatorsInsights: (0, import_mysql_core2.tinyint)().default(0)
   },
   (table) => {
     return {
-      processAtIdx: (0, import_mysql_core3.index)("twitterProfiles_processAt_IDX").on(table.processAt),
-      twitterProfilesId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "twitterProfiles_id" })
+      processAtIdx: (0, import_mysql_core2.index)("twitterProfiles_processAt_IDX").on(table.processAt),
+      twitterProfilesId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "twitterProfiles_id" })
     };
   }
 );
-var twitterTokens = (0, import_mysql_core3.mysqlTable)(
+var twitterTokens = (0, import_mysql_core2.mysqlTable)(
   "twitterTokens",
   {
-    profileId: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
-    valid: (0, import_mysql_core3.tinyint)(),
-    accessToken: (0, import_mysql_core3.varchar)({ length: 256 }),
-    oauthSecretToken: (0, import_mysql_core3.varchar)({ length: 256 }),
-    refreshToken: (0, import_mysql_core3.varchar)({ length: 256 }),
-    expiresIn: (0, import_mysql_core3.int)().default(0)
+    profileId: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+    valid: (0, import_mysql_core2.tinyint)(),
+    accessToken: (0, import_mysql_core2.varchar)({ length: 256 }),
+    oauthSecretToken: (0, import_mysql_core2.varchar)({ length: 256 }),
+    refreshToken: (0, import_mysql_core2.varchar)({ length: 256 }),
+    expiresIn: (0, import_mysql_core2.int)().default(0)
   },
   (table) => {
     return {
-      valid: (0, import_mysql_core3.index)("twitterTokens_valid").on(table.valid),
-      twitterTokensProfileId: (0, import_mysql_core3.primaryKey)({ columns: [table.profileId], name: "twitterTokens_profileId" })
+      valid: (0, import_mysql_core2.index)("twitterTokens_valid").on(table.valid),
+      twitterTokensProfileId: (0, import_mysql_core2.primaryKey)({ columns: [table.profileId], name: "twitterTokens_profileId" })
     };
   }
 );
-var youtubeProfiles = (0, import_mysql_core3.mysqlTable)(
+var youtubeProfiles = (0, import_mysql_core2.mysqlTable)(
   "youtubeProfiles",
   {
-    id: (0, import_mysql_core3.varchar)({ length: 50 }).notNull(),
-    googleId: (0, import_mysql_core3.varchar)({ length: 255 }),
-    exists: (0, import_mysql_core3.tinyint)().default(1).notNull(),
-    searchable: (0, import_mysql_core3.tinyint)().default(1).notNull(),
-    notSearchReason: (0, import_mysql_core3.varchar)({ length: 255 }),
-    email: (0, import_mysql_core3.varchar)({ length: 255 }),
-    channelTitle: (0, import_mysql_core3.varchar)({ length: 255 }).default("Processando").notNull(),
-    username: (0, import_mysql_core3.varchar)({ length: 255 }).default("Processando").notNull(),
-    picture: (0, import_mysql_core3.varchar)({ length: 255 }).default("Processando").notNull(),
-    fullName: (0, import_mysql_core3.varchar)({ length: 255 }),
-    description: (0, import_mysql_core3.text)(),
-    bio: (0, import_mysql_core3.text)(),
-    customUrl: (0, import_mysql_core3.varchar)({ length: 255 }).default("Processando"),
-    country: (0, import_mysql_core3.varchar)({ length: 36 }).default("Processando").notNull(),
-    since: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    followers: (0, import_mysql_core3.int)().default(0).notNull(),
-    subscribers: (0, import_mysql_core3.int)().default(0).notNull(),
-    engagementRate: (0, import_mysql_core3.float)(),
-    engagementRatePositive: (0, import_mysql_core3.float)(),
-    engagementRateNegative: (0, import_mysql_core3.float)(),
-    viewsRate: (0, import_mysql_core3.float)(),
-    viewsMedian: (0, import_mysql_core3.float)(),
-    comments: (0, import_mysql_core3.int)().default(0),
-    identificationComments: (0, import_mysql_core3.int)().default(0),
-    identificationLikes: (0, import_mysql_core3.int)().default(0),
-    identificationDislikes: (0, import_mysql_core3.int)().default(0),
-    averageComments: (0, import_mysql_core3.float)(),
-    averageLikes: (0, import_mysql_core3.float)(),
-    averageDislikes: (0, import_mysql_core3.float)(),
-    shares: (0, import_mysql_core3.int)().default(0),
-    averageShares: (0, import_mysql_core3.float)(),
-    commentLikesRate: (0, import_mysql_core3.float)(),
-    commentViewsRate: (0, import_mysql_core3.float)(),
-    averageViewsDuration: (0, import_mysql_core3.int)().default(0),
-    averageViewPercentage: (0, import_mysql_core3.float)(),
-    averageVideoDuration: (0, import_mysql_core3.float)(),
-    videoEffectiveReach: (0, import_mysql_core3.float)(),
-    videos: (0, import_mysql_core3.int)().default(0),
-    identificationVideos: (0, import_mysql_core3.int)().default(0),
-    views: (0, import_mysql_core3.bigint)({ mode: "number" }),
-    identificationViews: (0, import_mysql_core3.int)().default(0),
-    privacyStatus: (0, import_mysql_core3.varchar)({ length: 36 }).default("Processando").notNull(),
-    language: (0, import_mysql_core3.varchar)({ length: 36 }),
-    createdAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core3.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    logstashProcessedAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    macro: (0, import_mysql_core3.tinyint)().default(0),
-    brandUser: (0, import_mysql_core3.tinyint)().default(0),
-    insertOrigin: (0, import_mysql_core3.varchar)({ length: 50 }),
-    processAt: (0, import_mysql_core3.datetime)({ mode: "date" }),
-    hasCreatorsInsights: (0, import_mysql_core3.tinyint)().default(0),
-    isSharedCreatorsInsights: (0, import_mysql_core3.tinyint)().default(0)
+    id: (0, import_mysql_core2.varchar)({ length: 50 }).notNull(),
+    googleId: (0, import_mysql_core2.varchar)({ length: 255 }),
+    exists: (0, import_mysql_core2.tinyint)().default(1).notNull(),
+    searchable: (0, import_mysql_core2.tinyint)().default(1).notNull(),
+    notSearchReason: (0, import_mysql_core2.varchar)({ length: 255 }),
+    email: (0, import_mysql_core2.varchar)({ length: 255 }),
+    channelTitle: (0, import_mysql_core2.varchar)({ length: 255 }).default("Processando").notNull(),
+    username: (0, import_mysql_core2.varchar)({ length: 255 }).default("Processando").notNull(),
+    picture: (0, import_mysql_core2.varchar)({ length: 255 }).default("Processando").notNull(),
+    fullName: (0, import_mysql_core2.varchar)({ length: 255 }),
+    description: (0, import_mysql_core2.text)(),
+    bio: (0, import_mysql_core2.text)(),
+    customUrl: (0, import_mysql_core2.varchar)({ length: 255 }).default("Processando"),
+    country: (0, import_mysql_core2.varchar)({ length: 36 }).default("Processando").notNull(),
+    since: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    followers: (0, import_mysql_core2.int)().default(0).notNull(),
+    subscribers: (0, import_mysql_core2.int)().default(0).notNull(),
+    engagementRate: (0, import_mysql_core2.float)(),
+    engagementRatePositive: (0, import_mysql_core2.float)(),
+    engagementRateNegative: (0, import_mysql_core2.float)(),
+    viewsRate: (0, import_mysql_core2.float)(),
+    viewsMedian: (0, import_mysql_core2.float)(),
+    comments: (0, import_mysql_core2.int)().default(0),
+    identificationComments: (0, import_mysql_core2.int)().default(0),
+    identificationLikes: (0, import_mysql_core2.int)().default(0),
+    identificationDislikes: (0, import_mysql_core2.int)().default(0),
+    averageComments: (0, import_mysql_core2.float)(),
+    averageLikes: (0, import_mysql_core2.float)(),
+    averageDislikes: (0, import_mysql_core2.float)(),
+    shares: (0, import_mysql_core2.int)().default(0),
+    averageShares: (0, import_mysql_core2.float)(),
+    commentLikesRate: (0, import_mysql_core2.float)(),
+    commentViewsRate: (0, import_mysql_core2.float)(),
+    averageViewsDuration: (0, import_mysql_core2.int)().default(0),
+    averageViewPercentage: (0, import_mysql_core2.float)(),
+    averageVideoDuration: (0, import_mysql_core2.float)(),
+    videoEffectiveReach: (0, import_mysql_core2.float)(),
+    videos: (0, import_mysql_core2.int)().default(0),
+    identificationVideos: (0, import_mysql_core2.int)().default(0),
+    views: (0, import_mysql_core2.bigint)({ mode: "number" }),
+    identificationViews: (0, import_mysql_core2.int)().default(0),
+    privacyStatus: (0, import_mysql_core2.varchar)({ length: 36 }).default("Processando").notNull(),
+    language: (0, import_mysql_core2.varchar)({ length: 36 }),
+    createdAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    logstashProcessedAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    macro: (0, import_mysql_core2.tinyint)().default(0),
+    brandUser: (0, import_mysql_core2.tinyint)().default(0),
+    insertOrigin: (0, import_mysql_core2.varchar)({ length: 50 }),
+    processAt: (0, import_mysql_core2.datetime)({ mode: "date" }),
+    hasCreatorsInsights: (0, import_mysql_core2.tinyint)().default(0),
+    isSharedCreatorsInsights: (0, import_mysql_core2.tinyint)().default(0)
   },
   (table) => {
     return {
-      youtuberofilesSearchableIdx: (0, import_mysql_core3.index)("youtuberofiles_searchable_index").on(table.searchable),
-      googleIdIdx: (0, import_mysql_core3.index)("youtubeProfiles_googleId_IDX").on(table.googleId),
-      processAtIdx: (0, import_mysql_core3.index)("youtubeProfiles_processAt_IDX").on(table.processAt),
-      youtubeProfilesId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "youtubeProfiles_id" })
+      youtuberofilesSearchableIdx: (0, import_mysql_core2.index)("youtuberofiles_searchable_index").on(table.searchable),
+      googleIdIdx: (0, import_mysql_core2.index)("youtubeProfiles_googleId_IDX").on(table.googleId),
+      processAtIdx: (0, import_mysql_core2.index)("youtubeProfiles_processAt_IDX").on(table.processAt),
+      youtubeProfilesId: (0, import_mysql_core2.primaryKey)({ columns: [table.id], name: "youtubeProfiles_id" })
     };
   }
 );
-var fullInstagramProfileAll = (0, import_mysql_core3.mysqlView)("full_instagram_profile_all", {
-  id: (0, import_mysql_core3.int)().default(0).notNull(),
-  squidid: (0, import_mysql_core3.int)().default(0).notNull(),
-  username: (0, import_mysql_core3.int)().default(0).notNull(),
-  identifiedat: (0, import_mysql_core3.int)().default(0).notNull(),
-  followers: (0, import_mysql_core3.int)().default(0).notNull(),
-  following: (0, import_mysql_core3.int)().default(0).notNull(),
-  picture: (0, import_mysql_core3.int)().default(0).notNull(),
-  engagementrate: (0, import_mysql_core3.int)().default(0).notNull(),
-  isbusiness: (0, import_mysql_core3.int)().default(0).notNull(),
-  searchable: (0, import_mysql_core3.int)().default(0).notNull(),
-  facebooklinked: (0, import_mysql_core3.int)().default(0).notNull(),
-  name: (0, import_mysql_core3.int)().default(0).notNull(),
-  email: (0, import_mysql_core3.int)().default(0).notNull(),
-  birthday: (0, import_mysql_core3.int)().default(0).notNull(),
-  gender: (0, import_mysql_core3.int)().default(0).notNull(),
-  phone: (0, import_mysql_core3.int)().default(0).notNull(),
-  address: (0, import_mysql_core3.int)().default(0).notNull(),
-  addressNumber: (0, import_mysql_core3.int)().default(0).notNull(),
-  complement: (0, import_mysql_core3.int)().default(0).notNull(),
-  city: (0, import_mysql_core3.int)().default(0).notNull(),
-  uf: (0, import_mysql_core3.int)().default(0).notNull(),
-  zipcode: (0, import_mysql_core3.int)().default(0).notNull(),
-  document: (0, import_mysql_core3.int)().default(0).notNull(),
-  loginUid: (0, import_mysql_core3.int)().default(0).notNull(),
-  recordEmployment: (0, import_mysql_core3.int)().default(0).notNull(),
-  isPersonAccount: (0, import_mysql_core3.int)().default(0).notNull(),
-  registeredat: (0, import_mysql_core3.int)().default(0).notNull(),
-  race: (0, import_mysql_core3.int)().default(0).notNull(),
-  blackuser: (0, import_mysql_core3.int)().default(0).notNull()
+var fullInstagramProfileAll = (0, import_mysql_core2.mysqlView)("full_instagram_profile_all", {
+  id: (0, import_mysql_core2.int)().default(0).notNull(),
+  squidid: (0, import_mysql_core2.int)().default(0).notNull(),
+  username: (0, import_mysql_core2.int)().default(0).notNull(),
+  identifiedat: (0, import_mysql_core2.int)().default(0).notNull(),
+  followers: (0, import_mysql_core2.int)().default(0).notNull(),
+  following: (0, import_mysql_core2.int)().default(0).notNull(),
+  picture: (0, import_mysql_core2.int)().default(0).notNull(),
+  engagementrate: (0, import_mysql_core2.int)().default(0).notNull(),
+  isbusiness: (0, import_mysql_core2.int)().default(0).notNull(),
+  searchable: (0, import_mysql_core2.int)().default(0).notNull(),
+  facebooklinked: (0, import_mysql_core2.int)().default(0).notNull(),
+  name: (0, import_mysql_core2.int)().default(0).notNull(),
+  email: (0, import_mysql_core2.int)().default(0).notNull(),
+  birthday: (0, import_mysql_core2.int)().default(0).notNull(),
+  gender: (0, import_mysql_core2.int)().default(0).notNull(),
+  phone: (0, import_mysql_core2.int)().default(0).notNull(),
+  address: (0, import_mysql_core2.int)().default(0).notNull(),
+  addressNumber: (0, import_mysql_core2.int)().default(0).notNull(),
+  complement: (0, import_mysql_core2.int)().default(0).notNull(),
+  city: (0, import_mysql_core2.int)().default(0).notNull(),
+  uf: (0, import_mysql_core2.int)().default(0).notNull(),
+  zipcode: (0, import_mysql_core2.int)().default(0).notNull(),
+  document: (0, import_mysql_core2.int)().default(0).notNull(),
+  loginUid: (0, import_mysql_core2.int)().default(0).notNull(),
+  recordEmployment: (0, import_mysql_core2.int)().default(0).notNull(),
+  isPersonAccount: (0, import_mysql_core2.int)().default(0).notNull(),
+  registeredat: (0, import_mysql_core2.int)().default(0).notNull(),
+  race: (0, import_mysql_core2.int)().default(0).notNull(),
+  blackuser: (0, import_mysql_core2.int)().default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm2.sql`select 1 AS \`id\`,1 AS \`squidid\`,1 AS \`username\`,1 AS \`identifiedat\`,1 AS \`followers\`,1 AS \`following\`,1 AS \`picture\`,1 AS \`engagementrate\`,1 AS \`isbusiness\`,1 AS \`searchable\`,1 AS \`facebooklinked\`,1 AS \`name\`,1 AS \`email\`,1 AS \`birthday\`,1 AS \`gender\`,1 AS \`phone\`,1 AS \`address\`,1 AS \`addressNumber\`,1 AS \`complement\`,1 AS \`city\`,1 AS \`uf\`,1 AS \`zipcode\`,1 AS \`document\`,1 AS \`loginUid\`,1 AS \`recordEmployment\`,1 AS \`isPersonAccount\`,1 AS \`registeredat\`,1 AS \`race\`,1 AS \`blackuser\``);
-var vwProgressiveRegistrationAnswers = (0, import_mysql_core3.mysqlView)("vw_progressive_registration_answers", {
-  squidId: (0, import_mysql_core3.int)().default(0).notNull(),
-  groupId: (0, import_mysql_core3.int)("group_id").default(0).notNull(),
-  groupPt: (0, import_mysql_core3.int)("group_pt").default(0).notNull(),
-  groupEn: (0, import_mysql_core3.int)("group_en").default(0).notNull(),
-  groupEs: (0, import_mysql_core3.int)("group_es").default(0).notNull(),
-  questionId: (0, import_mysql_core3.int)("question_id").default(0).notNull(),
-  questionPt: (0, import_mysql_core3.int)("question_pt").default(0).notNull(),
-  questionEn: (0, import_mysql_core3.int)("question_en").default(0).notNull(),
-  questionEs: (0, import_mysql_core3.int)("question_es").default(0).notNull(),
-  questionType: (0, import_mysql_core3.int)("question_type").default(0).notNull(),
-  answerOptionId: (0, import_mysql_core3.int)("answer_option_id").default(0).notNull(),
-  answerPt: (0, import_mysql_core3.int)("answer_pt").default(0).notNull(),
-  answerEs: (0, import_mysql_core3.int)("answer_es").default(0).notNull(),
-  answerEn: (0, import_mysql_core3.int)("answer_en").default(0).notNull(),
-  answer: (0, import_mysql_core3.int)().default(0).notNull(),
-  whitelabel: (0, import_mysql_core3.int)().default(0).notNull(),
-  whitelabelQuestionActive: (0, import_mysql_core3.int)("whitelabel_question_active").default(0).notNull(),
-  whitelabelQuestionRequired: (0, import_mysql_core3.int)("whitelabel_question_required").default(0).notNull(),
-  createdAt: (0, import_mysql_core3.int)("created_at").default(0).notNull(),
-  updatedAt: (0, import_mysql_core3.int)("updated_at").default(0).notNull()
+var vwProgressiveRegistrationAnswers = (0, import_mysql_core2.mysqlView)("vw_progressive_registration_answers", {
+  squidId: (0, import_mysql_core2.int)().default(0).notNull(),
+  groupId: (0, import_mysql_core2.int)("group_id").default(0).notNull(),
+  groupPt: (0, import_mysql_core2.int)("group_pt").default(0).notNull(),
+  groupEn: (0, import_mysql_core2.int)("group_en").default(0).notNull(),
+  groupEs: (0, import_mysql_core2.int)("group_es").default(0).notNull(),
+  questionId: (0, import_mysql_core2.int)("question_id").default(0).notNull(),
+  questionPt: (0, import_mysql_core2.int)("question_pt").default(0).notNull(),
+  questionEn: (0, import_mysql_core2.int)("question_en").default(0).notNull(),
+  questionEs: (0, import_mysql_core2.int)("question_es").default(0).notNull(),
+  questionType: (0, import_mysql_core2.int)("question_type").default(0).notNull(),
+  answerOptionId: (0, import_mysql_core2.int)("answer_option_id").default(0).notNull(),
+  answerPt: (0, import_mysql_core2.int)("answer_pt").default(0).notNull(),
+  answerEs: (0, import_mysql_core2.int)("answer_es").default(0).notNull(),
+  answerEn: (0, import_mysql_core2.int)("answer_en").default(0).notNull(),
+  answer: (0, import_mysql_core2.int)().default(0).notNull(),
+  whitelabel: (0, import_mysql_core2.int)().default(0).notNull(),
+  whitelabelQuestionActive: (0, import_mysql_core2.int)("whitelabel_question_active").default(0).notNull(),
+  whitelabelQuestionRequired: (0, import_mysql_core2.int)("whitelabel_question_required").default(0).notNull(),
+  createdAt: (0, import_mysql_core2.int)("created_at").default(0).notNull(),
+  updatedAt: (0, import_mysql_core2.int)("updated_at").default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm2.sql`select 1 AS \`squidId\`,1 AS \`group_id\`,1 AS \`group_pt\`,1 AS \`group_en\`,1 AS \`group_es\`,1 AS \`question_id\`,1 AS \`question_pt\`,1 AS \`question_en\`,1 AS \`question_es\`,1 AS \`question_type\`,1 AS \`answer_option_id\`,1 AS \`answer_pt\`,1 AS \`answer_es\`,1 AS \`answer_en\`,1 AS \`answer\`,1 AS \`whitelabel\`,1 AS \`whitelabel_question_active\`,1 AS \`whitelabel_question_required\`,1 AS \`created_at\`,1 AS \`updated_at\``);
-var fullInstagramProfile = (0, import_mysql_core3.mysqlView)("full_instagram_profile", {
-  id: (0, import_mysql_core3.int)().default(0).notNull(),
-  squidid: (0, import_mysql_core3.int)().default(0).notNull(),
-  username: (0, import_mysql_core3.int)().default(0).notNull(),
-  identifiedat: (0, import_mysql_core3.int)().default(0).notNull(),
-  followers: (0, import_mysql_core3.int)().default(0).notNull(),
-  following: (0, import_mysql_core3.int)().default(0).notNull(),
-  engagementrate: (0, import_mysql_core3.int)().default(0).notNull(),
-  score: (0, import_mysql_core3.int)().default(0).notNull(),
-  isbusiness: (0, import_mysql_core3.int)().default(0).notNull(),
-  facebooklinked: (0, import_mysql_core3.int)().default(0).notNull(),
-  name: (0, import_mysql_core3.int)().default(0).notNull(),
-  email: (0, import_mysql_core3.int)().default(0).notNull(),
-  birthday: (0, import_mysql_core3.int)().default(0).notNull(),
-  gender: (0, import_mysql_core3.int)().default(0).notNull(),
-  phone: (0, import_mysql_core3.int)().default(0).notNull(),
-  address: (0, import_mysql_core3.int)().default(0).notNull(),
-  complement: (0, import_mysql_core3.int)().default(0).notNull(),
-  city: (0, import_mysql_core3.int)().default(0).notNull(),
-  uf: (0, import_mysql_core3.int)().default(0).notNull(),
-  country: (0, import_mysql_core3.int)().default(0).notNull(),
-  zipcode: (0, import_mysql_core3.int)().default(0).notNull(),
-  document: (0, import_mysql_core3.int)().default(0).notNull(),
-  isPersonAccount: (0, import_mysql_core3.int)().default(0).notNull(),
-  registeredat: (0, import_mysql_core3.int)().default(0).notNull(),
-  allowSuggestionEmail: (0, import_mysql_core3.int)().default(0).notNull(),
-  race: (0, import_mysql_core3.int)().default(0).notNull()
+var fullInstagramProfile = (0, import_mysql_core2.mysqlView)("full_instagram_profile", {
+  id: (0, import_mysql_core2.int)().default(0).notNull(),
+  squidid: (0, import_mysql_core2.int)().default(0).notNull(),
+  username: (0, import_mysql_core2.int)().default(0).notNull(),
+  identifiedat: (0, import_mysql_core2.int)().default(0).notNull(),
+  followers: (0, import_mysql_core2.int)().default(0).notNull(),
+  following: (0, import_mysql_core2.int)().default(0).notNull(),
+  engagementrate: (0, import_mysql_core2.int)().default(0).notNull(),
+  score: (0, import_mysql_core2.int)().default(0).notNull(),
+  isbusiness: (0, import_mysql_core2.int)().default(0).notNull(),
+  facebooklinked: (0, import_mysql_core2.int)().default(0).notNull(),
+  name: (0, import_mysql_core2.int)().default(0).notNull(),
+  email: (0, import_mysql_core2.int)().default(0).notNull(),
+  birthday: (0, import_mysql_core2.int)().default(0).notNull(),
+  gender: (0, import_mysql_core2.int)().default(0).notNull(),
+  phone: (0, import_mysql_core2.int)().default(0).notNull(),
+  address: (0, import_mysql_core2.int)().default(0).notNull(),
+  complement: (0, import_mysql_core2.int)().default(0).notNull(),
+  city: (0, import_mysql_core2.int)().default(0).notNull(),
+  uf: (0, import_mysql_core2.int)().default(0).notNull(),
+  country: (0, import_mysql_core2.int)().default(0).notNull(),
+  zipcode: (0, import_mysql_core2.int)().default(0).notNull(),
+  document: (0, import_mysql_core2.int)().default(0).notNull(),
+  isPersonAccount: (0, import_mysql_core2.int)().default(0).notNull(),
+  registeredat: (0, import_mysql_core2.int)().default(0).notNull(),
+  allowSuggestionEmail: (0, import_mysql_core2.int)().default(0).notNull(),
+  race: (0, import_mysql_core2.int)().default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm2.sql`select 1 AS \`id\`,1 AS \`squidid\`,1 AS \`username\`,1 AS \`identifiedat\`,1 AS \`followers\`,1 AS \`following\`,1 AS \`engagementrate\`,1 AS \`score\`,1 AS \`isbusiness\`,1 AS \`facebooklinked\`,1 AS \`name\`,1 AS \`email\`,1 AS \`birthday\`,1 AS \`gender\`,1 AS \`phone\`,1 AS \`address\`,1 AS \`complement\`,1 AS \`city\`,1 AS \`uf\`,1 AS \`country\`,1 AS \`zipcode\`,1 AS \`document\`,1 AS \`isPersonAccount\`,1 AS \`registeredat\`,1 AS \`allowSuggestionEmail\`,1 AS \`race\``);
-var instagramProfileMetrics = (0, import_mysql_core3.mysqlView)("instagram_profile_metrics", {
-  id: (0, import_mysql_core3.int)().default(0).notNull(),
-  squidId: (0, import_mysql_core3.int)().default(0).notNull(),
-  username: (0, import_mysql_core3.int)().default(0).notNull(),
-  exists: (0, import_mysql_core3.int)().default(0).notNull(),
-  searchable: (0, import_mysql_core3.int)().default(0).notNull(),
-  followers: (0, import_mysql_core3.int)().default(0).notNull(),
-  isBusiness: (0, import_mysql_core3.int)().default(0).notNull(),
-  scrapperEngagementRate: (0, import_mysql_core3.int)().default(0).notNull(),
-  totalMedias: (0, import_mysql_core3.int)().default(0).notNull(),
-  medias: (0, import_mysql_core3.int)().default(0).notNull(),
-  follows: (0, import_mysql_core3.int)().default(0).notNull(),
-  likes: (0, import_mysql_core3.int)().default(0).notNull(),
-  comments: (0, import_mysql_core3.int)().default(0).notNull(),
-  tier: (0, import_mysql_core3.int)().default(0).notNull(),
-  score: (0, import_mysql_core3.int)().default(0).notNull(),
-  score1: (0, import_mysql_core3.int)().default(0).notNull(),
-  score2: (0, import_mysql_core3.int)().default(0).notNull(),
-  score3: (0, import_mysql_core3.int)().default(0).notNull(),
-  score4: (0, import_mysql_core3.int)().default(0).notNull(),
-  score5: (0, import_mysql_core3.int)().default(0).notNull(),
-  storiesEffectiveReach: (0, import_mysql_core3.int)().default(0).notNull(),
-  profileViews: (0, import_mysql_core3.int)().default(0).notNull(),
-  hasMediaKit: (0, import_mysql_core3.int)().default(0).notNull(),
-  totalStoriesImpressions: (0, import_mysql_core3.int)().default(0).notNull(),
-  totalStoriesReach: (0, import_mysql_core3.int)().default(0).notNull(),
-  totalStoriesReplies: (0, import_mysql_core3.int)().default(0).notNull(),
-  totalStoriesTapBacks: (0, import_mysql_core3.int)().default(0).notNull(),
-  totalPostsReach: (0, import_mysql_core3.int)().default(0).notNull(),
-  totalPostsSaves: (0, import_mysql_core3.int)().default(0).notNull(),
-  totalPostsImpressions: (0, import_mysql_core3.int)().default(0).notNull(),
-  numberPostsActivityScore: (0, import_mysql_core3.int)().default(0).notNull(),
-  numberStoriesScore: (0, import_mysql_core3.int)().default(0).notNull(),
-  daysPostsScore: (0, import_mysql_core3.int)().default(0).notNull(),
-  daysStoriesScore: (0, import_mysql_core3.int)().default(0).notNull(),
-  advertisingPostsEngagementRate: (0, import_mysql_core3.int)().default(0).notNull(),
-  noAdvertisingPostsEngagementRate: (0, import_mysql_core3.int)().default(0).notNull(),
-  advertisingStoriesEngagementRate: (0, import_mysql_core3.int)().default(0).notNull(),
-  noAdvertisingStoriesEngagementRate: (0, import_mysql_core3.int)().default(0).notNull(),
-  advertisingContentPercentage: (0, import_mysql_core3.int)().default(0).notNull(),
-  advertisingPostsPercentage: (0, import_mysql_core3.int)().default(0).notNull(),
-  advertisingStoriesPercentage: (0, import_mysql_core3.int)().default(0).notNull(),
-  postImageEngagementRate: (0, import_mysql_core3.int)().default(0).notNull(),
-  postCarouselEngagementRate: (0, import_mysql_core3.int)().default(0).notNull(),
-  postVideoEngagementRate: (0, import_mysql_core3.int)().default(0).notNull(),
-  storiesVideoEngagementRate: (0, import_mysql_core3.int)().default(0).notNull(),
-  storiesImageEngagementRate: (0, import_mysql_core3.int)().default(0).notNull(),
-  storiesCompleteEngagementRate: (0, import_mysql_core3.int)().default(0).notNull()
+var instagramProfileMetrics = (0, import_mysql_core2.mysqlView)("instagram_profile_metrics", {
+  id: (0, import_mysql_core2.int)().default(0).notNull(),
+  squidId: (0, import_mysql_core2.int)().default(0).notNull(),
+  username: (0, import_mysql_core2.int)().default(0).notNull(),
+  exists: (0, import_mysql_core2.int)().default(0).notNull(),
+  searchable: (0, import_mysql_core2.int)().default(0).notNull(),
+  followers: (0, import_mysql_core2.int)().default(0).notNull(),
+  isBusiness: (0, import_mysql_core2.int)().default(0).notNull(),
+  scrapperEngagementRate: (0, import_mysql_core2.int)().default(0).notNull(),
+  totalMedias: (0, import_mysql_core2.int)().default(0).notNull(),
+  medias: (0, import_mysql_core2.int)().default(0).notNull(),
+  follows: (0, import_mysql_core2.int)().default(0).notNull(),
+  likes: (0, import_mysql_core2.int)().default(0).notNull(),
+  comments: (0, import_mysql_core2.int)().default(0).notNull(),
+  tier: (0, import_mysql_core2.int)().default(0).notNull(),
+  score: (0, import_mysql_core2.int)().default(0).notNull(),
+  score1: (0, import_mysql_core2.int)().default(0).notNull(),
+  score2: (0, import_mysql_core2.int)().default(0).notNull(),
+  score3: (0, import_mysql_core2.int)().default(0).notNull(),
+  score4: (0, import_mysql_core2.int)().default(0).notNull(),
+  score5: (0, import_mysql_core2.int)().default(0).notNull(),
+  storiesEffectiveReach: (0, import_mysql_core2.int)().default(0).notNull(),
+  profileViews: (0, import_mysql_core2.int)().default(0).notNull(),
+  hasMediaKit: (0, import_mysql_core2.int)().default(0).notNull(),
+  totalStoriesImpressions: (0, import_mysql_core2.int)().default(0).notNull(),
+  totalStoriesReach: (0, import_mysql_core2.int)().default(0).notNull(),
+  totalStoriesReplies: (0, import_mysql_core2.int)().default(0).notNull(),
+  totalStoriesTapBacks: (0, import_mysql_core2.int)().default(0).notNull(),
+  totalPostsReach: (0, import_mysql_core2.int)().default(0).notNull(),
+  totalPostsSaves: (0, import_mysql_core2.int)().default(0).notNull(),
+  totalPostsImpressions: (0, import_mysql_core2.int)().default(0).notNull(),
+  numberPostsActivityScore: (0, import_mysql_core2.int)().default(0).notNull(),
+  numberStoriesScore: (0, import_mysql_core2.int)().default(0).notNull(),
+  daysPostsScore: (0, import_mysql_core2.int)().default(0).notNull(),
+  daysStoriesScore: (0, import_mysql_core2.int)().default(0).notNull(),
+  advertisingPostsEngagementRate: (0, import_mysql_core2.int)().default(0).notNull(),
+  noAdvertisingPostsEngagementRate: (0, import_mysql_core2.int)().default(0).notNull(),
+  advertisingStoriesEngagementRate: (0, import_mysql_core2.int)().default(0).notNull(),
+  noAdvertisingStoriesEngagementRate: (0, import_mysql_core2.int)().default(0).notNull(),
+  advertisingContentPercentage: (0, import_mysql_core2.int)().default(0).notNull(),
+  advertisingPostsPercentage: (0, import_mysql_core2.int)().default(0).notNull(),
+  advertisingStoriesPercentage: (0, import_mysql_core2.int)().default(0).notNull(),
+  postImageEngagementRate: (0, import_mysql_core2.int)().default(0).notNull(),
+  postCarouselEngagementRate: (0, import_mysql_core2.int)().default(0).notNull(),
+  postVideoEngagementRate: (0, import_mysql_core2.int)().default(0).notNull(),
+  storiesVideoEngagementRate: (0, import_mysql_core2.int)().default(0).notNull(),
+  storiesImageEngagementRate: (0, import_mysql_core2.int)().default(0).notNull(),
+  storiesCompleteEngagementRate: (0, import_mysql_core2.int)().default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm2.sql`select 1 AS \`id\`,1 AS \`squidId\`,1 AS \`username\`,1 AS \`exists\`,1 AS \`searchable\`,1 AS \`followers\`,1 AS \`isBusiness\`,1 AS \`scrapperEngagementRate\`,1 AS \`totalMedias\`,1 AS \`medias\`,1 AS \`follows\`,1 AS \`likes\`,1 AS \`comments\`,1 AS \`tier\`,1 AS \`score\`,1 AS \`score1\`,1 AS \`score2\`,1 AS \`score3\`,1 AS \`score4\`,1 AS \`score5\`,1 AS \`storiesEffectiveReach\`,1 AS \`profileViews\`,1 AS \`hasMediaKit\`,1 AS \`totalStoriesImpressions\`,1 AS \`totalStoriesReach\`,1 AS \`totalStoriesReplies\`,1 AS \`totalStoriesTapBacks\`,1 AS \`totalPostsReach\`,1 AS \`totalPostsSaves\`,1 AS \`totalPostsImpressions\`,1 AS \`numberPostsActivityScore\`,1 AS \`numberStoriesScore\`,1 AS \`daysPostsScore\`,1 AS \`daysStoriesScore\`,1 AS \`advertisingPostsEngagementRate\`,1 AS \`noAdvertisingPostsEngagementRate\`,1 AS \`advertisingStoriesEngagementRate\`,1 AS \`noAdvertisingStoriesEngagementRate\`,1 AS \`advertisingContentPercentage\`,1 AS \`advertisingPostsPercentage\`,1 AS \`advertisingStoriesPercentage\`,1 AS \`postImageEngagementRate\`,1 AS \`postCarouselEngagementRate\`,1 AS \`postVideoEngagementRate\`,1 AS \`storiesVideoEngagementRate\`,1 AS \`storiesImageEngagementRate\`,1 AS \`storiesCompleteEngagementRate\``);
-var vwInfluencersToValidateBankAccount = (0, import_mysql_core3.mysqlView)("VW_INFLUENCERS_TO_VALIDATE_BANK_ACCOUNT", {
-  profileId: (0, import_mysql_core3.int)().default(0).notNull(),
-  updatedAt: (0, import_mysql_core3.int)().default(0).notNull(),
-  verificationStatus: (0, import_mysql_core3.int)().default(0).notNull(),
-  verificationId: (0, import_mysql_core3.int)().default(0).notNull(),
-  verificatedAt: (0, import_mysql_core3.int)().default(0).notNull(),
-  bankName: (0, import_mysql_core3.int)().default(0).notNull(),
-  bankCode: (0, import_mysql_core3.int)().default(0).notNull(),
-  bankAccountType: (0, import_mysql_core3.int)().default(0).notNull(),
-  bankAccountAgency: (0, import_mysql_core3.int)().default(0).notNull(),
-  bankAccountNumber: (0, import_mysql_core3.int)().default(0).notNull(),
-  bankAccountDigit: (0, import_mysql_core3.int)().default(0).notNull(),
-  socialNetwork: (0, import_mysql_core3.int)().default(0).notNull(),
-  valid: (0, import_mysql_core3.int)().default(0).notNull()
+var vwInfluencersToValidateBankAccount = (0, import_mysql_core2.mysqlView)("VW_INFLUENCERS_TO_VALIDATE_BANK_ACCOUNT", {
+  profileId: (0, import_mysql_core2.int)().default(0).notNull(),
+  updatedAt: (0, import_mysql_core2.int)().default(0).notNull(),
+  verificationStatus: (0, import_mysql_core2.int)().default(0).notNull(),
+  verificationId: (0, import_mysql_core2.int)().default(0).notNull(),
+  verificatedAt: (0, import_mysql_core2.int)().default(0).notNull(),
+  bankName: (0, import_mysql_core2.int)().default(0).notNull(),
+  bankCode: (0, import_mysql_core2.int)().default(0).notNull(),
+  bankAccountType: (0, import_mysql_core2.int)().default(0).notNull(),
+  bankAccountAgency: (0, import_mysql_core2.int)().default(0).notNull(),
+  bankAccountNumber: (0, import_mysql_core2.int)().default(0).notNull(),
+  bankAccountDigit: (0, import_mysql_core2.int)().default(0).notNull(),
+  socialNetwork: (0, import_mysql_core2.int)().default(0).notNull(),
+  valid: (0, import_mysql_core2.int)().default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm2.sql`select 1 AS \`profileId\`,1 AS \`updatedAt\`,1 AS \`verificationStatus\`,1 AS \`verificationId\`,1 AS \`verificatedAt\`,1 AS \`bankName\`,1 AS \`bankCode\`,1 AS \`bankAccountType\`,1 AS \`bankAccountAgency\`,1 AS \`bankAccountNumber\`,1 AS \`bankAccountDigit\`,1 AS \`socialNetwork\`,1 AS \`valid\``);
-var vwInfluencersCanAnticipate = (0, import_mysql_core3.mysqlView)("VW_INFLUENCERS_CAN_ANTICIPATE", {
-  id: (0, import_mysql_core3.int)().default(0).notNull()
+var vwInfluencersCanAnticipate = (0, import_mysql_core2.mysqlView)("VW_INFLUENCERS_CAN_ANTICIPATE", {
+  id: (0, import_mysql_core2.int)().default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm2.sql`select 1 AS \`id\``);
-var vwProgressiveRegistrationQuestions = (0, import_mysql_core3.mysqlView)("vw_progressive_registration_questions", {
-  questionId: (0, import_mysql_core3.int)("question_id").default(0).notNull(),
-  questionPt: (0, import_mysql_core3.int)("question_pt").default(0).notNull(),
-  questionEn: (0, import_mysql_core3.int)("question_en").default(0).notNull(),
-  questionEs: (0, import_mysql_core3.int)("question_es").default(0).notNull(),
-  questionType: (0, import_mysql_core3.int)("question_type").default(0).notNull(),
-  groupId: (0, import_mysql_core3.int)("group_id").default(0).notNull(),
-  groupPt: (0, import_mysql_core3.int)("group_pt").default(0).notNull(),
-  groupEn: (0, import_mysql_core3.int)("group_en").default(0).notNull(),
-  groupEs: (0, import_mysql_core3.int)("group_es").default(0).notNull(),
-  answerOptionId: (0, import_mysql_core3.int)("answer_option_id").default(0).notNull(),
-  answerPt: (0, import_mysql_core3.int)("answer_pt").default(0).notNull(),
-  answerEs: (0, import_mysql_core3.int)("answer_es").default(0).notNull(),
-  answerEn: (0, import_mysql_core3.int)("answer_en").default(0).notNull(),
-  whitelabel: (0, import_mysql_core3.int)().default(0).notNull(),
-  whitelabelQuestionActive: (0, import_mysql_core3.int)("whitelabel_question_active").default(0).notNull(),
-  whitelabelQuestionRequired: (0, import_mysql_core3.int)("whitelabel_question_required").default(0).notNull(),
-  whitelabelQuestionCreatedAt: (0, import_mysql_core3.int)("whitelabel_question_created_at").default(0).notNull(),
-  whitelabelQuestionUpdatedAt: (0, import_mysql_core3.int)("whitelabel_question_updated_at").default(0).notNull()
+var vwProgressiveRegistrationQuestions = (0, import_mysql_core2.mysqlView)("vw_progressive_registration_questions", {
+  questionId: (0, import_mysql_core2.int)("question_id").default(0).notNull(),
+  questionPt: (0, import_mysql_core2.int)("question_pt").default(0).notNull(),
+  questionEn: (0, import_mysql_core2.int)("question_en").default(0).notNull(),
+  questionEs: (0, import_mysql_core2.int)("question_es").default(0).notNull(),
+  questionType: (0, import_mysql_core2.int)("question_type").default(0).notNull(),
+  groupId: (0, import_mysql_core2.int)("group_id").default(0).notNull(),
+  groupPt: (0, import_mysql_core2.int)("group_pt").default(0).notNull(),
+  groupEn: (0, import_mysql_core2.int)("group_en").default(0).notNull(),
+  groupEs: (0, import_mysql_core2.int)("group_es").default(0).notNull(),
+  answerOptionId: (0, import_mysql_core2.int)("answer_option_id").default(0).notNull(),
+  answerPt: (0, import_mysql_core2.int)("answer_pt").default(0).notNull(),
+  answerEs: (0, import_mysql_core2.int)("answer_es").default(0).notNull(),
+  answerEn: (0, import_mysql_core2.int)("answer_en").default(0).notNull(),
+  whitelabel: (0, import_mysql_core2.int)().default(0).notNull(),
+  whitelabelQuestionActive: (0, import_mysql_core2.int)("whitelabel_question_active").default(0).notNull(),
+  whitelabelQuestionRequired: (0, import_mysql_core2.int)("whitelabel_question_required").default(0).notNull(),
+  whitelabelQuestionCreatedAt: (0, import_mysql_core2.int)("whitelabel_question_created_at").default(0).notNull(),
+  whitelabelQuestionUpdatedAt: (0, import_mysql_core2.int)("whitelabel_question_updated_at").default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(import_drizzle_orm2.sql`select 1 AS \`question_id\`,1 AS \`question_pt\`,1 AS \`question_en\`,1 AS \`question_es\`,1 AS \`question_type\`,1 AS \`group_id\`,1 AS \`group_pt\`,1 AS \`group_en\`,1 AS \`group_es\`,1 AS \`answer_option_id\`,1 AS \`answer_pt\`,1 AS \`answer_es\`,1 AS \`answer_en\`,1 AS \`whitelabel\`,1 AS \`whitelabel_question_active\`,1 AS \`whitelabel_question_required\`,1 AS \`whitelabel_question_created_at\`,1 AS \`whitelabel_question_updated_at\``);
 
 // src/databases/nps/schema.ts
@@ -2892,90 +2865,90 @@ __export(schema_exports3, {
   researchQuestionGroup: () => researchQuestionGroup
 });
 var import_drizzle_orm3 = require("drizzle-orm");
-var import_mysql_core4 = require("drizzle-orm/mysql-core");
-var research = (0, import_mysql_core4.mysqlTable)(
+var import_mysql_core3 = require("drizzle-orm/mysql-core");
+var research = (0, import_mysql_core3.mysqlTable)(
   "research",
   {
-    id: (0, import_mysql_core4.varchar)({ length: 36 }).notNull(),
-    userId: (0, import_mysql_core4.varchar)("user_id", { length: 255 }).notNull(),
-    userName: (0, import_mysql_core4.varchar)("user_name", { length: 150 }),
-    userEmail: (0, import_mysql_core4.varchar)("user_email", { length: 100 }),
-    campaignId: (0, import_mysql_core4.varchar)("campaign_id", { length: 255 }).notNull(),
-    campaignTitle: (0, import_mysql_core4.varchar)("campaign_title", { length: 150 }),
-    organizationId: (0, import_mysql_core4.varchar)("organization_id", { length: 255 }),
-    organizationName: (0, import_mysql_core4.varchar)("organization_name", { length: 255 }),
-    systemType: (0, import_mysql_core4.varchar)("system_type", { length: 50 }).notNull(),
-    questionGroupId: (0, import_mysql_core4.varchar)("question_group_id", { length: 36 }).notNull().references(() => researchQuestionGroup.id),
-    seenTime: (0, import_mysql_core4.int)("seen_time").default(0).notNull(),
-    done: (0, import_mysql_core4.tinyint)().default(0).notNull(),
-    createdAt: (0, import_mysql_core4.datetime)("created_at", { mode: "string", fsp: 3 }).notNull(),
-    updatedAt: (0, import_mysql_core4.datetime)("updated_at", { mode: "string" }),
-    deletedAt: (0, import_mysql_core4.datetime)("deleted_at", { mode: "string" })
+    id: (0, import_mysql_core3.varchar)({ length: 36 }).notNull(),
+    userId: (0, import_mysql_core3.varchar)("user_id", { length: 255 }).notNull(),
+    userName: (0, import_mysql_core3.varchar)("user_name", { length: 150 }),
+    userEmail: (0, import_mysql_core3.varchar)("user_email", { length: 100 }),
+    campaignId: (0, import_mysql_core3.varchar)("campaign_id", { length: 255 }).notNull(),
+    campaignTitle: (0, import_mysql_core3.varchar)("campaign_title", { length: 150 }),
+    organizationId: (0, import_mysql_core3.varchar)("organization_id", { length: 255 }),
+    organizationName: (0, import_mysql_core3.varchar)("organization_name", { length: 255 }),
+    systemType: (0, import_mysql_core3.varchar)("system_type", { length: 50 }).notNull(),
+    questionGroupId: (0, import_mysql_core3.varchar)("question_group_id", { length: 36 }).notNull().references(() => researchQuestionGroup.id),
+    seenTime: (0, import_mysql_core3.int)("seen_time").default(0).notNull(),
+    done: (0, import_mysql_core3.tinyint)().default(0).notNull(),
+    createdAt: (0, import_mysql_core3.datetime)("created_at", { mode: "string", fsp: 3 }).notNull(),
+    updatedAt: (0, import_mysql_core3.datetime)("updated_at", { mode: "string" }),
+    deletedAt: (0, import_mysql_core3.datetime)("deleted_at", { mode: "string" })
   },
   (table) => {
     return {
-      questionGroupId: (0, import_mysql_core4.index)("question_group_id").on(table.questionGroupId),
-      researchId: (0, import_mysql_core4.primaryKey)({ columns: [table.id], name: "research_id" }),
-      userId: (0, import_mysql_core4.unique)("user_id").on(table.userId, table.campaignId, table.questionGroupId)
+      questionGroupId: (0, import_mysql_core3.index)("question_group_id").on(table.questionGroupId),
+      researchId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "research_id" }),
+      userId: (0, import_mysql_core3.unique)("user_id").on(table.userId, table.campaignId, table.questionGroupId)
     };
   }
 );
-var researchAnswer = (0, import_mysql_core4.mysqlTable)(
+var researchAnswer = (0, import_mysql_core3.mysqlTable)(
   "research_answer",
   {
-    id: (0, import_mysql_core4.varchar)({ length: 36 }).notNull(),
-    researchAnswer: (0, import_mysql_core4.varchar)("research_answer", { length: 255 }),
-    score: (0, import_mysql_core4.int)(),
-    sharedQuestionId: (0, import_mysql_core4.varchar)("shared_question_id", { length: 36 }).references(() => researchQuestion.sharedQuestionId),
-    researchId: (0, import_mysql_core4.varchar)("research_id", { length: 36 }).references(() => research.id, { onDelete: "cascade" }),
-    createdAt: (0, import_mysql_core4.datetime)("created_at", { mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core4.datetime)("updated_at", { mode: "string" }),
-    deletedAt: (0, import_mysql_core4.datetime)("deleted_at", { mode: "string" }),
-    optionalQuestion: (0, import_mysql_core4.int)("optional_question").default(0)
+    id: (0, import_mysql_core3.varchar)({ length: 36 }).notNull(),
+    researchAnswer: (0, import_mysql_core3.varchar)("research_answer", { length: 255 }),
+    score: (0, import_mysql_core3.int)(),
+    sharedQuestionId: (0, import_mysql_core3.varchar)("shared_question_id", { length: 36 }).references(() => researchQuestion.sharedQuestionId),
+    researchId: (0, import_mysql_core3.varchar)("research_id", { length: 36 }).references(() => research.id, { onDelete: "cascade" }),
+    createdAt: (0, import_mysql_core3.datetime)("created_at", { mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core3.datetime)("updated_at", { mode: "string" }),
+    deletedAt: (0, import_mysql_core3.datetime)("deleted_at", { mode: "string" }),
+    optionalQuestion: (0, import_mysql_core3.int)("optional_question").default(0)
   },
   (table) => {
     return {
-      sharedQuestionId: (0, import_mysql_core4.index)("shared_question_id").on(table.sharedQuestionId),
-      researchAnswerId: (0, import_mysql_core4.primaryKey)({ columns: [table.id], name: "research_answer_id" })
+      sharedQuestionId: (0, import_mysql_core3.index)("shared_question_id").on(table.sharedQuestionId),
+      researchAnswerId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "research_answer_id" })
     };
   }
 );
-var researchQuestion = (0, import_mysql_core4.mysqlTable)(
+var researchQuestion = (0, import_mysql_core3.mysqlTable)(
   "research_question",
   {
-    id: (0, import_mysql_core4.varchar)({ length: 36 }).notNull(),
-    sharedQuestionId: (0, import_mysql_core4.varchar)("shared_question_id", { length: 36 }),
-    question: (0, import_mysql_core4.varchar)({ length: 255 }),
-    questionType: (0, import_mysql_core4.varchar)("question_type", { length: 50 }),
-    questionGroupId: (0, import_mysql_core4.varchar)("question_group_id", { length: 36 }).references(() => researchQuestionGroup.id),
-    language: (0, import_mysql_core4.varchar)({ length: 5 }).default("pt-br").notNull(),
-    createdAt: (0, import_mysql_core4.datetime)("created_at", { mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core4.datetime)("updated_at", { mode: "string" }),
-    deletedAt: (0, import_mysql_core4.datetime)("deleted_at", { mode: "string" }),
-    optional: (0, import_mysql_core4.int)().default(0)
+    id: (0, import_mysql_core3.varchar)({ length: 36 }).notNull(),
+    sharedQuestionId: (0, import_mysql_core3.varchar)("shared_question_id", { length: 36 }),
+    question: (0, import_mysql_core3.varchar)({ length: 255 }),
+    questionType: (0, import_mysql_core3.varchar)("question_type", { length: 50 }),
+    questionGroupId: (0, import_mysql_core3.varchar)("question_group_id", { length: 36 }).references(() => researchQuestionGroup.id),
+    language: (0, import_mysql_core3.varchar)({ length: 5 }).default("pt-br").notNull(),
+    createdAt: (0, import_mysql_core3.datetime)("created_at", { mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core3.datetime)("updated_at", { mode: "string" }),
+    deletedAt: (0, import_mysql_core3.datetime)("deleted_at", { mode: "string" }),
+    optional: (0, import_mysql_core3.int)().default(0)
   },
   (table) => {
     return {
-      questionGroupId: (0, import_mysql_core4.index)("question_group_id").on(table.questionGroupId),
-      researchQuestionId: (0, import_mysql_core4.primaryKey)({ columns: [table.id], name: "research_question_id" }),
-      sharedQuestionId: (0, import_mysql_core4.unique)("shared_question_id").on(table.sharedQuestionId, table.language)
+      questionGroupId: (0, import_mysql_core3.index)("question_group_id").on(table.questionGroupId),
+      researchQuestionId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "research_question_id" }),
+      sharedQuestionId: (0, import_mysql_core3.unique)("shared_question_id").on(table.sharedQuestionId, table.language)
     };
   }
 );
-var researchQuestionGroup = (0, import_mysql_core4.mysqlTable)(
+var researchQuestionGroup = (0, import_mysql_core3.mysqlTable)(
   "research_question_group",
   {
-    id: (0, import_mysql_core4.varchar)({ length: 36 }).notNull(),
-    name: (0, import_mysql_core4.varchar)({ length: 255 }),
-    tag: (0, import_mysql_core4.varchar)({ length: 100 }).notNull(),
-    createdAt: (0, import_mysql_core4.datetime)("created_at", { mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
-    updatedAt: (0, import_mysql_core4.datetime)("updated_at", { mode: "string" }),
-    deletedAt: (0, import_mysql_core4.datetime)("deleted_at", { mode: "string" })
+    id: (0, import_mysql_core3.varchar)({ length: 36 }).notNull(),
+    name: (0, import_mysql_core3.varchar)({ length: 255 }),
+    tag: (0, import_mysql_core3.varchar)({ length: 100 }).notNull(),
+    createdAt: (0, import_mysql_core3.datetime)("created_at", { mode: "string" }).default(import_drizzle_orm3.sql`(CURRENT_TIMESTAMP)`).notNull(),
+    updatedAt: (0, import_mysql_core3.datetime)("updated_at", { mode: "string" }),
+    deletedAt: (0, import_mysql_core3.datetime)("deleted_at", { mode: "string" })
   },
   (table) => {
     return {
-      researchQuestionGroupId: (0, import_mysql_core4.primaryKey)({ columns: [table.id], name: "research_question_group_id" }),
-      tag: (0, import_mysql_core4.unique)("tag").on(table.tag)
+      researchQuestionGroupId: (0, import_mysql_core3.primaryKey)({ columns: [table.id], name: "research_question_group_id" }),
+      tag: (0, import_mysql_core3.unique)("tag").on(table.tag)
     };
   }
 );
@@ -3011,6 +2984,33 @@ __export(schema_exports4, {
 });
 var import_drizzle_orm4 = require("drizzle-orm");
 var import_mysql_core5 = require("drizzle-orm/mysql-core");
+
+// src/databases/payment/enums.ts
+var import_mysql_core4 = require("drizzle-orm/mysql-core");
+var transactionStatusEnum = (0, import_mysql_core4.mysqlEnum)(
+  "transaction_status",
+  [
+    "analyze",
+    "blocked",
+    "canceled",
+    "failed",
+    "new",
+    "paid",
+    "paidByFinance",
+    "pending",
+    "readyToPay",
+    "retry",
+    "review",
+    "unblocked",
+    "withdrawing"
+  ]
+);
+var paymentTypeEnum = (0, import_mysql_core4.mysqlEnum)(
+  "payment_type",
+  ["nf", "rpa"]
+);
+
+// src/databases/payment/schema.ts
 var charges = (0, import_mysql_core5.mysqlTable)(
   "charges",
   {
