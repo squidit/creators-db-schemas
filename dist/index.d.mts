@@ -21619,7 +21619,7 @@ declare const profileAdditionalInfoBanks: drizzle_orm_mysql_core.MySqlTableWithC
             generated: undefined;
         }, {}, {}>;
         paymentType: drizzle_orm_mysql_core.MySqlColumn<{
-            name: "payment_type";
+            name: "paymentType";
             tableName: "profileAdditionalInfoBanks";
             dataType: "string";
             columnType: "MySqlEnumColumn";

@@ -1,6 +1,5 @@
 import { sql } from "drizzle-orm";
 import { bigint, char, date, datetime, decimal, double, float, index, int, mysqlEnum, mysqlTable, mysqlView, primaryKey, text, timestamp, tinyint, unique, varchar } from "drizzle-orm/mysql-core";
-import { paymentTypeEnum } from "../payment/enums";
 
 export const blockedtags = mysqlTable("blockedtags", {
 	id: int().autoincrement().notNull(),
@@ -449,7 +448,7 @@ export const profileAdditionalInfoBanks = mysqlTable("profileAdditionalInfoBanks
 	
 	companyOpeningDate: date({ mode: 'date' }),
 	typeOfBusiness: varchar({ length: 150 }),
-	paymentType: paymentTypeEnum.notNull(),
+	paymentType: mysqlEnum('paymentType', ['nf', 'rpa']).notNull(),
 	companyUf: varchar({ length: 2 }),
 	companyCity: varchar({ length: 100 }),
 	companyLegalNature: varchar({ length: 100 }),
