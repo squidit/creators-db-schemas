@@ -1,7 +1,6 @@
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import { sql } from "drizzle-orm";
-import { bigint, char, date, datetime, double, float, index, int, json, longtext, mediumtext, mysqlTable, mysqlView, primaryKey, text, tinyint, unique, varchar } from "drizzle-orm/mysql-core";
-import { paymentTypeEnum, transactionStatusEnum } from './enums';
+import { bigint, char, date, datetime, double, float, index, int, json, longtext, mediumtext, mysqlEnum, mysqlTable, mysqlView, primaryKey, text, tinyint, unique, varchar } from "drizzle-orm/mysql-core";
 
 export const charges = mysqlTable("charges", {
   seqId: bigint({ mode: "number" }).autoincrement().notNull(),
@@ -315,11 +314,27 @@ export const transactionBeneficiaries = mysqlTable("transactionBeneficiaries", {
 export type TransactionBeneficiary = InferSelectModel<typeof transactionBeneficiaries>;
 export type NewTransactionBeneficiary = InferInsertModel<typeof transactionBeneficiaries>;
 
+const transactionStatusEnum =  [
+  'analyze',
+  'blocked',
+  'canceled',
+  'failed',
+  'new',
+  'paid',
+  'paidByFinance',
+  'pending',
+  'readyToPay',
+  'retry',
+  'review',
+  'unblocked',
+  'withdrawing'    
+] as const
+
 export const transactions = mysqlTable("transactions", {
   transactionId: varchar({ length: 60 }).notNull(),
   squidId: varchar({ length: 60 }).notNull(),
-  transactionStatus: transactionStatusEnum.notNull().default('new'),
-  paymentType: paymentTypeEnum.notNull(),
+  transactionStatus: mysqlEnum(transactionStatusEnum).notNull().default('new'),
+  paymentType: mysqlEnum(['nf', 'rpa']).notNull(),
   netValue: float().notNull(),
   grossValue: float().notNull(),
   inssAliquot: float(),

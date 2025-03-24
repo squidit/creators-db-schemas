@@ -2960,34 +2960,7 @@ __export(schema_exports4, {
   webhooksLogs: () => webhooksLogs
 });
 import { sql as sql4 } from "drizzle-orm";
-import { bigint as bigint3, char as char3, date as date3, datetime as datetime4, double as double2, float as float3, index as index4, int as int4, json, longtext as longtext2, mediumtext, mysqlTable as mysqlTable4, mysqlView as mysqlView2, primaryKey as primaryKey4, text as text3, tinyint as tinyint4, unique as unique4, varchar as varchar4 } from "drizzle-orm/mysql-core";
-
-// src/databases/payment/enums.ts
-import { mysqlEnum as mysqlEnum3 } from "drizzle-orm/mysql-core";
-var transactionStatusEnum = mysqlEnum3(
-  "transaction_status",
-  [
-    "analyze",
-    "blocked",
-    "canceled",
-    "failed",
-    "new",
-    "paid",
-    "paidByFinance",
-    "pending",
-    "readyToPay",
-    "retry",
-    "review",
-    "unblocked",
-    "withdrawing"
-  ]
-);
-var paymentTypeEnum = mysqlEnum3(
-  "payment_type",
-  ["nf", "rpa"]
-);
-
-// src/databases/payment/schema.ts
+import { bigint as bigint3, char as char3, date as date3, datetime as datetime4, double as double2, float as float3, index as index4, int as int4, json, longtext as longtext2, mediumtext, mysqlEnum as mysqlEnum3, mysqlTable as mysqlTable4, mysqlView as mysqlView2, primaryKey as primaryKey4, text as text3, tinyint as tinyint4, unique as unique4, varchar as varchar4 } from "drizzle-orm/mysql-core";
 var charges = mysqlTable4(
   "charges",
   {
@@ -3292,13 +3265,28 @@ var transactionBeneficiaries = mysqlTable4(
     };
   }
 );
+var transactionStatusEnum = [
+  "analyze",
+  "blocked",
+  "canceled",
+  "failed",
+  "new",
+  "paid",
+  "paidByFinance",
+  "pending",
+  "readyToPay",
+  "retry",
+  "review",
+  "unblocked",
+  "withdrawing"
+];
 var transactions = mysqlTable4(
   "transactions",
   {
     transactionId: varchar4({ length: 60 }).notNull(),
     squidId: varchar4({ length: 60 }).notNull(),
-    transactionStatus: transactionStatusEnum.notNull().default("new"),
-    paymentType: paymentTypeEnum.notNull(),
+    transactionStatus: mysqlEnum3(transactionStatusEnum).notNull().default("new"),
+    paymentType: mysqlEnum3(["nf", "rpa"]).notNull(),
     netValue: float3().notNull(),
     grossValue: float3().notNull(),
     inssAliquot: float3(),
