@@ -34890,7 +34890,7 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             generated: undefined;
         }, {}, {}>;
         transactionStatus: drizzle_orm_mysql_core.MySqlColumn<{
-            name: "transaction_status";
+            name: "transactionStatus";
             tableName: "transactions";
             dataType: "string";
             columnType: "MySqlEnumColumn";
@@ -34907,7 +34907,7 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             generated: undefined;
         }, {}, {}>;
         paymentType: drizzle_orm_mysql_core.MySqlColumn<{
-            name: "payment_type";
+            name: "paymentType";
             tableName: "transactions";
             dataType: "string";
             columnType: "MySqlEnumColumn";
