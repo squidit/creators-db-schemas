@@ -2081,7 +2081,8 @@ var profileAdditionalInfos = (0, import_mysql_core2.mysqlTable)(
     allowResearch: (0, import_mysql_core2.tinyint)().default(1),
     allowEmail: (0, import_mysql_core2.tinyint)().default(1),
     socialName: (0, import_mysql_core2.varchar)({ length: 50 }),
-    descriptionCreatorsInsights: (0, import_mysql_core2.varchar)({ length: 255 })
+    descriptionCreatorsInsights: (0, import_mysql_core2.varchar)({ length: 255 }),
+    recruitmentSyncedAt: (0, import_mysql_core2.datetime)({ mode: "date" })
   },
   (table) => {
     return {
@@ -2444,7 +2445,8 @@ var socialNetworkProfilesCategories = (0, import_mysql_core2.mysqlTable)(
     categoryId: (0, import_mysql_core2.int)().notNull().references(() => profileCategories.id, { onUpdate: "cascade" }),
     profileId: (0, import_mysql_core2.varchar)({ length: 50 }).notNull().references(() => socialNetworkProfiles.id, { onUpdate: "cascade" }),
     socialNetwork: (0, import_mysql_core2.varchar)({ length: 45 }).notNull(),
-    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`)
+    updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+    recruitmentSyncedAt: (0, import_mysql_core2.datetime)({ mode: "date" })
   },
   (table) => {
     return {

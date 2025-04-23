@@ -517,6 +517,7 @@ export const profileAdditionalInfos = mysqlTable("profileAdditionalInfos", {
 	allowEmail: tinyint().default(1),
 	socialName: varchar({ length: 50 }),
 	descriptionCreatorsInsights: varchar({ length: 255 }),
+	recruitmentSyncedAt: datetime({ mode: 'date' }),
 },
 (table) => {
 	return {
@@ -851,6 +852,7 @@ export const socialNetworkProfilesCategories = mysqlTable("socialNetworkProfiles
 	profileId: varchar({ length: 50 }).notNull().references(() => socialNetworkProfiles.id, { onUpdate: "cascade" } ),
 	socialNetwork: varchar({ length: 45 }).notNull(),
 	updatedAt: datetime({ mode: 'date'}).default(sql`(CURRENT_TIMESTAMP)`),
+	recruitmentSyncedAt: datetime({ mode: 'date' }),
 },
 (table) => {
 	return {
