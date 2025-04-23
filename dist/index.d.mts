@@ -22632,6 +22632,23 @@ declare const profileAdditionalInfos: drizzle_orm_mysql_core.MySqlTableWithColum
             identity: undefined;
             generated: undefined;
         }, {}, {}>;
+        recruitmentSyncedAt: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "recruitmentSyncedAt";
+            tableName: "profileAdditionalInfos";
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
     };
     dialect: "mysql";
 }>;
@@ -25705,6 +25722,23 @@ declare const socialNetworkProfilesCategories: drizzle_orm_mysql_core.MySqlTable
             driverParam: string | number;
             notNull: false;
             hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        recruitmentSyncedAt: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "recruitmentSyncedAt";
+            tableName: "socialNetworkProfilesCategories";
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;

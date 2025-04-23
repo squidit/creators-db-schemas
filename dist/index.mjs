@@ -2058,7 +2058,8 @@ var profileAdditionalInfos = mysqlTable2(
     allowResearch: tinyint2().default(1),
     allowEmail: tinyint2().default(1),
     socialName: varchar2({ length: 50 }),
-    descriptionCreatorsInsights: varchar2({ length: 255 })
+    descriptionCreatorsInsights: varchar2({ length: 255 }),
+    recruitmentSyncedAt: datetime2({ mode: "date" })
   },
   (table) => {
     return {
@@ -2421,7 +2422,8 @@ var socialNetworkProfilesCategories = mysqlTable2(
     categoryId: int2().notNull().references(() => profileCategories.id, { onUpdate: "cascade" }),
     profileId: varchar2({ length: 50 }).notNull().references(() => socialNetworkProfiles.id, { onUpdate: "cascade" }),
     socialNetwork: varchar2({ length: 45 }).notNull(),
-    updatedAt: datetime2({ mode: "date" }).default(sql2`(CURRENT_TIMESTAMP)`)
+    updatedAt: datetime2({ mode: "date" }).default(sql2`(CURRENT_TIMESTAMP)`),
+    recruitmentSyncedAt: datetime2({ mode: "date" })
   },
   (table) => {
     return {
