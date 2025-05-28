@@ -35314,6 +35314,23 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             identity: undefined;
             generated: undefined;
         }, {}, {}>;
+        batchId: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "batchId";
+            tableName: "transactions";
+            dataType: "number";
+            columnType: "MySqlInt";
+            data: number;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
         transactionIdSource: drizzle_orm_mysql_core.MySqlColumn<{
             name: "transactionIdSource";
             tableName: "transactions";
@@ -35931,6 +35948,23 @@ declare const transactionsHistory: drizzle_orm_mysql_core.MySqlTableWithColumns<
             isAutoincrement: false;
             hasRuntimeDefault: false;
             enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        batchId: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "batchId";
+            tableName: "transactionsHistory";
+            dataType: "number";
+            columnType: "MySqlInt";
+            data: number;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
             baseColumn: never;
             identity: undefined;
             generated: undefined;
