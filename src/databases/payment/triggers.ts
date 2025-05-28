@@ -15,7 +15,7 @@ export const transactionsBeforeInsertTrigger = () => (sql`
         ${transactionsHistory.transactionStatus.name},
         ${transactionsHistory.currency.name},
         ${transactionsHistory.batchId.name},
-        ${transactionsHistory.batchName},
+        ${transactionsHistory.batchName.name},
         ${transactionsHistory.amount.name},
         ${transactionsHistory.inOrOut.name},
         ${transactionsHistory.deletedAt.name},
