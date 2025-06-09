@@ -1973,7 +1973,7 @@ var profileAdditionalInfoBanks = mysqlTable2(
     bankAccountNumber: varchar2({ length: 50 }),
     bankAccountDigit: varchar2({ length: 5 }),
     bankAccountAgency: varchar2({ length: 11 }),
-    bankAccountType: varchar2({ length: 20 }),
+    bankAccountType: mysqlEnum2(["savings", "checking"]),
     bankOperationCode: varchar2({ length: 10 }),
     holderDocument: varchar2({ length: 15 }),
     holderOpeningDate: date2({ mode: "date" }),
