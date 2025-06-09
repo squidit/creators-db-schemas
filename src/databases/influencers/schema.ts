@@ -431,7 +431,7 @@ export const profileAdditionalInfoBanks = mysqlTable("profileAdditionalInfoBanks
 	bankAccountNumber: varchar({ length: 50 }),
 	bankAccountDigit: varchar({ length: 5 }),
 	bankAccountAgency: varchar({ length: 11 }),
-	bankAccountType: varchar({ length: 20 }),
+	bankAccountType: mysqlEnum(['savings', 'checking']),
 	bankOperationCode: varchar({ length: 10 }),
 	holderDocument: varchar({ length: 15 }),
 
