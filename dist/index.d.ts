@@ -17002,6 +17002,115 @@ declare const facebookTokensHistory: drizzle_orm_mysql_core.MySqlTableWithColumn
     };
     dialect: "mysql";
 }>;
+declare const facebookDataDeletionRequests: drizzle_orm_mysql_core.MySqlTableWithColumns<{
+    name: "facebookDataDeletionRequests";
+    schema: undefined;
+    columns: {
+        profileId: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "profileId";
+            tableName: "facebookDataDeletionRequests";
+            dataType: "string";
+            columnType: "MySqlVarChar";
+            data: string;
+            driverParam: string | number;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        facebookUserId: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "facebookUserId";
+            tableName: "facebookDataDeletionRequests";
+            dataType: "string";
+            columnType: "MySqlVarChar";
+            data: string;
+            driverParam: string | number;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        deletionDate: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "deletionDate";
+            tableName: "facebookDataDeletionRequests";
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        hasCampaignHistory: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "hasCampaignHistory";
+            tableName: "facebookDataDeletionRequests";
+            dataType: "number";
+            columnType: "MySqlTinyInt";
+            data: number;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        metaRequestDate: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "metaRequestDate";
+            tableName: "facebookDataDeletionRequests";
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        updatedAt: drizzle_orm_mysql_core.MySqlColumn<{
+            name: "updatedAt";
+            tableName: "facebookDataDeletionRequests";
+            dataType: "date";
+            columnType: "MySqlDateTime";
+            data: Date;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+    };
+    dialect: "mysql";
+}>;
 declare const genders: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "genders";
     schema: undefined;
@@ -30907,6 +31016,7 @@ declare const vwProgressiveRegistrationQuestions: drizzle_orm_mysql_core.MySqlVi
 declare const schema$2_blockedtags: typeof blockedtags;
 declare const schema$2_blockedusers: typeof blockedusers;
 declare const schema$2_deletedProfiles: typeof deletedProfiles;
+declare const schema$2_facebookDataDeletionRequests: typeof facebookDataDeletionRequests;
 declare const schema$2_facebookTokens: typeof facebookTokens;
 declare const schema$2_facebookTokensHistory: typeof facebookTokensHistory;
 declare const schema$2_facebookTokensMetadata: typeof facebookTokensMetadata;
@@ -30953,7 +31063,7 @@ declare const schema$2_vwProgressiveRegistrationAnswers: typeof vwProgressiveReg
 declare const schema$2_vwProgressiveRegistrationQuestions: typeof vwProgressiveRegistrationQuestions;
 declare const schema$2_youtubeProfiles: typeof youtubeProfiles;
 declare namespace schema$2 {
-  export { schema$2_blockedtags as blockedtags, schema$2_blockedusers as blockedusers, schema$2_deletedProfiles as deletedProfiles, schema$2_facebookTokens as facebookTokens, schema$2_facebookTokensHistory as facebookTokensHistory, schema$2_facebookTokensMetadata as facebookTokensMetadata, schema$2_fullInstagramProfile as fullInstagramProfile, schema$2_fullInstagramProfileAll as fullInstagramProfileAll, schema$2_genders as genders, schema$2_googleTokens as googleTokens, schema$2_idInstagramUpdate as idInstagramUpdate, schema$2_influencerMetrics as influencerMetrics, schema$2_instagramProfileMetrics as instagramProfileMetrics, schema$2_instagramProfiles as instagramProfiles, schema$2_locations as locations, schema$2_notSearchableUsers as notSearchableUsers, schema$2_pinterestProfiles as pinterestProfiles, schema$2_profileAdditionalInfoBanks as profileAdditionalInfoBanks, schema$2_profileAdditionalInfos as profileAdditionalInfos, schema$2_profileAdditionalInfosOld as profileAdditionalInfosOld, schema$2_profileAdditionalInfosWhitelabels as profileAdditionalInfosWhitelabels, schema$2_profileCategories as profileCategories, schema$2_profileWhitelabels as profileWhitelabels, schema$2_profiles as profiles, schema$2_progressiveRegistrationAnswers as progressiveRegistrationAnswers, schema$2_progressiveRegistrationGroups as progressiveRegistrationGroups, schema$2_progressiveRegistrationLabels as progressiveRegistrationLabels, schema$2_progressiveRegistrationQuestionOptions as progressiveRegistrationQuestionOptions, schema$2_progressiveRegistrationQuestions as progressiveRegistrationQuestions, schema$2_progressiveRegistrationWhitelabels as progressiveRegistrationWhitelabels, schema$2_races as races, schema$2_scopesToken as scopesToken, schema$2_socialNetworkProfiles as socialNetworkProfiles, schema$2_socialNetworkProfilesCache as socialNetworkProfilesCache, schema$2_socialNetworkProfilesCacheNew as socialNetworkProfilesCacheNew, schema$2_socialNetworkProfilesCategories as socialNetworkProfilesCategories, schema$2_socialNetworkProfilesCategoriesWhitelabels as socialNetworkProfilesCategoriesWhitelabels, schema$2_socialNetworkProfilesWhitelabels as socialNetworkProfilesWhitelabels, schema$2_stopWords as stopWords, schema$2_tiktokProfiles as tiktokProfiles, schema$2_tiktokTokens as tiktokTokens, schema$2_twitterProfiles as twitterProfiles, schema$2_twitterTokens as twitterTokens, schema$2_vwInfluencersCanAnticipate as vwInfluencersCanAnticipate, schema$2_vwInfluencersToValidateBankAccount as vwInfluencersToValidateBankAccount, schema$2_vwProgressiveRegistrationAnswers as vwProgressiveRegistrationAnswers, schema$2_vwProgressiveRegistrationQuestions as vwProgressiveRegistrationQuestions, schema$2_youtubeProfiles as youtubeProfiles };
+  export { schema$2_blockedtags as blockedtags, schema$2_blockedusers as blockedusers, schema$2_deletedProfiles as deletedProfiles, schema$2_facebookDataDeletionRequests as facebookDataDeletionRequests, schema$2_facebookTokens as facebookTokens, schema$2_facebookTokensHistory as facebookTokensHistory, schema$2_facebookTokensMetadata as facebookTokensMetadata, schema$2_fullInstagramProfile as fullInstagramProfile, schema$2_fullInstagramProfileAll as fullInstagramProfileAll, schema$2_genders as genders, schema$2_googleTokens as googleTokens, schema$2_idInstagramUpdate as idInstagramUpdate, schema$2_influencerMetrics as influencerMetrics, schema$2_instagramProfileMetrics as instagramProfileMetrics, schema$2_instagramProfiles as instagramProfiles, schema$2_locations as locations, schema$2_notSearchableUsers as notSearchableUsers, schema$2_pinterestProfiles as pinterestProfiles, schema$2_profileAdditionalInfoBanks as profileAdditionalInfoBanks, schema$2_profileAdditionalInfos as profileAdditionalInfos, schema$2_profileAdditionalInfosOld as profileAdditionalInfosOld, schema$2_profileAdditionalInfosWhitelabels as profileAdditionalInfosWhitelabels, schema$2_profileCategories as profileCategories, schema$2_profileWhitelabels as profileWhitelabels, schema$2_profiles as profiles, schema$2_progressiveRegistrationAnswers as progressiveRegistrationAnswers, schema$2_progressiveRegistrationGroups as progressiveRegistrationGroups, schema$2_progressiveRegistrationLabels as progressiveRegistrationLabels, schema$2_progressiveRegistrationQuestionOptions as progressiveRegistrationQuestionOptions, schema$2_progressiveRegistrationQuestions as progressiveRegistrationQuestions, schema$2_progressiveRegistrationWhitelabels as progressiveRegistrationWhitelabels, schema$2_races as races, schema$2_scopesToken as scopesToken, schema$2_socialNetworkProfiles as socialNetworkProfiles, schema$2_socialNetworkProfilesCache as socialNetworkProfilesCache, schema$2_socialNetworkProfilesCacheNew as socialNetworkProfilesCacheNew, schema$2_socialNetworkProfilesCategories as socialNetworkProfilesCategories, schema$2_socialNetworkProfilesCategoriesWhitelabels as socialNetworkProfilesCategoriesWhitelabels, schema$2_socialNetworkProfilesWhitelabels as socialNetworkProfilesWhitelabels, schema$2_stopWords as stopWords, schema$2_tiktokProfiles as tiktokProfiles, schema$2_tiktokTokens as tiktokTokens, schema$2_twitterProfiles as twitterProfiles, schema$2_twitterTokens as twitterTokens, schema$2_vwInfluencersCanAnticipate as vwInfluencersCanAnticipate, schema$2_vwInfluencersToValidateBankAccount as vwInfluencersToValidateBankAccount, schema$2_vwProgressiveRegistrationAnswers as vwProgressiveRegistrationAnswers, schema$2_vwProgressiveRegistrationQuestions as vwProgressiveRegistrationQuestions, schema$2_youtubeProfiles as youtubeProfiles };
 }
 
 declare const research: drizzle_orm_mysql_core.MySqlTableWithColumns<{

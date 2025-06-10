@@ -112,6 +112,17 @@ export const facebookTokensHistory = mysqlTable("facebookTokensHistory", {
 	}
 });
 
+export const facebookDataDeletionRequests = mysqlTable('facebookDataDeletionRequests', {
+	profileId: varchar('profileId', { length: 50 }).notNull().references(() => instagramProfiles.id, { onUpdate: 'cascade' }),
+	facebookUserId: varchar('facebookUserId', { length: 30 }).notNull().references(() => instagramProfiles.facebookUserId, { onUpdate: 'cascade' }),
+	deletionDate: datetime('deletionDate'),
+	hasCampaignHistory: tinyint().default(0),
+	metaRequestDate: datetime({ mode: 'date'}).default(sql`(CURRENT_TIMESTAMP)`),
+	updatedAt: datetime({ mode: 'date'}).default(sql`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`),
+  }, (table) => ({
+	unique: unique('unique_facebook_deletion').on(table.profileId, table.metaRequestDate),
+  }));
+
 export const genders = mysqlTable("genders", {
 	id: int().autoincrement().notNull(),
 	description: varchar({ length: 50 }).notNull(),
