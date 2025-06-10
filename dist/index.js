@@ -18,14 +18,14 @@ var __copyProps = (to, from, except, desc) => {
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // src/index.ts
-var src_exports = {};
-__export(src_exports, {
+var index_exports = {};
+__export(index_exports, {
   businessIntelligenceDb: () => schema_exports,
   influencersDb: () => schema_exports2,
   npsDb: () => schema_exports3,
   paymentDb: () => schema_exports4
 });
-module.exports = __toCommonJS(src_exports);
+module.exports = __toCommonJS(index_exports);
 
 // src/databases/business_intelligence/schema.ts
 var schema_exports = {};
@@ -1666,7 +1666,7 @@ var facebookTokensHistory = (0, import_mysql_core2.mysqlTable)(
 var facebookDataDeletionRequests = (0, import_mysql_core2.mysqlTable)("facebookDataDeletionRequests", {
   profileId: (0, import_mysql_core2.varchar)("profileId", { length: 50 }).notNull().references(() => instagramProfiles.id, { onUpdate: "cascade" }),
   facebookUserId: (0, import_mysql_core2.varchar)("facebookUserId", { length: 30 }).notNull().references(() => instagramProfiles.facebookUserId, { onUpdate: "cascade" }),
-  deletionDate: (0, import_mysql_core2.datetime)("deletionDate"),
+  deletionDate: (0, import_mysql_core2.datetime)({ mode: "date" }),
   hasCampaignHistory: (0, import_mysql_core2.tinyint)().default(0),
   metaRequestDate: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
   updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`)

@@ -1643,7 +1643,7 @@ var facebookTokensHistory = mysqlTable2(
 var facebookDataDeletionRequests = mysqlTable2("facebookDataDeletionRequests", {
   profileId: varchar2("profileId", { length: 50 }).notNull().references(() => instagramProfiles.id, { onUpdate: "cascade" }),
   facebookUserId: varchar2("facebookUserId", { length: 30 }).notNull().references(() => instagramProfiles.facebookUserId, { onUpdate: "cascade" }),
-  deletionDate: datetime2("deletionDate"),
+  deletionDate: datetime2({ mode: "date" }),
   hasCampaignHistory: tinyint2().default(0),
   metaRequestDate: datetime2({ mode: "date" }).default(sql2`(CURRENT_TIMESTAMP)`),
   updatedAt: datetime2({ mode: "date" }).default(sql2`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`)
