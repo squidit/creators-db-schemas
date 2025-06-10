@@ -1996,7 +1996,7 @@ var profileAdditionalInfoBanks = (0, import_mysql_core2.mysqlTable)(
     bankAccountNumber: (0, import_mysql_core2.varchar)({ length: 50 }),
     bankAccountDigit: (0, import_mysql_core2.varchar)({ length: 5 }),
     bankAccountAgency: (0, import_mysql_core2.varchar)({ length: 11 }),
-    bankAccountType: (0, import_mysql_core2.varchar)({ length: 20 }),
+    bankAccountType: (0, import_mysql_core2.mysqlEnum)(["savings", "checking"]),
     bankOperationCode: (0, import_mysql_core2.varchar)({ length: 10 }),
     holderDocument: (0, import_mysql_core2.varchar)({ length: 15 }),
     holderOpeningDate: (0, import_mysql_core2.date)({ mode: "date" }),
