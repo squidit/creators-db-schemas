@@ -1491,6 +1491,7 @@ __export(schema_exports2, {
   blockedtags: () => blockedtags,
   blockedusers: () => blockedusers,
   deletedProfiles: () => deletedProfiles,
+  facebookDataDeletionRequests: () => facebookDataDeletionRequests,
   facebookTokens: () => facebookTokens,
   facebookTokensHistory: () => facebookTokensHistory,
   facebookTokensMetadata: () => facebookTokensMetadata,
@@ -1662,6 +1663,16 @@ var facebookTokensHistory = (0, import_mysql_core2.mysqlTable)(
     };
   }
 );
+var facebookDataDeletionRequests = (0, import_mysql_core2.mysqlTable)("facebookDataDeletionRequests", {
+  profileId: (0, import_mysql_core2.varchar)("profileId", { length: 50 }).notNull().references(() => instagramProfiles.id, { onUpdate: "cascade" }),
+  facebookUserId: (0, import_mysql_core2.varchar)("facebookUserId", { length: 30 }).notNull().references(() => instagramProfiles.facebookUserId, { onUpdate: "cascade" }),
+  deletionDate: (0, import_mysql_core2.datetime)({ mode: "date" }),
+  hasCampaignHistory: (0, import_mysql_core2.tinyint)().default(0),
+  metaRequestDate: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: (0, import_mysql_core2.datetime)({ mode: "date" }).default(import_drizzle_orm2.sql`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`)
+}, (table) => ({
+  unique: (0, import_mysql_core2.unique)("unique_facebook_deletion").on(table.profileId, table.metaRequestDate)
+}));
 var genders = (0, import_mysql_core2.mysqlTable)(
   "genders",
   {

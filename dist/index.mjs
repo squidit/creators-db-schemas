@@ -1468,6 +1468,7 @@ __export(schema_exports2, {
   blockedtags: () => blockedtags,
   blockedusers: () => blockedusers,
   deletedProfiles: () => deletedProfiles,
+  facebookDataDeletionRequests: () => facebookDataDeletionRequests,
   facebookTokens: () => facebookTokens,
   facebookTokensHistory: () => facebookTokensHistory,
   facebookTokensMetadata: () => facebookTokensMetadata,
@@ -1639,6 +1640,16 @@ var facebookTokensHistory = mysqlTable2(
     };
   }
 );
+var facebookDataDeletionRequests = mysqlTable2("facebookDataDeletionRequests", {
+  profileId: varchar2("profileId", { length: 50 }).notNull().references(() => instagramProfiles.id, { onUpdate: "cascade" }),
+  facebookUserId: varchar2("facebookUserId", { length: 30 }).notNull().references(() => instagramProfiles.facebookUserId, { onUpdate: "cascade" }),
+  deletionDate: datetime2({ mode: "date" }),
+  hasCampaignHistory: tinyint2().default(0),
+  metaRequestDate: datetime2({ mode: "date" }).default(sql2`(CURRENT_TIMESTAMP)`),
+  updatedAt: datetime2({ mode: "date" }).default(sql2`(CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`)
+}, (table) => ({
+  unique: unique2("unique_facebook_deletion").on(table.profileId, table.metaRequestDate)
+}));
 var genders = mysqlTable2(
   "genders",
   {
