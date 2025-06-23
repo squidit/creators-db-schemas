@@ -1,5 +1,123 @@
+import * as mongoose from 'mongoose';
+import { Types, Schema } from 'mongoose';
 import * as drizzle_orm_mysql_core from 'drizzle-orm/mysql-core';
 import { InferSelectModel, InferInsertModel } from 'drizzle-orm';
+
+declare enum RecruitmentStatus {
+    added = "added",
+    approved = "approved",
+    customerApproved = "customerApproved",
+    customerReproved = "customerReproved",
+    inContact = "inContact",
+    influencerRefused = "influencerRefused",
+    preApproved = "preApproved",
+    recruited = "recruited",
+    removed = "removed",
+    reproved = "reproved",
+    suggested = "suggested"
+}
+declare enum SocialNetworks {
+    instagram = "instagram",
+    youtube = "youtube",
+    tiktok = "tiktok",
+    twitter = "twitter"
+}
+interface Recruitment {
+    _id: Types.ObjectId;
+    updatedAt?: Date;
+    idProfile: string;
+    squidId?: string;
+    socialNetwork: SocialNetworks;
+    idCampaign: Types.ObjectId;
+    recruitedAt?: Date;
+    createdAt?: Date;
+    isBookmarked?: boolean;
+    opApproved?: boolean;
+    status: RecruitmentStatus;
+    inputMode?: string;
+    inputCampaignId?: Types.ObjectId | null;
+    username: string;
+    picture?: string;
+    fullname?: string | null;
+    lastHistory?: {
+        message?: string;
+        rawMessage?: {
+            before?: string;
+            after?: string;
+            motivation?: string;
+        };
+    };
+    sawWarning?: boolean;
+    dateSawWarning?: Date;
+    sawSurvey?: boolean;
+    dateSawSurvey?: Date;
+    agent?: boolean;
+    customPayment?: number;
+    fromaddrecruitment?: boolean;
+    orderId?: string;
+    hasContract?: boolean;
+    contractStatus?: string;
+    scope?: {
+        campaignContentProduction: boolean;
+        requiredContent?: {
+            posts: number;
+            stories: number;
+            reels: number;
+            contents: number;
+        };
+        suggestedContent?: {
+            posts: number;
+            stories: number;
+            reels: number;
+            contents: number;
+        };
+        publishedOnSocialMedia: boolean;
+        contentBoost: boolean;
+        eventParticipation: boolean;
+        brandExclusivity: boolean;
+        imageRightsMonths: number | null;
+        paymentOnCampaign: boolean;
+        payments: {
+            paymentType: string;
+            value: number;
+            description?: string;
+            term?: number;
+            agentUsername?: string;
+            isTransferNote?: boolean;
+            opportunitiesSelected?: string[];
+        };
+    };
+    tcmCampaignCode?: string;
+    tcmCampaignLink?: string;
+}
+declare const Recruitment: Schema<Recruitment, mongoose.Model<Recruitment, any, any, any, mongoose.Document<unknown, any, Recruitment, any> & Recruitment & Required<{
+    _id: Types.ObjectId;
+}> & {
+    __v: number;
+}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Recruitment, mongoose.Document<unknown, {}, mongoose.FlatRecord<Recruitment>, {}> & mongoose.FlatRecord<Recruitment> & Required<{
+    _id: Types.ObjectId;
+}> & {
+    __v: number;
+}>;
+declare const RecruitmentModel: mongoose.Model<Recruitment, {}, {}, {}, mongoose.Document<unknown, {}, Recruitment, {}> & Recruitment & Required<{
+    _id: Types.ObjectId;
+}> & {
+    __v: number;
+}, Schema<Recruitment, mongoose.Model<Recruitment, any, any, any, mongoose.Document<unknown, any, Recruitment, any> & Recruitment & Required<{
+    _id: Types.ObjectId;
+}> & {
+    __v: number;
+}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Recruitment, mongoose.Document<unknown, {}, mongoose.FlatRecord<Recruitment>, {}> & mongoose.FlatRecord<Recruitment> & Required<{
+    _id: Types.ObjectId;
+}> & {
+    __v: number;
+}>>;
+
+declare const recruitment_Recruitment: typeof Recruitment;
+declare const recruitment_RecruitmentModel: typeof RecruitmentModel;
+declare namespace recruitment {
+  export { recruitment_Recruitment as Recruitment, recruitment_RecruitmentModel as RecruitmentModel };
+}
 
 declare const audienceGenderAge: drizzle_orm_mysql_core.MySqlTableWithColumns<{
     name: "audience_gender_age";
@@ -17549,7 +17667,7 @@ declare const influencerMetrics: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             tableName: "influencer_metrics";
             dataType: "string";
             columnType: "MySqlEnumColumn";
-            data: "facebook" | "tiktok" | "twitter" | "youtube";
+            data: "youtube" | "tiktok" | "twitter" | "facebook";
             driverParam: string;
             notNull: false;
             hasDefault: false;
@@ -35038,7 +35156,7 @@ declare const transactions: drizzle_orm_mysql_core.MySqlTableWithColumns<{
             tableName: "transactions";
             dataType: "string";
             columnType: "MySqlEnumColumn";
-            data: "analyze" | "blocked" | "canceled" | "failed" | "new" | "paid" | "paidByFinance" | "pending" | "readyToPay" | "retry" | "review" | "unblocked" | "withdrawing";
+            data: "new" | "analyze" | "blocked" | "canceled" | "failed" | "paid" | "paidByFinance" | "pending" | "readyToPay" | "retry" | "review" | "unblocked" | "withdrawing";
             driverParam: string;
             notNull: true;
             hasDefault: true;
@@ -39381,4 +39499,4 @@ declare namespace schema {
   export { type schema_Charge as Charge, type schema_CompanyFile as CompanyFile, type schema_CustomerPayment as CustomerPayment, type schema_InfluencerPayment as InfluencerPayment, type schema_InfluencerZoopBankAccount as InfluencerZoopBankAccount, type schema_NewCharge as NewCharge, type schema_NewCompanyFile as NewCompanyFile, type schema_NewCustomerPayment as NewCustomerPayment, type schema_NewInfluencerPayment as NewInfluencerPayment, type schema_NewInfluencerZoopBankAccount as NewInfluencerZoopBankAccount, type schema_NewNf as NewNf, type schema_NewNfCnae as NewNfCnae, type schema_NewNfImport as NewNfImport, type schema_NewTransaction as NewTransaction, type schema_NewTransactionBankAccount as NewTransactionBankAccount, type schema_NewTransactionBeneficiary as NewTransactionBeneficiary, type schema_NewTransactionsSchedule as NewTransactionsSchedule, type schema_NewTransfeeraRawDataCallback as NewTransfeeraRawDataCallback, type schema_NewWebhooksLog as NewWebhooksLog, type schema_Nf as Nf, type schema_NfCnae as NfCnae, type schema_NfImport as NfImport, type schema_Transaction as Transaction, type schema_TransactionBankAccount as TransactionBankAccount, type schema_TransactionBeneficiary as TransactionBeneficiary, type schema_TransactionsSchedule as TransactionsSchedule, type schema_TransfeeraRawDataCallback as TransfeeraRawDataCallback, type schema_WebhooksLog as WebhooksLog, schema_anoMesDueDateTransactions as anoMesDueDateTransactions, schema_campaignsTransactions as campaignsTransactions, schema_charges as charges, schema_companyFiles as companyFiles, schema_compositions as compositions, schema_customerPayments as customerPayments, schema_dueDateTransactions as dueDateTransactions, schema_influencerPayments as influencerPayments, schema_influencerZoopBankAccounts as influencerZoopBankAccounts, schema_influencersTotalTransactions as influencersTotalTransactions, schema_nfCnaes as nfCnaes, schema_nfImport as nfImport, schema_nfs as nfs, schema_pagamentosForaDoPrazo as pagamentosForaDoPrazo, schema_transactionBankAccounts as transactionBankAccounts, schema_transactionBeneficiaries as transactionBeneficiaries, schema_transactionConsolidated as transactionConsolidated, schema_transactions as transactions, schema_transactionsHistory as transactionsHistory, schema_transactionsSchedule as transactionsSchedule, schema_transfeeraRawDataCallback as transfeeraRawDataCallback, schema_vmTransactionsReadyToPayInCurrentMonth as vmTransactionsReadyToPayInCurrentMonth, schema_vwTransactionsWithoutInfluencerPayment as vwTransactionsWithoutInfluencerPayment, schema_vwTransfeeraWebhookReturn as vwTransfeeraWebhookReturn, schema_webhooksLogs as webhooksLogs };
 }
 
-export { schema$3 as businessIntelligenceDb, schema$2 as influencersDb, schema$1 as npsDb, schema as paymentDb };
+export { schema$3 as businessIntelligenceDb, schema$2 as influencersDb, schema$1 as npsDb, schema as paymentDb, recruitment as recruiment };
