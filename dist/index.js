@@ -157,7 +157,7 @@ var RecruitmentSchema = new import_mongoose.Schema({
   picture: String,
   fullname: {
     type: String,
-    nullable: true
+    default: null
   },
   lastHistory: import_mongoose.Schema.Types.Mixed,
   sawWarning: {

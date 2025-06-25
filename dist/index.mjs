@@ -133,7 +133,7 @@ var RecruitmentSchema = new Schema({
   picture: String,
   fullname: {
     type: String,
-    nullable: true
+    default: null
   },
   lastHistory: Schema.Types.Mixed,
   sawWarning: {

@@ -160,7 +160,7 @@ export const RecruitmentSchema = new Schema<Recruitment>({
     picture: String,
     fullname: {
       type: String,
-      nullable: true
+      default: null
     },
     lastHistory: Schema.Types.Mixed,
     sawWarning: {
