@@ -22,7 +22,20 @@ declare enum SocialNetworks {
     tiktok = "tiktok",
     twitter = "twitter"
 }
-interface Recruitment {
+declare const prices: {
+    cpm: {
+        posts: NumberConstructor;
+        stories: NumberConstructor;
+        reels: NumberConstructor;
+    };
+    quantity: {
+        posts: NumberConstructor;
+        stories: NumberConstructor;
+        reels: NumberConstructor;
+    };
+    total: NumberConstructor;
+};
+declare class Recruitment {
     _id: Types.ObjectId;
     updatedAt?: Date;
     idProfile: string;
@@ -38,6 +51,7 @@ interface Recruitment {
     inputCampaignId?: Types.ObjectId | null;
     username: string;
     picture?: string;
+    prices?: typeof prices;
     fullname?: string | null;
     lastHistory?: {
         message?: string;
@@ -47,6 +61,7 @@ interface Recruitment {
             motivation?: string;
         };
     };
+    manualAdded?: boolean;
     sawWarning?: boolean;
     dateSawWarning?: Date;
     sawSurvey?: boolean;
@@ -90,7 +105,7 @@ interface Recruitment {
     tcmCampaignCode?: string;
     tcmCampaignLink?: string;
 }
-declare const Recruitment: Schema<Recruitment, mongoose.Model<Recruitment, any, any, any, mongoose.Document<unknown, any, Recruitment, any> & Recruitment & Required<{
+declare const RecruitmentSchema: Schema<Recruitment, mongoose.Model<Recruitment, any, any, any, mongoose.Document<unknown, any, Recruitment, any> & Recruitment & Required<{
     _id: Types.ObjectId;
 }> & {
     __v: number;
@@ -113,10 +128,12 @@ declare const RecruitmentModel: mongoose.Model<Recruitment, {}, {}, {}, mongoose
     __v: number;
 }>>;
 
-declare const recruitment_Recruitment: typeof Recruitment;
-declare const recruitment_RecruitmentModel: typeof RecruitmentModel;
-declare namespace recruitment {
-  export { recruitment_Recruitment as Recruitment, recruitment_RecruitmentModel as RecruitmentModel };
+type index_Recruitment = Recruitment;
+declare const index_Recruitment: typeof Recruitment;
+declare const index_RecruitmentModel: typeof RecruitmentModel;
+declare const index_RecruitmentSchema: typeof RecruitmentSchema;
+declare namespace index {
+  export { index_Recruitment as Recruitment, index_RecruitmentModel as RecruitmentModel, index_RecruitmentSchema as RecruitmentSchema };
 }
 
 declare const audienceGenderAge: drizzle_orm_mysql_core.MySqlTableWithColumns<{
@@ -39499,4 +39516,4 @@ declare namespace schema {
   export { type schema_Charge as Charge, type schema_CompanyFile as CompanyFile, type schema_CustomerPayment as CustomerPayment, type schema_InfluencerPayment as InfluencerPayment, type schema_InfluencerZoopBankAccount as InfluencerZoopBankAccount, type schema_NewCharge as NewCharge, type schema_NewCompanyFile as NewCompanyFile, type schema_NewCustomerPayment as NewCustomerPayment, type schema_NewInfluencerPayment as NewInfluencerPayment, type schema_NewInfluencerZoopBankAccount as NewInfluencerZoopBankAccount, type schema_NewNf as NewNf, type schema_NewNfCnae as NewNfCnae, type schema_NewNfImport as NewNfImport, type schema_NewTransaction as NewTransaction, type schema_NewTransactionBankAccount as NewTransactionBankAccount, type schema_NewTransactionBeneficiary as NewTransactionBeneficiary, type schema_NewTransactionsSchedule as NewTransactionsSchedule, type schema_NewTransfeeraRawDataCallback as NewTransfeeraRawDataCallback, type schema_NewWebhooksLog as NewWebhooksLog, type schema_Nf as Nf, type schema_NfCnae as NfCnae, type schema_NfImport as NfImport, type schema_Transaction as Transaction, type schema_TransactionBankAccount as TransactionBankAccount, type schema_TransactionBeneficiary as TransactionBeneficiary, type schema_TransactionsSchedule as TransactionsSchedule, type schema_TransfeeraRawDataCallback as TransfeeraRawDataCallback, type schema_WebhooksLog as WebhooksLog, schema_anoMesDueDateTransactions as anoMesDueDateTransactions, schema_campaignsTransactions as campaignsTransactions, schema_charges as charges, schema_companyFiles as companyFiles, schema_compositions as compositions, schema_customerPayments as customerPayments, schema_dueDateTransactions as dueDateTransactions, schema_influencerPayments as influencerPayments, schema_influencerZoopBankAccounts as influencerZoopBankAccounts, schema_influencersTotalTransactions as influencersTotalTransactions, schema_nfCnaes as nfCnaes, schema_nfImport as nfImport, schema_nfs as nfs, schema_pagamentosForaDoPrazo as pagamentosForaDoPrazo, schema_transactionBankAccounts as transactionBankAccounts, schema_transactionBeneficiaries as transactionBeneficiaries, schema_transactionConsolidated as transactionConsolidated, schema_transactions as transactions, schema_transactionsHistory as transactionsHistory, schema_transactionsSchedule as transactionsSchedule, schema_transfeeraRawDataCallback as transfeeraRawDataCallback, schema_vmTransactionsReadyToPayInCurrentMonth as vmTransactionsReadyToPayInCurrentMonth, schema_vwTransactionsWithoutInfluencerPayment as vwTransactionsWithoutInfluencerPayment, schema_vwTransfeeraWebhookReturn as vwTransfeeraWebhookReturn, schema_webhooksLogs as webhooksLogs };
 }
 
-export { schema$3 as businessIntelligenceDb, schema$2 as influencersDb, schema$1 as npsDb, schema as paymentDb, recruitment as recruiment };
+export { schema$3 as businessIntelligenceDb, schema$2 as influencersDb, index as influencersMongo, schema$1 as npsDb, schema as paymentDb };

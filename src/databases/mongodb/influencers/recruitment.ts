@@ -40,22 +40,23 @@ const cpm = {
     total: Number
   }
 
-export interface Recruitment {
-    _id: Types.ObjectId
+export class Recruitment {
+    _id!: Types.ObjectId
     updatedAt?: Date
-    idProfile: string
+    idProfile!: string
     squidId?: string
-    socialNetwork: SocialNetworks
-    idCampaign: Types.ObjectId
+    socialNetwork!: SocialNetworks
+    idCampaign!: Types.ObjectId
     recruitedAt?: Date
     createdAt?: Date
     isBookmarked?: boolean
     opApproved?: boolean
-    status: RecruitmentStatus
+    status!: RecruitmentStatus
     inputMode?: string
     inputCampaignId?: Types.ObjectId | null
-    username: string
+    username!: string
     picture?: string
+    prices?:typeof prices
     fullname?: string | null
     lastHistory?: {
         message?: string
@@ -65,6 +66,7 @@ export interface Recruitment {
             motivation?: string
         }
     }
+    manualAdded?: boolean
     sawWarning?: boolean
     dateSawWarning?: Date
     sawSurvey?: boolean
@@ -109,7 +111,7 @@ export interface Recruitment {
     tcmCampaignLink?: string
 }
 
-const RecruitmentSchema = {
+export const RecruitmentSchema = new Schema<Recruitment>({
     idProfile: {
       type: String,
       required: true
@@ -301,8 +303,6 @@ const RecruitmentSchema = {
       type: String,
       required: false
     }
-  }
+  }, { timestamps:  { createdAt: true, updatedAt: true } })
 
-export const Recruitment = new Schema<Recruitment>(RecruitmentSchema, { timestamps: { createdAt: true, updatedAt: true } })
-
-export const RecruitmentModel = model('recruitment', Recruitment)
+export const RecruitmentModel = model('recruitment', RecruitmentSchema)

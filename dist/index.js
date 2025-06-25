@@ -22,18 +22,21 @@ var index_exports = {};
 __export(index_exports, {
   businessIntelligenceDb: () => schema_exports,
   influencersDb: () => schema_exports2,
+  influencersMongo: () => influencers_exports,
   npsDb: () => schema_exports3,
-  paymentDb: () => schema_exports4,
-  recruiment: () => recruitment_exports
+  paymentDb: () => schema_exports4
 });
 module.exports = __toCommonJS(index_exports);
 
-// src/databases/mongodb/influencers/recruitment.ts
-var recruitment_exports = {};
-__export(recruitment_exports, {
+// src/databases/mongodb/influencers/index.ts
+var influencers_exports = {};
+__export(influencers_exports, {
   Recruitment: () => Recruitment,
-  RecruitmentModel: () => RecruitmentModel
+  RecruitmentModel: () => RecruitmentModel,
+  RecruitmentSchema: () => RecruitmentSchema
 });
+
+// src/databases/mongodb/influencers/recruitment.ts
 var import_mongoose = require("mongoose");
 var RecruitmentStatus = /* @__PURE__ */ ((RecruitmentStatus2) => {
   RecruitmentStatus2["added"] = "added";
@@ -71,7 +74,41 @@ var prices = {
   quantity,
   total: Number
 };
-var RecruitmentSchema = {
+var Recruitment = class {
+  _id;
+  updatedAt;
+  idProfile;
+  squidId;
+  socialNetwork;
+  idCampaign;
+  recruitedAt;
+  createdAt;
+  isBookmarked;
+  opApproved;
+  status;
+  inputMode;
+  inputCampaignId;
+  username;
+  picture;
+  prices;
+  fullname;
+  lastHistory;
+  manualAdded;
+  sawWarning;
+  dateSawWarning;
+  sawSurvey;
+  dateSawSurvey;
+  agent;
+  customPayment;
+  fromaddrecruitment;
+  orderId;
+  hasContract;
+  contractStatus;
+  scope;
+  tcmCampaignCode;
+  tcmCampaignLink;
+};
+var RecruitmentSchema = new import_mongoose.Schema({
   idProfile: {
     type: String,
     required: true
@@ -263,9 +300,8 @@ var RecruitmentSchema = {
     type: String,
     required: false
   }
-};
-var Recruitment = new import_mongoose.Schema(RecruitmentSchema, { timestamps: { createdAt: true, updatedAt: true } });
-var RecruitmentModel = (0, import_mongoose.model)("recruitment", Recruitment);
+}, { timestamps: { createdAt: true, updatedAt: true } });
+var RecruitmentModel = (0, import_mongoose.model)("recruitment", RecruitmentSchema);
 
 // src/databases/mysql/business_intelligence/schema.ts
 var schema_exports = {};
@@ -3875,7 +3911,7 @@ var vmTransactionsReadyToPayInCurrentMonth = (0, import_mysql_core4.mysqlView)("
 0 && (module.exports = {
   businessIntelligenceDb,
   influencersDb,
+  influencersMongo,
   npsDb,
-  paymentDb,
-  recruiment
+  paymentDb
 });

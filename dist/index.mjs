@@ -4,12 +4,15 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// src/databases/mongodb/influencers/recruitment.ts
-var recruitment_exports = {};
-__export(recruitment_exports, {
+// src/databases/mongodb/influencers/index.ts
+var influencers_exports = {};
+__export(influencers_exports, {
   Recruitment: () => Recruitment,
-  RecruitmentModel: () => RecruitmentModel
+  RecruitmentModel: () => RecruitmentModel,
+  RecruitmentSchema: () => RecruitmentSchema
 });
+
+// src/databases/mongodb/influencers/recruitment.ts
 import { model, Schema } from "mongoose";
 var RecruitmentStatus = /* @__PURE__ */ ((RecruitmentStatus2) => {
   RecruitmentStatus2["added"] = "added";
@@ -47,7 +50,41 @@ var prices = {
   quantity,
   total: Number
 };
-var RecruitmentSchema = {
+var Recruitment = class {
+  _id;
+  updatedAt;
+  idProfile;
+  squidId;
+  socialNetwork;
+  idCampaign;
+  recruitedAt;
+  createdAt;
+  isBookmarked;
+  opApproved;
+  status;
+  inputMode;
+  inputCampaignId;
+  username;
+  picture;
+  prices;
+  fullname;
+  lastHistory;
+  manualAdded;
+  sawWarning;
+  dateSawWarning;
+  sawSurvey;
+  dateSawSurvey;
+  agent;
+  customPayment;
+  fromaddrecruitment;
+  orderId;
+  hasContract;
+  contractStatus;
+  scope;
+  tcmCampaignCode;
+  tcmCampaignLink;
+};
+var RecruitmentSchema = new Schema({
   idProfile: {
     type: String,
     required: true
@@ -239,9 +276,8 @@ var RecruitmentSchema = {
     type: String,
     required: false
   }
-};
-var Recruitment = new Schema(RecruitmentSchema, { timestamps: { createdAt: true, updatedAt: true } });
-var RecruitmentModel = model("recruitment", Recruitment);
+}, { timestamps: { createdAt: true, updatedAt: true } });
+var RecruitmentModel = model("recruitment", RecruitmentSchema);
 
 // src/databases/mysql/business_intelligence/schema.ts
 var schema_exports = {};
@@ -3850,7 +3886,7 @@ var vmTransactionsReadyToPayInCurrentMonth = mysqlView2("VM_TRANSACTIONS_READY_T
 export {
   schema_exports as businessIntelligenceDb,
   schema_exports2 as influencersDb,
+  influencers_exports as influencersMongo,
   schema_exports3 as npsDb,
-  schema_exports4 as paymentDb,
-  recruitment_exports as recruiment
+  schema_exports4 as paymentDb
 };
