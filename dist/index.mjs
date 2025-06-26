@@ -4,7 +4,282 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// src/databases/business_intelligence/schema.ts
+// src/databases/mongodb/influencers/index.ts
+var influencers_exports = {};
+__export(influencers_exports, {
+  Recruitment: () => Recruitment,
+  RecruitmentModel: () => RecruitmentModel,
+  RecruitmentSchema: () => RecruitmentSchema
+});
+
+// src/databases/mongodb/influencers/recruitment.ts
+import { model, Schema } from "mongoose";
+var RecruitmentStatus = /* @__PURE__ */ ((RecruitmentStatus2) => {
+  RecruitmentStatus2["added"] = "added";
+  RecruitmentStatus2["approved"] = "approved";
+  RecruitmentStatus2["customerApproved"] = "customerApproved";
+  RecruitmentStatus2["customerReproved"] = "customerReproved";
+  RecruitmentStatus2["inContact"] = "inContact";
+  RecruitmentStatus2["influencerRefused"] = "influencerRefused";
+  RecruitmentStatus2["preApproved"] = "preApproved";
+  RecruitmentStatus2["recruited"] = "recruited";
+  RecruitmentStatus2["removed"] = "removed";
+  RecruitmentStatus2["reproved"] = "reproved";
+  RecruitmentStatus2["suggested"] = "suggested";
+  return RecruitmentStatus2;
+})(RecruitmentStatus || {});
+var SocialNetworks = /* @__PURE__ */ ((SocialNetworks2) => {
+  SocialNetworks2["instagram"] = "instagram";
+  SocialNetworks2["youtube"] = "youtube";
+  SocialNetworks2["tiktok"] = "tiktok";
+  SocialNetworks2["twitter"] = "twitter";
+  return SocialNetworks2;
+})(SocialNetworks || {});
+var cpm = {
+  posts: Number,
+  stories: Number,
+  reels: Number
+};
+var quantity = {
+  posts: Number,
+  stories: Number,
+  reels: Number
+};
+var prices = {
+  cpm,
+  quantity,
+  total: Number
+};
+var Recruitment = class {
+  _id;
+  updatedAt;
+  idProfile;
+  squidId;
+  socialNetwork;
+  idCampaign;
+  recruitedAt;
+  createdAt;
+  isBookmarked;
+  opApproved;
+  status;
+  inputMode;
+  inputCampaignId;
+  username;
+  picture;
+  prices;
+  fullname;
+  lastHistory;
+  manualAdded;
+  sawWarning;
+  dateSawWarning;
+  sawSurvey;
+  dateSawSurvey;
+  agent;
+  customPayment;
+  fromaddrecruitment;
+  orderId;
+  hasContract;
+  contractStatus;
+  scope;
+  tcmCampaignCode;
+  tcmCampaignLink;
+};
+var RecruitmentSchema = new Schema({
+  idProfile: {
+    type: String,
+    required: true
+  },
+  squidId: {
+    type: String,
+    required: true
+  },
+  manualAdded: {
+    type: Boolean,
+    default: false
+  },
+  socialNetwork: {
+    type: String,
+    enum: Object.values(SocialNetworks),
+    default: "instagram" /* instagram */,
+    required: true
+  },
+  idCampaign: {
+    type: Schema.Types.ObjectId,
+    required: true
+  },
+  recruitedAt: Date,
+  isBookmarked: {
+    type: Boolean,
+    default: false
+  },
+  opApproved: Boolean,
+  status: {
+    type: String,
+    enum: Object.values(RecruitmentStatus),
+    required: true
+  },
+  inputMode: {
+    type: String,
+    default: "automatic"
+  },
+  inputCampaignId: {
+    type: Schema.Types.ObjectId,
+    default: null
+  },
+  username: {
+    type: String,
+    required: true
+  },
+  picture: String,
+  fullname: {
+    type: String,
+    default: null
+  },
+  lastHistory: Schema.Types.Mixed,
+  sawWarning: {
+    type: Boolean,
+    default: false
+  },
+  dateSawWarning: Date,
+  sawSurvey: {
+    type: Boolean,
+    default: false
+  },
+  dateSawSurvey: Date,
+  agent: {
+    type: Boolean,
+    required: false
+  },
+  customPayment: Number,
+  orderId: String,
+  prices,
+  hasContract: {
+    type: Boolean,
+    required: false
+  },
+  contractStatus: {
+    type: String,
+    default: "absent"
+  },
+  scope: {
+    type: new Schema({
+      campaignContentProduction: {
+        type: Boolean,
+        default: true
+      },
+      requiredContent: {
+        posts: {
+          type: Number,
+          required: false,
+          default: 0
+        },
+        stories: {
+          type: Number,
+          required: false,
+          default: 0
+        },
+        reels: {
+          type: Number,
+          required: false,
+          default: 0
+        },
+        contents: {
+          type: Number,
+          required: false,
+          default: 0
+        }
+      },
+      suggestedContent: {
+        posts: {
+          type: Number,
+          required: false,
+          default: 0
+        },
+        stories: {
+          type: Number,
+          required: false,
+          default: 0
+        },
+        reels: {
+          type: Number,
+          required: false,
+          default: 0
+        },
+        contents: {
+          type: Number,
+          required: false,
+          default: 0
+        }
+      },
+      publishedOnSocialMedia: {
+        type: Boolean,
+        default: true
+      },
+      contentBoost: {
+        type: Boolean,
+        default: true
+      },
+      eventParticipation: {
+        type: Boolean,
+        default: false
+      },
+      brandExclusivity: {
+        type: Boolean,
+        default: false
+      },
+      imageRightsMonths: {
+        type: Number,
+        default: null
+      },
+      paymentOnCampaign: {
+        type: Boolean,
+        default: true
+      },
+      payments: [
+        {
+          _id: false,
+          paymentType: String,
+          value: {
+            type: Number,
+            required: false
+          },
+          description: {
+            type: String,
+            required: false
+          },
+          term: {
+            type: Number,
+            required: false
+          },
+          agentUsername: {
+            type: String,
+            required: false
+          },
+          isTransferNote: {
+            type: Boolean,
+            required: false
+          },
+          opportunitiesSelected: {
+            type: [String],
+            required: false
+          }
+        }
+      ]
+    }),
+    required: false
+  },
+  tcmCampaignCode: {
+    type: String,
+    required: false
+  },
+  tcmCampaignLink: {
+    type: String,
+    required: false
+  }
+}, { timestamps: { createdAt: true, updatedAt: true } });
+var RecruitmentModel = model("recruitment", RecruitmentSchema);
+
+// src/databases/mysql/business_intelligence/schema.ts
 var schema_exports = {};
 __export(schema_exports, {
   audienceGenderAge: () => audienceGenderAge,
@@ -1462,7 +1737,7 @@ var ytProfileCampaignOverview = mysqlTable("yt_profile_campaign_overview", {
   convertionsCommissionToReceive: float("convertions_commission_to_receive")
 });
 
-// src/databases/influencers/schema.ts
+// src/databases/mysql/influencers/schema.ts
 var schema_exports2 = {};
 __export(schema_exports2, {
   blockedtags: () => blockedtags,
@@ -2846,7 +3121,7 @@ var vwProgressiveRegistrationQuestions = mysqlView("vw_progressive_registration_
   whitelabelQuestionUpdatedAt: int2("whitelabel_question_updated_at").default(0).notNull()
 }).algorithm("undefined").sqlSecurity("definer").as(sql2`select 1 AS \`question_id\`,1 AS \`question_pt\`,1 AS \`question_en\`,1 AS \`question_es\`,1 AS \`question_type\`,1 AS \`group_id\`,1 AS \`group_pt\`,1 AS \`group_en\`,1 AS \`group_es\`,1 AS \`answer_option_id\`,1 AS \`answer_pt\`,1 AS \`answer_es\`,1 AS \`answer_en\`,1 AS \`whitelabel\`,1 AS \`whitelabel_question_active\`,1 AS \`whitelabel_question_required\`,1 AS \`whitelabel_question_created_at\`,1 AS \`whitelabel_question_updated_at\``);
 
-// src/databases/nps/schema.ts
+// src/databases/mysql/nps/schema.ts
 var schema_exports3 = {};
 __export(schema_exports3, {
   research: () => research,
@@ -2943,7 +3218,7 @@ var researchQuestionGroup = mysqlTable3(
   }
 );
 
-// src/databases/payment/schema.ts
+// src/databases/mysql/payment/schema.ts
 var schema_exports4 = {};
 __export(schema_exports4, {
   anoMesDueDateTransactions: () => anoMesDueDateTransactions,
@@ -3611,6 +3886,7 @@ var vmTransactionsReadyToPayInCurrentMonth = mysqlView2("VM_TRANSACTIONS_READY_T
 export {
   schema_exports as businessIntelligenceDb,
   schema_exports2 as influencersDb,
+  influencers_exports as influencersMongo,
   schema_exports3 as npsDb,
   schema_exports4 as paymentDb
 };
